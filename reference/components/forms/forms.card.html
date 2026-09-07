@@ -1,0 +1,66 @@
+<!-- @dsCard group="Components" viewport="700x248" name="Forms — fields, selects, toggles, tabs" subtitle="Borderless fields on grey, one raised segment for tabs" -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;background:var(--paper);font-family:var(--font-sans);padding:20px 22px;height:248px;box-sizing:border-box;overflow:hidden}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}</style>
+</head><body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/plain" id="demo">
+function Demo(){
+  const [f,setF] = React.useState('ALL');
+  const [p,setP] = React.useState('m');
+  const [on,setOn] = React.useState(true);
+  return (
+    <React.Fragment>
+      <div className="grid">
+        <Field label="Amount" prefix="XAF" size="lg" value="8 600" />
+        <Select label="Category" value="Food & market" dot="var(--a-magenta)" />
+      </div>
+      <div style={{display:'flex',gap:'12px',marginBottom:'10px'}}>
+        <SegmentedTabs items={['ALL','MONEY OUT','MONEY IN']} value={f} onChange={setF} />
+        <SegmentedTabs mono={false} items={[{id:'w',label:'Weekly'},{id:'m',label:'Monthly'},{id:'y',label:'Yearly'}]} value={p} onChange={setP} />
+      </div>
+      <Toggle on={on} onChange={() => setOn(!on)} label="Read mobile-money messages" note="Parsed on the device; nothing is uploaded" />
+    </React.Fragment>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+<script>
+/* Prefer the compiled bundle — that is what consumers import — and fall back to the
+   sibling .jsx sources so this card also renders before the project is compiled.
+   Babel's default preset uses the automatic JSX runtime, which emits an `import`
+   and dies in a classic script, so the runtime is pinned to classic. */
+(async function () {
+  var need = ["Field","Select","Toggle","SegmentedTabs"];
+  var NS = (function () {
+    for (var k of Object.keys(window)) {
+      try {
+        var v = window[k];
+        if (v && typeof v === 'object' && need.every(function (n) { return typeof v[n] === 'function'; })) return v;
+      } catch (e) { /* cross-origin frame, skip */ }
+    }
+    return {};
+  })();
+
+  var files = ["Field.jsx","Select.jsx","Toggle.jsx","SegmentedTabs.jsx"];
+  var src = '';
+  for (var i = 0; i < files.length; i++) {
+    var nm = need[i];
+    var text = (await (await fetch(files[i])).text())
+      .replace(/^\s*import[^\n]*\n/gm, '')
+      .replace(/\bexport\s+function\b/g, 'function');
+    /* one scope per file — several declare module-level constants with the same names */
+    src += 'var ' + nm + ' = (function () {\n' + text + '\nreturn ' + nm + ';\n})();\n';
+    src += 'if (window.__NS.' + nm + ') ' + nm + ' = window.__NS.' + nm + ';\n';
+  }
+  window.__NS = NS;
+  src += document.getElementById('demo').textContent;
+  var out = Babel.transform(src, { presets: [['react', { runtime: 'classic' }]], sourceType: 'script' }).code;
+  new Function('React', 'ReactDOM', out)(window.React, window.ReactDOM);
+})();
+</script>
+</body></html>

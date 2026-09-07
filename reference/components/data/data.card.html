@@ -1,0 +1,78 @@
+<!-- @dsCard group="Components" viewport="700x362" name="Data — figures, rows, meters, tiles" subtitle="The headline figure, hairline rows, limit and share meters, tile tones" -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;background:var(--paper);font-family:var(--font-sans);padding:20px 22px;height:362px;box-sizing:border-box;overflow:hidden}
+.row{display:flex;gap:14px;margin-bottom:14px}
+.lab{font:var(--type-label-s);letter-spacing:var(--track-label);color:var(--ink-4);margin:0 0 8px}</style>
+</head><body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/plain" id="demo">
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.Fragment>
+    <div className="row">
+      <Tile tone="dark" label="Safe to spend" style={{flex:1}}>
+        <div style={{font:'var(--type-figure-m)',letterSpacing:'var(--track-figure)',fontVariantNumeric:'var(--numeric-data)'}}>227 400</div>
+        <div style={{marginTop:'8px',font:'var(--type-caption)',color:'rgba(255,255,255,.66)'}}>XAF · across three accounts</div>
+      </Tile>
+      <Tile tone="alarm" label="Needs a decision" style={{flex:1}} action={<Badge tone="alarm">3 days late</Badge>}>
+        <StatBlock size="s" tone="alarm" value="360 000" note="Two terms, never paid." />
+      </Tile>
+    </div>
+    <div className="row" style={{gap:'26px'}}>
+      <div style={{flex:1}}>
+        <DataRow dot="var(--a-magenta)" name="Market — Mokolo" meta="MTN MoMo · 08:20" amount="−8 600" secondary="247 400" />
+        <DataRow dot="var(--a-violet)" name="Rent — March" meta="Paid 4 Mar" amount="250 000" state="demoted" secondary="256 000" />
+        <DataRow name="Support mum" meta="Skipped this month" amount="50 000" state="struck" />
+      </div>
+      <div style={{width:'230px'}}>
+        <div className="lab">LIMIT · 72 %</div>
+        <MeterBar value={86400} limit={120000} />
+        <div style={{height:'18px'}} />
+        <div className="lab">COMPOSITION</div>
+        <MeterBar height="12px" segments={[
+          {label:'Spendable',amount:227400,color:'var(--a-green)'},
+          {label:'Dollars',amount:767800,color:'var(--a-amber)'},
+          {label:'Locked',amount:1486056,color:'var(--a-blue)'}]} />
+      </div>
+    </div>
+  </React.Fragment>
+);
+</script>
+<script>
+/* Prefer the compiled bundle — that is what consumers import — and fall back to the
+   sibling .jsx sources so this card also renders before the project is compiled.
+   Babel's default preset uses the automatic JSX runtime, which emits an `import`
+   and dies in a classic script, so the runtime is pinned to classic. */
+(async function () {
+  var need = ["StatBlock","DataRow","MeterBar","Tile","Badge"];
+  var NS = (function () {
+    for (var k of Object.keys(window)) {
+      try {
+        var v = window[k];
+        if (v && typeof v === 'object' && need.every(function (n) { return typeof v[n] === 'function'; })) return v;
+      } catch (e) { /* cross-origin frame, skip */ }
+    }
+    return {};
+  })();
+
+  var files = ["StatBlock.jsx","DataRow.jsx","MeterBar.jsx","Tile.jsx","../core/Badge.jsx"];
+  var src = '';
+  for (var i = 0; i < files.length; i++) {
+    var nm = need[i];
+    var text = (await (await fetch(files[i])).text())
+      .replace(/^\s*import[^\n]*\n/gm, '')
+      .replace(/\bexport\s+function\b/g, 'function');
+    /* one scope per file — several declare module-level constants with the same names */
+    src += 'var ' + nm + ' = (function () {\n' + text + '\nreturn ' + nm + ';\n})();\n';
+    src += 'if (window.__NS.' + nm + ') ' + nm + ' = window.__NS.' + nm + ';\n';
+  }
+  window.__NS = NS;
+  src += document.getElementById('demo').textContent;
+  var out = Babel.transform(src, { presets: [['react', { runtime: 'classic' }]], sourceType: 'script' }).code;
+  new Function('React', 'ReactDOM', out)(window.React, window.ReactDOM);
+})();
+</script>
+</body></html>

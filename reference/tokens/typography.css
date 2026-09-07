@@ -1,0 +1,27 @@
+:root{
+  --font-sans:"Schibsted Grotesk", system-ui, sans-serif;
+  --font-mono:"Azeret Mono", ui-monospace, monospace;
+
+  /* display — figures and page titles, always tight */
+  --type-figure-xl:500 46px/1 var(--font-sans);
+  --type-figure-l:500 38px/1 var(--font-sans);
+  --type-figure-m:500 30px/1 var(--font-sans);
+  --type-figure-s:500 24px/1 var(--font-sans);
+  --track-figure:-0.03em;
+
+  /* prose */
+  --type-lead:500 17px/1.5 var(--font-sans);
+  --type-body:400 14px/1.65 var(--font-sans);
+  --type-body-s:400 12.5px/1.6 var(--font-sans);
+  --type-caption:400 11.5px/1.6 var(--font-sans);
+
+  /* label — mono, uppercase, wide. the system's signature */
+  --type-label:500 9.5px var(--font-mono);
+  --type-label-s:500 8.5px var(--font-mono);
+  --track-label:0.12em;
+
+  /* data — mono figures, tabular and slashed */
+  --type-data:400 13px var(--font-mono);
+  --type-data-s:400 11px var(--font-mono);
+  --numeric-data:tabular-nums slashed-zero;
+}

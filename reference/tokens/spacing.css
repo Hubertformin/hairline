@@ -1,0 +1,12 @@
+:root{
+  --s-1:4px;  --s-2:6px;  --s-3:8px;  --s-4:10px; --s-5:12px;
+  --s-6:14px; --s-7:16px; --s-8:18px; --s-9:20px; --s-10:22px;
+  --s-11:26px; --s-12:30px; --s-13:34px; --s-14:40px;
+
+  --gap-tile:20px;        /* between tiles in a row */
+  --gap-column:26px;      /* between page columns */
+  --pad-board:26px 30px;  /* a full page board */
+  --pad-card:22px 24px;   /* a tile */
+  --pad-row:12px 0;       /* a list row, horizontal padding comes from the parent */
+  --clearance-bar:116px;  /* bottom padding when a floating bar is present */
+}

@@ -1,0 +1,326 @@
+<!-- @dsCard group="Moni" viewport="1280x880" name="Overview" subtitle="The spend dial, insights, score and ledger — click an arc" -->
+<!-- @startingPoint section="Moni" subtitle="Dashboard: headline figure, data ring, right rail" viewport="1280x880" -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Moni — overview</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;background:var(--desk);padding:24px;font-family:var(--font-sans)}</style>
+</head><body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/plain" id="src">
+
+/* Primitives come from the compiled design-system bundle when it exists (window.<Namespace>).
+   Until this project is compiled as a Design System, _ds_bundle.js 404s, so these
+   thin stand-ins keep the screen previewable. They are deliberately minimal. */
+const NS = (() => {
+  /* Object.values(window) touches cross-origin frames and throws — probe key by key. */
+  for (const k of Object.keys(window)) {
+    try {
+      const v = window[k];
+      if (v && typeof v === 'object' && v.Tile && v.StatBlock && v.DataRow) return v;
+    } catch (e) { /* cross-origin, skip */ }
+  }
+  return {};
+})();
+
+const F_StatBlock = ({ label, value, unit, note, size = 'm' }) => {
+  const FONTS = { xl:'var(--type-figure-xl)', l:'var(--type-figure-l)', m:'var(--type-figure-m)', s:'var(--type-figure-s)' };
+  return (
+    <div>
+      {label ? <div style={{ font:'var(--type-label)', letterSpacing:'var(--track-label)', textTransform:'uppercase', color:'var(--ink-4)' }}>{label}</div> : null}
+      <div style={{ marginTop:12, display:'flex', alignItems:'baseline', gap:12 }}>
+        <span style={{ font:FONTS[size], letterSpacing:'var(--track-figure)', color:'var(--ink-1)', fontVariantNumeric:'var(--numeric-data)' }}>{value}</span>
+        {unit ? <span style={{ font:'var(--type-data-s)', color:'var(--ink-3)', textTransform:'uppercase' }}>{unit}</span> : null}
+      </div>
+      {note ? <div style={{ marginTop:10, font:'var(--type-body-s)', color:'var(--ink-3)' }}>{note}</div> : null}
+    </div>
+  );
+};
+
+const F_DataRow = ({ name, meta, dot, amount }) => (
+  <div style={{ display:'flex', alignItems:'center', gap:12, padding:'12px 0', borderBottom:'1px solid var(--line-1)' }}>
+    {dot ? <span style={{ width:6, height:6, borderRadius:'50%', flex:'none', background:dot }} /> : null}
+    <div style={{ flex:1, minWidth:0 }}>
+      <div style={{ font:'400 13px var(--font-sans)', color:'var(--ink-1)' }}>{name}</div>
+      {meta ? <div style={{ marginTop:3, font:'var(--type-data-s)', textTransform:'uppercase', color:'var(--ink-3)' }}>{meta}</div> : null}
+    </div>
+    <span style={{ font:'var(--type-data)', color:'var(--ink-1)', fontVariantNumeric:'var(--numeric-data)' }}>{amount}</span>
+  </div>
+);
+
+const F_MeterBar = ({ segments = [], height = 'var(--stroke-meter)' }) => {
+  const total = segments.reduce((s, x) => s + x.amount, 0) || 1;
+  return (
+    <div style={{ display:'flex', gap:2, height }}>
+      {segments.map((s, i) => <span key={i} style={{ flex:String(s.amount / total), background:s.color, borderRadius:'var(--r-pill)' }} />)}
+    </div>
+  );
+};
+
+const F_Tile = ({ children, label }) => (
+  <div style={{ padding:'var(--pad-card)', borderRadius:'var(--r-card)', background:'var(--surface-2)' }}>
+    {label ? <div style={{ font:'var(--type-label)', letterSpacing:'var(--track-label)', textTransform:'uppercase', color:'var(--ink-4)', marginBottom:14 }}>{label}</div> : null}
+    {children}
+  </div>
+);
+
+const F_Chip = ({ children, ...rest }) => (
+  <span {...rest} style={{ height:'var(--h-pill)', padding:'0 14px', display:'inline-flex', alignItems:'center',
+    borderRadius:'var(--r-pill)', border:'1px solid var(--line-2)', font:'400 12.5px var(--font-sans)', color:'var(--ink-2)', cursor:'pointer' }}>{children}</span>
+);
+
+const Tile = NS.Tile || F_Tile;
+const StatBlock = NS.StatBlock || F_StatBlock;
+const DataRow = NS.DataRow || F_DataRow;
+const MeterBar = NS.MeterBar || F_MeterBar;
+const Chip = NS.Chip || F_Chip;
+
+/* ---- ui_kits/moni/TopNav.jsx ---- */
+
+const D = {
+  overview:'M4.2 12.4l7.8-7.6 7.8 7.6M6.6 10.8v8.4h10.8v-8.4',
+  planner:'M4.4 8.6A3.2 3.2 0 017.6 5.4h8.8a3.2 3.2 0 013.2 3.2v6.8a3.2 3.2 0 01-3.2 3.2H7.6a3.2 3.2 0 01-3.2-3.2zM4.4 10.8h15.2M9.8 10.8v7.8',
+  spending:'M4.6 8h14.8M4.6 13h9.8M4.6 18h5.8',
+  accounts:'M4 9.6A3.2 3.2 0 017.2 6.4h9.6A3.2 3.2 0 0120 9.6v4.8a3.2 3.2 0 01-3.2 3.2H7.2A3.2 3.2 0 014 14.4zM16 12h.4',
+  vault:'M7.9 10.7V8.8a4.1 4.1 0 018.2 0v1.9M8 10.7h8a2.4 2.4 0 012.4 2.4v3.4a2.4 2.4 0 01-2.4 2.4H8a2.4 2.4 0 01-2.4-2.4v-3.4A2.4 2.4 0 018 10.7z'
+};
+const ITEMS = [['overview','OVERVIEW'],['planner','PLANNER'],['spending','SPENDING'],['accounts','ACCOUNTS'],['vault','VAULTS']];
+
+function Glyph({ d, size = 14 }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d={d} /></svg>;
+}
+
+function TopNav({ active = 'overview', onSelect }) {
+  return (
+    <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between' }}>
+      <div style={{ width:38, height:38, borderRadius:'50%', background:'var(--ink-1)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+        <span style={{ width:13, height:13, borderRadius:'50%', border:'3.5px solid var(--paper)' }} />
+      </div>
+      <div style={{ display:'flex', alignItems:'center', gap:3 }}>
+        {ITEMS.map(([id, label]) => {
+          const on = id === active;
+          return (
+            <div key={id} onClick={() => onSelect && onSelect(id)}
+              style={{ display:'flex', alignItems:'center', gap:7, height:32, padding:'0 13px', borderRadius:'var(--r-pill)', cursor:'pointer',
+                background: on ? 'var(--surface-3)' : 'transparent', color: on ? 'var(--ink-1)' : 'var(--ink-3)',
+                transition:'background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease)' }}>
+              <Glyph d={D[id]} />
+              <span style={{ font:'var(--type-label)', letterSpacing:'var(--track-label)' }}>{label}</span>
+            </div>
+          );
+        })}
+      </div>
+      <div style={{ display:'flex', alignItems:'center', gap:8 }}>
+        <div style={{ width:34, height:34, borderRadius:'50%', background:'var(--surface-3)', color:'var(--ink-2)', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer' }}>
+          <Glyph size={15} d="M11 4.6a6.4 6.4 0 100 12.8 6.4 6.4 0 000-12.8M19.6 19.6l-4.1-4.1" />
+        </div>
+        <div style={{ width:34, height:34, borderRadius:'50%', background:'var(--surface-3)', color:'var(--ink-2)', display:'flex', alignItems:'center', justifyContent:'center', cursor:'pointer' }}>
+          <Glyph size={16} d="M12 9.2a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6M12 3.6l1 2.1 2.3-.5 1.2 2-1.4 1.9 1.4 1.9-1.2 2-2.3-.5-1 2.1h-.1l-1-2.1-2.3.5-1.2-2 1.4-1.9L7.4 9.2l1.2-2 2.3.5 1-2.1z" />
+        </div>
+        <div style={{ width:38, height:38, borderRadius:'50%', background:'var(--line-2)', display:'flex', alignItems:'center', justifyContent:'center', font:'500 12px var(--font-sans)', color:'var(--ink-2)' }}>AN</div>
+      </div>
+    </div>
+  );
+}
+
+
+/* ---- ui_kits/moni/AssistantBar.jsx ---- */
+
+function AssistantBar({ prompt = 'Ask Kima, or type an entry', chips = [] }) {
+  return (
+    <div style={{ position:'absolute', left:0, right:0, bottom:26, display:'flex', flexDirection:'column', alignItems:'center', gap:10 }}>
+      {chips.length ? (
+        <div style={{ display:'flex', gap:6 }}>
+          {chips.map(c => (
+            <span key={c} style={{ height:28, padding:'0 12px', display:'inline-flex', alignItems:'center', borderRadius:'var(--r-pill)',
+              background:'rgba(255,255,255,.9)', boxShadow:'var(--shadow-raised)', font:'400 11.5px var(--font-sans)', color:'var(--ink-2)', cursor:'pointer' }}>{c}</span>
+          ))}
+        </div>
+      ) : null}
+      <div style={{ display:'flex', alignItems:'center', gap:12, height:52, padding:'0 8px 0 20px', borderRadius:'var(--r-pill)',
+        background:'var(--ink-1)', boxShadow:'var(--shadow-float)' }}>
+        <span style={{ font:'500 14px var(--font-mono)', color:'var(--a-green)' }}>K</span>
+        <span style={{ width:1, height:20, background:'rgba(255,255,255,.16)' }} />
+        <span style={{ font:'400 14px var(--font-sans)', color:'#9A9DA6', minWidth:290 }}>{prompt}</span>
+        <span style={{ height:26, padding:'0 9px', display:'inline-flex', alignItems:'center', borderRadius:'var(--r-pill)',
+          background:'rgba(255,255,255,.1)', font:'500 9.5px var(--font-mono)', letterSpacing:'0.08em', color:'#C8CBD2' }}>⌘K</span>
+        <span style={{ width:36, height:36, borderRadius:'50%', background:'var(--paper)', display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ink-1)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h13M12.5 6.5L19 12l-6.5 5.5" /></svg>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+
+/* ---- ui_kits/moni/Overview.jsx ---- */
+
+const NB = '\u202F';
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, NB);
+
+const CATS = [
+  { id:'fees', label:'School fees', amt:360000, c:'var(--a-blue)',    note:'Two unpaid terms, now three days late. This one row takes 41 % of the ring on its own.' },
+  { id:'rent', label:'Rent',        amt:250000, c:'var(--a-violet)',  note:'Paid on 4 March. Unchanged for eleven months.' },
+  { id:'market', label:'Food & market', amt:86400, c:'var(--a-magenta)', note:'Tracking 34 000 under its limit with 26 days left.' },
+  { id:'mum', label:'Support mum',  amt:50000,  c:'var(--a-rose)',    note:'Due on the 10th. Moving it to June clears the May shortfall.' },
+  { id:'transport', label:'Transport', amt:41200, c:'var(--a-coral)', note:'Steady month to month. Nothing to act on.' },
+  { id:'internet', label:'Internet', amt:35000, c:'var(--a-amber)',   note:'Fibre, paid 4 March. Fixed at 35 000.' },
+  { id:'data', label:'Data & airtime', amt:27800, c:'var(--a-yellow)', note:'2 800 over its limit already.' },
+  { id:'household', label:'Household', amt:18000, c:'var(--a-lemon)', note:'Well inside its 40 000 limit.' },
+  { id:'eatingout', label:'Eating out', amt:12500, c:'var(--a-purple)', note:'Down for the third month running.' }
+];
+
+function Overview({ Tile, StatBlock, DataRow, MeterBar, Chip }) {
+  const [sel, setSel] = React.useState(null);
+  const total = CATS.reduce((s, c) => s + c.amt, 0);
+  const chosen = CATS.find(c => c.id === sel);
+  const CIRC = 2 * Math.PI * 158;
+
+  let cursor = 0;
+  const arcs = CATS.map(c => {
+    const span = CIRC * (c.amt / total);
+    const len = Math.max(span - 5, 3);
+    const a = { c, len, off: -cursor };
+    cursor += span;
+    return a;
+  });
+  const RUN = 2 * Math.PI * 119, frac = 17 / 26;
+
+  const label = { font:'var(--type-label)', letterSpacing:'var(--track-label)', textTransform:'uppercase', color:'var(--ink-4)' };
+
+  return (
+    <div style={{ width:1280, height:880, boxSizing:'border-box', background:'var(--paper)', borderRadius:'var(--r-board)',
+      overflow:'hidden', padding:'26px 30px 30px', display:'flex', flexDirection:'column', gap:22, position:'relative',
+      fontFamily:'var(--font-sans)' }}>
+      <TopNav active="overview" />
+
+      <div style={{ flex:1, minHeight:0, display:'flex', gap:'var(--gap-column)' }}>
+        <div style={{ width:280, flex:'none' }}>
+          <StatBlock size="xl" label="Total expenses" value={fmt(total)} />
+          <div style={{ marginTop:8, font:'var(--type-data-s)', color:'var(--ink-4)' }}>XAF · MARCH 2026</div>
+
+          <div style={{ marginTop:36, display:'flex', alignItems:'center', gap:9 }}>
+            <span style={{ width:5, height:5, borderRadius:'50%', background:'var(--a-rose)' }} />
+            <span style={{ ...label, color:'var(--ink-1)' }}>{chosen ? chosen.label : 'Insights'}</span>
+          </div>
+
+          {chosen ? (
+            <>
+              <div style={{ marginTop:16, display:'flex', alignItems:'baseline', gap:10 }}>
+                <span style={{ font:'var(--type-figure-s)', letterSpacing:'var(--track-figure)', color:'var(--ink-1)', fontVariantNumeric:'var(--numeric-data)' }}>{fmt(chosen.amt)}</span>
+                <span style={{ font:'var(--type-data-s)', color:'var(--ink-4)' }}>{Math.round(chosen.amt / total * 100)} % OF MARCH</span>
+              </div>
+              <div style={{ marginTop:14, font:'var(--type-body)', color:'var(--ink-2)' }}>{chosen.note}</div>
+              <div style={{ marginTop:20 }}><Chip onClick={() => setSel(null)}>Back to insights</Chip></div>
+            </>
+          ) : (
+            <>
+              <div style={{ marginTop:16, font:'var(--type-lead)', color:'var(--ink-1)', letterSpacing:'-0.01em' }}>
+                Two school-fee terms went unpaid and rolled into March. They now take 41 % of the ring on their own.
+              </div>
+              <div style={{ marginTop:14, font:'var(--type-body-s)', color:'var(--ink-2)' }}>
+                Clearing both today leaves nothing until your salary lands on the 28th. Moving one term to April keeps March positive.
+              </div>
+            </>
+          )}
+        </div>
+
+        <div style={{ flex:1, minWidth:0, display:'flex', flexDirection:'column', alignItems:'center', gap:26 }}>
+          <div style={{ position:'relative', width:376, height:376, flex:'none' }}>
+            <svg width="376" height="376" viewBox="0 0 400 400" style={{ display:'block' }}>
+              <circle cx="200" cy="200" r="119" fill="none" stroke="var(--surface-3)" strokeWidth="6" />
+              <circle cx="200" cy="200" r="119" fill="none" stroke="var(--ink-1)" strokeWidth="6" strokeLinecap="round"
+                strokeDasharray={(RUN * frac).toFixed(1) + ' ' + (RUN * (1 - frac)).toFixed(1)} transform="rotate(-90 200 200)" />
+              {arcs.map(a => (
+                <circle key={a.c.id} cx="200" cy="200" r="158" fill="none" stroke={a.c.c}
+                  strokeWidth={sel === a.c.id ? 34 : 24}
+                  strokeDasharray={a.len.toFixed(1) + ' ' + (CIRC - a.len).toFixed(1)}
+                  strokeDashoffset={a.off.toFixed(1)} transform="rotate(-90 200 200)"
+                  onClick={() => setSel(sel === a.c.id ? null : a.c.id)}
+                  style={{ cursor:'pointer', opacity: !sel || sel === a.c.id ? 1 : 0.16, transition:'opacity var(--dur-slow) var(--ease), stroke-width var(--dur-slow) var(--ease)' }} />
+              ))}
+            </svg>
+            <div style={{ position:'absolute', left:'50%', top:'50%', transform:'translate(-50%,-50%)', textAlign:'center', width:200 }}>
+              <div style={label}>{chosen ? chosen.label : 'March by category'}</div>
+              <div style={{ marginTop:10, font:'var(--type-figure-m)', letterSpacing:'var(--track-figure)', color:'var(--ink-1)', fontVariantNumeric:'var(--numeric-data)' }}>
+                {fmt(chosen ? chosen.amt : total)}
+              </div>
+              <div style={{ marginTop:14, display:'inline-flex', alignItems:'center', gap:7, height:26, padding:'0 11px', borderRadius:'var(--r-pill)', background:'var(--surface-2)' }}>
+                <span style={{ width:5, height:5, borderRadius:'50%', background:'var(--ink-1)' }} />
+                <span style={{ font:'var(--type-label-s)', letterSpacing:'var(--track-label)', color:'var(--ink-2)' }}>
+                  {chosen ? Math.round(chosen.amt / total * 100) + ' % OF THE MONTH' : '17 OF 26 DAYS COVERED'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ width:'100%', display:'grid', gridTemplateColumns:'1fr 1fr 1fr', gap:'0 26px' }}>
+            {CATS.map(c => (
+              <div key={c.id} onClick={() => setSel(sel === c.id ? null : c.id)}
+                style={{ display:'flex', alignItems:'center', gap:9, padding:'9px 0', borderBottom:'1px solid var(--line-1)', cursor:'pointer',
+                  opacity: !sel || sel === c.id ? 1 : 0.42, transition:'opacity var(--dur-slow) var(--ease)' }}>
+                <span style={{ width:6, height:6, borderRadius:'50%', flex:'none', background:c.c }} />
+                <span style={{ flex:1, minWidth:0, font:'400 11.5px var(--font-sans)', color:'var(--ink-2)', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{c.label}</span>
+                <span style={{ font:'var(--type-data-s)', color:'var(--ink-1)', fontVariantNumeric:'var(--numeric-data)' }}>{fmt(c.amt)}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ padding:'0 40px 96px', textAlign:'center', font:'var(--type-caption)', color:'var(--ink-3)' }}>
+            The ring is March by category, sized by amount. The inner arc is your runway — how much of the month your money covers.
+          </div>
+        </div>
+
+        <div style={{ width:272, flex:'none', display:'flex', flexDirection:'column', gap:24 }}>
+          <div>
+            <StatBlock size="s" label="Smart score" value="61/100" />
+            <div style={{ marginTop:12, height:9, borderRadius:'var(--r-pill)', background:'linear-gradient(90deg,var(--a-coral) 0%,var(--a-yellow) 42%,var(--a-green) 100%)', position:'relative' }}>
+              <span style={{ position:'absolute', left:'61%', top:-3, bottom:-3, width:2, background:'var(--paper)', borderRadius:2 }} />
+            </div>
+            <div style={{ marginTop:12, font:'var(--type-body-s)', color:'var(--ink-3)' }}>
+              Your fixed costs are under control. The score is held down by one overdue obligation, not by everyday spending.
+            </div>
+          </div>
+          <div>
+            <div style={label}>Last transactions</div>
+            <DataRow dot="var(--a-coral)" name="Orange Money withdrawal" meta="Orange Money · 15:40" amount={'−20' + NB + '000'} />
+            <DataRow dot="var(--a-magenta)" name="Market — Mokolo" meta="MTN MoMo · 08:20" amount={'−8' + NB + '600'} />
+            <DataRow dot="var(--a-violet)" name="Rent — March" meta="MTN MoMo · 4 Mar" amount={'−250' + NB + '000'} />
+            <DataRow dot="var(--a-blue)" name="Freelance invoice #24" meta="Wise · 3 Mar" amount={'+120' + NB + '000'} />
+          </div>
+          <div>
+            <div style={label}>Where it all sits</div>
+            <div style={{ marginTop:14 }}>
+              <MeterBar height="12px" segments={[
+                { label:'Spendable', amount:227400, color:'var(--a-green)' },
+                { label:'Dollars', amount:767800, color:'var(--a-amber)' },
+                { label:'Locked', amount:1486056, color:'var(--a-violet)' }]} />
+            </div>
+            <div style={{ marginTop:14, font:'var(--type-body-s)', color:'var(--ink-2)' }}>
+              <span style={{ background:'var(--marker)', padding:'2px 6px 3px', borderRadius:4 }}>Only 9 % of what you own is spendable this month.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <AssistantBar prompt="Why does May go negative?" chips={['Move a fee term to April', 'What is safe to spend?']} />
+    </div>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <Overview Tile={Tile} StatBlock={StatBlock} DataRow={DataRow} MeterBar={MeterBar} Chip={Chip} />
+);
+</script>
+<script>
+/* Babel-standalone's default preset uses the automatic JSX runtime, which emits an
+   `import` and dies inside a classic script. Transform explicitly instead. */
+(function () {
+  var src = document.getElementById('src').textContent;
+  var out = Babel.transform(src, { presets: [['react', { runtime: 'classic' }]], sourceType: 'script' }).code;
+  new Function(out)();
+})();
+</script>
+</body></html>

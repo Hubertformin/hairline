@@ -1,0 +1,80 @@
+<!-- @dsCard group="Components" viewport="700x212" name="Core — buttons, chips, badges" subtitle="Pills in four tones and three sizes, outlined chips, mono status badges" -->
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;background:var(--paper);font-family:var(--font-sans);padding:20px 22px;height:212px;box-sizing:border-box;overflow:hidden}
+.row{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:11px}
+.lab{font:var(--type-label-s);letter-spacing:var(--track-label);color:var(--ink-4);margin:0 0 8px}</style>
+</head><body>
+<div id="root"></div>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/plain" id="demo">
+const arrow = <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h13M12.5 6.5L19 12l-6.5 5.5"/></svg>;
+const search = <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round"><path d="M11 4.6a6.4 6.4 0 100 12.8 6.4 6.4 0 000-12.8M19.6 19.6l-4.1-4.1"/></svg>;
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.Fragment>
+    <div className="lab">BUTTONS</div>
+    <div className="row">
+      <Button tone="solid">Record it</Button>
+      <Button tone="quiet">Move to April</Button>
+      <Button tone="ghost">Cancel</Button>
+      <Button tone="danger">Delete</Button>
+      <Button tone="solid" disabled>Disabled</Button>
+      <Button size="s" tone="quiet">Small</Button>
+      <IconButton label="Search">{search}</IconButton>
+      <IconButton label="Send" tone="solid" size={38}>{arrow}</IconButton>
+    </div>
+    <div className="lab">CHIPS</div>
+    <div className="row">
+      <Chip>How much did I spend this week?</Chip>
+      <Chip selected>Monthly</Chip>
+      <Chip>Weekly</Chip>
+    </div>
+    <div className="lab">BADGES</div>
+    <div className="row">
+      <Badge>Locked</Badge>
+      <Badge tone="alarm">3 days late</Badge>
+      <Badge tone="positive">In use</Badge>
+      <Badge tone="info">Projected</Badge>
+      <Badge tone="caution">Waiting for you</Badge>
+    </div>
+  </React.Fragment>
+);
+</script>
+<script>
+/* Prefer the compiled bundle — that is what consumers import — and fall back to the
+   sibling .jsx sources so this card also renders before the project is compiled.
+   Babel's default preset uses the automatic JSX runtime, which emits an `import`
+   and dies in a classic script, so the runtime is pinned to classic. */
+(async function () {
+  var need = ["Button","IconButton","Chip","Badge"];
+  var NS = (function () {
+    for (var k of Object.keys(window)) {
+      try {
+        var v = window[k];
+        if (v && typeof v === 'object' && need.every(function (n) { return typeof v[n] === 'function'; })) return v;
+      } catch (e) { /* cross-origin frame, skip */ }
+    }
+    return {};
+  })();
+
+  var files = ["Button.jsx","IconButton.jsx","Chip.jsx","Badge.jsx"];
+  var src = '';
+  for (var i = 0; i < files.length; i++) {
+    var nm = need[i];
+    var text = (await (await fetch(files[i])).text())
+      .replace(/^\s*import[^\n]*\n/gm, '')
+      .replace(/\bexport\s+function\b/g, 'function');
+    /* one scope per file — several declare module-level constants with the same names */
+    src += 'var ' + nm + ' = (function () {\n' + text + '\nreturn ' + nm + ';\n})();\n';
+    src += 'if (window.__NS.' + nm + ') ' + nm + ' = window.__NS.' + nm + ';\n';
+  }
+  window.__NS = NS;
+  src += document.getElementById('demo').textContent;
+  var out = Babel.transform(src, { presets: [['react', { runtime: 'classic' }]], sourceType: 'script' }).code;
+  new Function('React', 'ReactDOM', out)(window.React, window.ReactDOM);
+})();
+</script>
+</body></html>

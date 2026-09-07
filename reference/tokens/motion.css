@@ -1,0 +1,9 @@
+:root{
+  --ease:cubic-bezier(.4,0,.2,1);
+  --dur-fast:140ms;
+  --dur-base:180ms;
+  --dur-slow:260ms;
+  --dur-travel:620ms;   /* an amount arcing from one place to another */
+  --t-color:color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  --t-state:opacity var(--dur-slow) var(--ease), color var(--dur-slow) var(--ease);
+}

@@ -1,0 +1,24 @@
+:root{
+  --r-board:22px;
+  --r-card:20px;
+  --r-inner:16px;
+  --r-field:14px;
+  --r-chip:12px;
+  --r-tile-icon:10px;
+  --r-pill:99px;
+
+  --h-control:40px;   /* buttons, selects */
+  --h-field:48px;     /* text fields */
+  --h-field-lg:56px;  /* amount fields */
+  --h-pill:32px;      /* tabs, chips */
+  --h-touch:44px;     /* minimum on mobile */
+
+  --shadow-raised:0 1px 2px rgba(17,18,20,.08);
+  --shadow-float:0 10px 30px rgba(17,18,20,.22);
+  --shadow-modal:0 24px 60px rgba(17,18,20,.30);
+  --scrim:rgba(17,18,20,.30);
+
+  --stroke-meter:8px;
+  --stroke-series:2px;
+  --dot-series:6px;
+}
