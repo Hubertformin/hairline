@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ledger — specimen</title>
 <link rel="stylesheet" href="../dist/ledger.css">
+<link rel="stylesheet" href="../dist/dark.css">
 <style>
   /* Page furniture only. Nothing here belongs to the system — every component
      below is styled entirely by ledger.css. */
@@ -24,9 +25,17 @@
   .swatch-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: var(--s-5); }
   .swatch-set figcaption { margin-top: var(--s-3); font: var(--type-data-s); color: var(--text-muted); }
   .swatch-set figure { margin: 0; }
+  .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 10; }
 </style>
 </head>
 <body>
+<button class="led-btn led-btn--quiet theme-toggle" onclick="
+  const r = document.documentElement;
+  const next = r.dataset.theme === 'dark' ? 'light' : 'dark';
+  r.dataset.theme = next;
+  this.textContent = next === 'dark' ? 'Light' : 'Dark';
+">Dark</button>
+
 <div class="page">
 
   <header class="masthead led-board">

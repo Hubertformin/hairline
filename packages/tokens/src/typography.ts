@@ -76,6 +76,8 @@ export const text = {
   value: { family: 'sans', size: 13.5, weight: 400, lineHeight: 'normal' },
   /** A chip's phrase. */
   chip: { family: 'sans', size: 12.5, weight: 400, lineHeight: 'normal' },
+  /** A segmented tab's label in the sans variant, for tabs holding a phrase. */
+  tab: { family: 'sans', size: 12.5, weight: 500, lineHeight: 'normal' },
   /** A mono code sitting before a value, e.g. XAF. */
   prefix: { family: 'mono', size: 10, weight: 500, lineHeight: 'normal', tracking: 0.1 },
   /** The one amount on a form, inside a large Field. */

@@ -57,11 +57,14 @@ const components = read('src/css/components.css');
 mkdirSync(resolve(root, 'dist'), { recursive: true });
 
 const tokensOut = assemble('design tokens.', [tokens]);
+const darkOut = assemble('the dark theme.', [readTokens('src/css/dark.generated.css')]);
 const fullOut = assemble('tokens and components.', [tokens, components]);
 
 writeFileSync(resolve(root, 'dist/tokens.css'), tokensOut);
+writeFileSync(resolve(root, 'dist/dark.css'), darkOut);
 writeFileSync(resolve(root, 'dist/ledger.css'), fullOut);
 
 const kb = (s: string) => `${(Buffer.byteLength(s) / 1024).toFixed(1)} kB`;
 console.log(`css → dist/tokens.css (${kb(tokensOut)})`);
+console.log(`css → dist/dark.css (${kb(darkOut)})`);
 console.log(`css → dist/ledger.css (${kb(fullOut)})`);

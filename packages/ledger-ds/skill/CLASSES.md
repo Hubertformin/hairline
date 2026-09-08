@@ -84,7 +84,7 @@ compose one out of the tokens rather than inventing a `.led-` name.
 
 - `.led-tile` — The only card shape. Fill, radius, no border.
 - `.led-tile--paper`
-- `.led-tile--dark` — The one large coloured area: a dark tile, once per page, for the primary figure.
+- `.led-tile--dark`
 - `.led-tile--alarm`
 - `.led-tile--info`
 - `.led-tile--caution`

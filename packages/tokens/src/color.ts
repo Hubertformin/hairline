@@ -52,6 +52,18 @@ export const palette = {
 
   /** The highlighter. Once per screen, behind the single sentence that matters. */
   marker: '#F7E29F',
+
+  /**
+   * The inverted surface: the one high-contrast tile per page that holds the
+   * primary figure.
+   *
+   * A slot of its own rather than a borrowed `ink-1`, because the two only
+   * coincide in the light theme. Reading the ink ramp directly meant the tile
+   * inverted to white in dark mode — still the highest-contrast element, but no
+   * longer a *dark* tile. Naming the role lets each theme answer it correctly.
+   */
+  'surface-inverse': '#111214',
+  'text-on-inverse': '#FFFFFF',
 } as const;
 
 export type PaletteName = keyof typeof palette;
@@ -120,6 +132,12 @@ export const darkPalette = {
 
   /** The highlighter, as a dark gold. Text on top stays `ink-1`. */
   marker: '#5C4E1C',
+
+  /* The inverted tile sinks *below* the board it sits on, instead of rising above
+     it as it does in the light theme. Either way it is the one tile that departs
+     furthest from its surroundings, which is the whole point of the role. */
+  'surface-inverse': '#07080A',
+  'text-on-inverse': '#F4F5F7',
 } as const satisfies Record<PaletteName, string>;
 
 /**

@@ -46,6 +46,10 @@
   --caution:#8A6A16;      --caution-wash:#FFF6E0;
   --marker:#F7E29F;     /* the highlighter, once per screen */
 
+  /* the inverted surface — the one high-contrast tile per page */
+  --surface-inverse:#111214;
+  --text-on-inverse:#FFFFFF;
+
   /* semantic aliases — prefer these in components */
   --text-strong:var(--ink-1);
   --text-body:var(--ink-2);
@@ -93,6 +97,7 @@
   --type-item:400 14px var(--font-sans);
   --type-value:400 13.5px var(--font-sans);
   --type-chip:400 12.5px var(--font-sans);
+  --type-tab:500 12.5px var(--font-sans);
   --type-prefix:500 10px var(--font-mono);
   --type-amount:500 26px var(--font-sans);
   --track-amount:-0.02em;

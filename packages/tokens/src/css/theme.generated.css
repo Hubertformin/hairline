@@ -37,6 +37,8 @@
   --lg-caution: var(--caution);
   --lg-caution-wash: var(--caution-wash);
   --lg-marker: var(--marker);
+  --lg-surface-inverse: var(--surface-inverse);
+  --lg-text-on-inverse: var(--text-on-inverse);
   --lg-text-strong: var(--text-strong);
   --lg-text-body: var(--text-body);
   --lg-text-muted: var(--text-muted);
@@ -114,6 +116,8 @@
   --caution: #E0B564;
   --caution-wash: #2A2317;
   --marker: #5C4E1C;
+  --surface-inverse: #07080A;
+  --text-on-inverse: #F4F5F7;
 }
 
 @theme inline {
@@ -148,6 +152,8 @@
   --color-caution: var(--lg-caution);
   --color-caution-wash: var(--lg-caution-wash);
   --color-marker: var(--lg-marker);
+  --color-surface-inverse: var(--lg-surface-inverse);
+  --color-text-on-inverse: var(--lg-text-on-inverse);
 
   /* colour — the semantic aliases components should prefer */
   --color-strong: var(--lg-text-strong);
@@ -220,6 +226,9 @@
   --text-chip: 12.5px;
   --text-chip--line-height: normal;
   --text-chip--font-weight: 400;
+  --text-tab: 12.5px;
+  --text-tab--line-height: normal;
+  --text-tab--font-weight: 500;
   --text-prefix: 10px;
   --text-prefix--line-height: normal;
   --text-prefix--font-weight: 500;
@@ -400,6 +409,12 @@
   font-family: var(--lg-font-sans);
   font-size: 12.5px;
   font-weight: 400;
+  line-height: normal;
+}
+@utility type-tab {
+  font-family: var(--lg-font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
   line-height: normal;
 }
 @utility type-prefix {

@@ -19,7 +19,8 @@
     "./generated.css": "./src/css/tokens.generated.css",
     "./tokens.json": "./dist/tokens.json",
     "./package.json": "./package.json",
-    "./theme.css": "./src/css/theme.generated.css"
+    "./theme.css": "./src/css/theme.generated.css",
+    "./dark.css": "./src/css/dark.generated.css"
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

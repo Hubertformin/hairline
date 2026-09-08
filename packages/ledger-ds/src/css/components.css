@@ -49,6 +49,9 @@
 
 .led-data--s {
   font: var(--type-data-s);
+  /* The `font` shorthand resets font-variant-numeric — restate it or this loses
+     the tabular figures the base .led-data rule established. */
+  font-variant-numeric: var(--numeric-data);
 }
 
 /* The highlighter. Once per screen, behind the single sentence that matters. */
@@ -202,6 +205,10 @@
 /* ── core / Chip ──────────────────────────────────────────────────────── */
 
 .led-chip {
+  /* The export renders a chip as a <span>; ours is a real <button>, and browsers
+     default buttons to border-box. Without this the border eats 2px of height and
+     a chip no longer lines up with the tab beside it. */
+  box-sizing: content-box;
   height: var(--h-pill);
   padding: 0 var(--s-6);
   display: inline-flex;
@@ -325,6 +332,9 @@
 .led-field--lg .led-field__value {
   font: var(--type-amount);
   letter-spacing: var(--track-amount);
+  /* Same trap as .led-data--s: the shorthand above wipes the base rule's
+     font-variant-numeric, and this is the one amount on the form. */
+  font-variant-numeric: var(--numeric-data);
 }
 
 .led-field__hint {
@@ -365,7 +375,9 @@
 
 .led-select__main {
   display: flex;
-  align-items: center;
+  /* Baseline, not centre: the value is 13.5px and the meta 11px, so centring them
+     floats the meta off the value's baseline. The dot re-centres itself below. */
+  align-items: baseline;
   gap: var(--s-4);
   min-width: 0;
 }
@@ -376,6 +388,9 @@
   height: var(--dot-series);
   border-radius: 50%;
   flex: none;
+  /* The row is baseline-aligned for the text; a circle has no baseline worth
+     aligning, so it opts back into centring. */
+  align-self: center;
 }
 
 .led-select__value {
@@ -482,7 +497,7 @@
 
 /* The sans variant, for tabs holding a phrase rather than a code. */
 .led-tabs--sans .led-tabs__item {
-  font: var(--type-control-s);
+  font: var(--type-tab);
   letter-spacing: normal;
   text-transform: none;
 }
@@ -514,10 +529,12 @@
   box-shadow: var(--shadow-raised);
 }
 
-/* The one large coloured area: a dark tile, once per page, for the primary figure. */
+/* The one large coloured area: a dark tile, once per page, for the primary figure.
+   Reads the inverted-surface role rather than the ink ramp, so it stays the
+   high-contrast tile under any theme instead of flipping to white. */
 .led-tile--dark {
-  background: var(--ink-1);
-  color: var(--text-on-dark);
+  background: var(--surface-inverse);
+  color: var(--text-on-inverse);
 }
 
 .led-tile--alarm {
@@ -595,7 +612,7 @@
 }
 
 .led-tile--dark .led-stat__value {
-  color: var(--text-on-dark);
+  color: var(--text-on-inverse);
 }
 .led-tile--dark .led-stat__label {
   color: rgb(255 255 255 / 0.66);
