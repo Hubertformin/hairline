@@ -6,7 +6,7 @@
   "author": "Hubert Formin <hformin@gmail.com>",
   "description": "An outlined pill holding a whole phrase. Use for suggestions, presets and filters — not for single words.",
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

@@ -7,7 +7,7 @@
     "dev": "next dev --port 3333",
     "build": "npm run registry && next build",
     "start": "next start --port 3333",
-    "registry": "shadcn build",
+    "registry": "tsx scripts/build-registry.ts && shadcn build",
     "check": "tsc --noEmit && npm run check:port",
     "clean": "rm -rf .next public/r .turbo",
     "check:port": "tsx scripts/check-port.ts"

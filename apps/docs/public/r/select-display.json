@@ -6,7 +6,7 @@
   "author": "Hubert Formin <hformin@gmail.com>",
   "description": "A closed dropdown trigger with an optional category dot. Use when showing a chosen value; it does not open a menu.",
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

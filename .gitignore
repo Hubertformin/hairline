@@ -21,3 +21,5 @@ ds-bundle/
 .next/
 next-env.d.ts
 public/r/
+.vercel
+.env*

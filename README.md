@@ -9,7 +9,7 @@ installable with the shadcn CLI and designed to be consumed by coding agents as 
 by people.
 
 > **Status: in progress.** The design system and its 12 components are stable and
-> published. The shadcn registry, the docs site at `hairline-ui.com` and the wider
+> published. The shadcn registry, the docs site at `usehairline.com` and the wider
 > component catalogue are being built. See [the roadmap](#roadmap).
 
 ![The Hairline specimen page](packages/hairline/docs/specimen.png)
@@ -71,7 +71,7 @@ Full usage, component tables and the token reference:
 1. **Tailwind v4 bridge** — generate a `@theme` block from the same tokens, so
    `--ink-1` becomes `bg-ink-1` and the library speaks the language shadcn users and
    agents already know.
-2. **shadcn registry** at `hairline-ui.com` — `npx shadcn add @hairline/<name>`.
+2. **shadcn registry** at `usehairline.com` — `npx shadcn add @hairline/<name>`.
 3. **Agent-first docs** — `llms.txt`, per-component machine-readable usage contracts,
    MCP discovery, and an ESLint plugin that enforces the design rules where advice fails.
 4. **The catalogue** — money primitives, transactions, accounts, charts, budgets,

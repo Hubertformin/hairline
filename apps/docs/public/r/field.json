@@ -6,7 +6,7 @@
   "author": "Hubert Formin <hformin@gmail.com>",
   "description": "A labelled value on a grey fill, with an optional prefix and hint. Use for any form input.",
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

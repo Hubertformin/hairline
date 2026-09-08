@@ -6,7 +6,7 @@
   "author": "Hubert Formin <hformin@gmail.com>",
   "description": "A grey track with one raised white segment. Use as the only tab pattern in the system.",
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

@@ -10,6 +10,7 @@
     "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
+    "next": "^15.1.3",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2"
   },

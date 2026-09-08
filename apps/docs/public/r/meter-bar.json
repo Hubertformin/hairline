@@ -6,7 +6,7 @@
   "author": "Hubert Formin <hformin@gmail.com>",
   "description": "A limit meter, or a stacked composition bar weighted by amount. Use to show a share or a spend against a ceiling.",
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

@@ -36,7 +36,7 @@ export default function Home() {
         <Label>Add the registry to components.json</Label>
         <pre className="bg-surface-2 rounded-card py-card-y px-card-x type-data text-body overflow-x-auto m-0 mb-s9">
 {`"registries": {
-  "@hairline": "https://hairline-ui.com/r/{name}.json"
+  "@hairline": "https://usehairline.com/r/{name}.json"
 }`}
         </pre>
         <Label>Then</Label>

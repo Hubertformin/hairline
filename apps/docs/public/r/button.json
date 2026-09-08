@@ -10,7 +10,7 @@
     "class-variance-authority"
   ],
   "registryDependencies": [
-    "base"
+    "https://usehairline.com/r/base.json"
   ],
   "files": [
     {

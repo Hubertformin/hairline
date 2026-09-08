@@ -17,6 +17,6 @@
     "hooks": "@/registry/hairline/hooks"
   },
   "registries": {
-    "@hairline": "http://localhost:3333/r/{name}.json"
+    "@hairline": "https://usehairline.com/r/{name}.json"
   }
 }

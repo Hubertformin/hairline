@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "hairline",
-  "homepage": "https://hairline-ui.com",
+  "homepage": "{{REGISTRY_URL}}",
   "items": [
     {
       "name": "base",
@@ -39,7 +39,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -92,7 +92,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -138,7 +138,7 @@
         "forms"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -188,7 +188,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -239,7 +239,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -286,7 +286,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -338,7 +338,7 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -386,7 +386,7 @@
         "budgets"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -430,7 +430,7 @@
         "forms"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -474,7 +474,7 @@
         "forms"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -517,7 +517,7 @@
         "forms"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
@@ -561,7 +561,7 @@
         "dashboard"
       ],
       "registryDependencies": [
-        "base"
+        "{{REGISTRY_URL}}/r/base.json"
       ],
       "files": [
         {
