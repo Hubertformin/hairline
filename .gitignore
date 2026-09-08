@@ -16,3 +16,8 @@ ds-bundle/
 
 # gstack browse scratch
 .gstack/
+
+# next.js
+.next/
+next-env.d.ts
+public/r/

@@ -8,7 +8,7 @@
  * gets `--r-card` / `--radius-card` / `rounded-card` / `20px` from one place.
  */
 import { palette, alias, darkPalette } from '../src/color.js';
-import { family, text, tracking } from '../src/typography.js';
+import { family, text, tracking, type TextStyle } from '../src/typography.js';
 import { space, inset, gap, clearanceBar } from '../src/space.js';
 import { radius, height, shadow, scrim, stroke, dotSeries } from '../src/shape.js';
 import { ease, duration } from '../src/motion.js';
@@ -59,7 +59,9 @@ export function emitJson(): string {
   tokens.push({ family: 'type', legacy: '--font-sans', theme: '--font-sans', utilities: ['font-sans'], value: family.sans.stack });
   tokens.push({ family: 'type', legacy: '--font-mono', theme: '--font-mono', utilities: ['font-mono'], value: family.mono.stack });
 
-  for (const [k, t] of Object.entries(text)) {
+  for (const [k, raw] of Object.entries(text)) {
+    // Widen past the `as const` literal narrowing so the optional keys are readable.
+    const t: TextStyle = raw;
     tokens.push({
       family: 'type',
       legacy: `--type-${k}`,

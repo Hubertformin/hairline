@@ -26,7 +26,7 @@
  * stylesheet stays exactly what it was for consumers who never touch Tailwind.
  */
 import { palette, alias, darkPalette, type PaletteName } from '../src/color.js';
-import { family, text, tracking, type TextName } from '../src/typography.js';
+import { family, text, tracking, type TextName, type TextStyle } from '../src/typography.js';
 import { space, inset, gap, clearanceBar } from '../src/space.js';
 import { radius, height, shadow, stroke, dotSeries } from '../src/shape.js';
 import { ease, duration } from '../src/motion.js';
@@ -121,7 +121,9 @@ export function emitTheme(): string {
   out.push('');
   out.push('  /* type metrics — family, case and numerics live in the type-* utilities */');
   for (const k of Object.keys(text) as TextName[]) {
-    const t = text[k];
+    // `text` is `as const`, so each entry narrows to a literal type that omits the
+    // optional keys. Widen to the declared interface before reading them.
+    const t: TextStyle = text[k];
     out.push(line(`--text-${k}`, px(t.size)));
     out.push(line(`--text-${k}--line-height`, t.lineHeight === 'normal' ? 'normal' : String(t.lineHeight)));
     out.push(line(`--text-${k}--font-weight`, String(t.weight)));
@@ -171,7 +173,7 @@ export function emitTheme(): string {
   out.push('   becomes 0.1em, so each style ships as one utility carrying all of it.');
   out.push('   Colour is deliberately excluded: `type-label text-faint` is the pair. */');
   for (const k of Object.keys(text) as TextName[]) {
-    const t = text[k];
+    const t: TextStyle = text[k];
     out.push(`@utility type-${k} {`);
     out.push(line('font-family', `var(--lg-font-${t.family})`).replace('  ', '  '));
     out.push(line('font-size', px(t.size)));

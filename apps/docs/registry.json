@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "ledger",
+  "homepage": "https://ledger-ui.com",
+  "items": [
+    {
+      "name": "base",
+      "type": "registry:item",
+      "title": "Ledger base",
+      "description": "Ledger design tokens, the Tailwind theme and the type utilities. Use when installing any Ledger component — everything depends on it.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": ["primitives"],
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        { "path": "registry/ledger/lib/utils.ts", "type": "registry:lib" }
+      ],
+      "docs": "Import the Ledger theme once at the top of your global stylesheet: `@import \"@ledger/tokens/theme.css\";` — or copy the tokens in directly. Ledger sets font-variant-numeric on every figure; do not override it, and never set a figure in the sans inside a table."
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A pill button in four tones and three sizes. Use when the user takes an action; solid is the one primary action per view.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": ["primitives", "forms"],
+      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
+      "registryDependencies": ["base"],
+      "files": [
+        { "path": "registry/ledger/ui/button.tsx", "type": "registry:ui" }
+      ],
+      "docs": "Exactly one `tone=\"solid\"` button per view. Use `quiet` for the action beside it, `ghost` for tertiary, and `danger` only for destructive actions.",
+      "meta": {
+        "ledger": {
+          "v": 1,
+          "purpose": "The one pressable shape in the system.",
+          "useWhen": ["the user takes an action", "a form is submitted", "a dialog is confirmed"],
+          "dontUseWhen": ["navigating between pages", "toggling a setting", "selecting from a set of options"],
+          "insteadUse": {
+            "navigating between pages": "a link styled with buttonVariants via asChild",
+            "toggling a setting": "@ledger/toggle",
+            "selecting from a set of options": "@ledger/segmented-tabs"
+          },
+          "rules": ["one-solid-button", "colour-is-data"],
+          "example": "<Button tone=\"solid\">Record it</Button>",
+          "antiExample": "<button className=\"bg-blue-600 text-white rounded px-4 py-2\">Submit</button>",
+          "antiExampleWhy": "Stock Tailwind palette colours are not Ledger tokens, the radius is not the pill the system uses, and \"Submit\" is not a plain verb naming what will happen.",
+          "status": "stable"
+        }
+      }
+    }
+  ]
+}

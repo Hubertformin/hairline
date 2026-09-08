@@ -1,0 +1,56 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "type": "registry:ui",
+  "title": "Button",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A pill button in four tones and three sizes. Use when the user takes an action; solid is the one primary action per view.",
+  "dependencies": [
+    "@radix-ui/react-slot",
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/ledger/ui/button.tsx",
+      "content": "import * as React from 'react';\nimport { Slot } from '@radix-ui/react-slot';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/ledger/lib/utils';\n\n/**\n * The one pressable shape in Ledger: a pill.\n *\n * `solid` is the single primary action per view — if two solid buttons are visible\n * at once, one of them is wrong.\n *\n * Every value here is a Ledger token: `h-control`, `rounded-pill`, `px-s8` and\n * `type-control` all come from the generated Tailwind theme, so nothing in this file\n * needs updating when a token changes. `type-control` is one utility carrying family,\n * size, weight and line-height together — splitting them across four classes is how\n * type quietly drifts.\n *\n * Interaction follows the spec: background steps one surface on hover and one more on\n * press. No lift, no scale, no shadow change, and focus is a 2px inset ring rather\n * than a browser outline.\n */\nexport const buttonVariants = cva(\n  'inline-flex items-center justify-center gap-s3 whitespace-nowrap border-0 cursor-pointer ' +\n    'rounded-pill transition-[color,background-color] duration-fast ease-ledger ' +\n    'focus-visible:focus-ring-inset ' +\n    'disabled:opacity-45 disabled:cursor-default disabled:pointer-events-none',\n  {\n    variants: {\n      tone: {\n        solid: 'bg-solid text-solid-text hover:bg-ink-2 active:bg-ink-3',\n        quiet: 'bg-quiet text-strong hover:bg-desk active:bg-rule',\n        ghost: 'bg-transparent text-body hover:bg-surface-2 hover:text-strong active:bg-surface-3',\n        danger:\n          'bg-alarm-wash text-alarm ' +\n          'hover:bg-[color-mix(in_srgb,var(--lg-alarm-wash)_90%,var(--lg-alarm))]',\n      },\n      size: {\n        s: 'h-pill px-s6 type-control-s',\n        m: 'h-control px-s8 type-control',\n        l: 'h-12 px-s10 type-control-l',\n      },\n    },\n    defaultVariants: { tone: 'solid', size: 'm' },\n  },\n);\n\nexport interface ButtonProps\n  extends React.ComponentProps<'button'>,\n    VariantProps<typeof buttonVariants> {\n  /** Render as the child element instead of a <button>, so a link can wear the button. */\n  asChild?: boolean;\n  /**\n   * A trailing glyph, e.g. an arrow on \"Continue\".\n   *\n   * Ignored when `asChild` is set: Slot forwards to exactly one child, so the icon\n   * belongs inside that child's own markup instead.\n   */\n  iconRight?: React.ReactNode;\n}\n\nexport function Button({\n  className,\n  tone,\n  size,\n  asChild = false,\n  iconRight,\n  children,\n  type = 'button',\n  ...props\n}: ButtonProps) {\n  const Comp = asChild ? Slot : 'button';\n  return (\n    <Comp\n      data-slot=\"button\"\n      type={asChild ? undefined : type}\n      className={cn(buttonVariants({ tone, size }), className)}\n      {...props}\n    >\n      {asChild ? (\n        children\n      ) : (\n        <>\n          {children}\n          {iconRight}\n        </>\n      )}\n    </Comp>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "ledger": {
+      "v": 1,
+      "purpose": "The one pressable shape in the system.",
+      "useWhen": [
+        "the user takes an action",
+        "a form is submitted",
+        "a dialog is confirmed"
+      ],
+      "dontUseWhen": [
+        "navigating between pages",
+        "toggling a setting",
+        "selecting from a set of options"
+      ],
+      "insteadUse": {
+        "navigating between pages": "a link styled with buttonVariants via asChild",
+        "toggling a setting": "@ledger/toggle",
+        "selecting from a set of options": "@ledger/segmented-tabs"
+      },
+      "rules": [
+        "one-solid-button",
+        "colour-is-data"
+      ],
+      "example": "<Button tone=\"solid\">Record it</Button>",
+      "antiExample": "<button className=\"bg-blue-600 text-white rounded px-4 py-2\">Submit</button>",
+      "antiExampleWhy": "Stock Tailwind palette colours are not Ledger tokens, the radius is not the pill the system uses, and \"Submit\" is not a plain verb naming what will happen.",
+      "status": "stable"
+    }
+  },
+  "docs": "Exactly one `tone=\"solid\"` button per view. Use `quiet` for the action beside it, `ghost` for tertiary, and `danger` only for destructive actions.",
+  "categories": [
+    "primitives",
+    "forms"
+  ]
+}
