@@ -15,6 +15,8 @@ import { family, text, tracking, type TextStyle } from '../src/typography.js';
 import { space, inset, gap, clearanceBar } from '../src/space.js';
 import { radius, height, shadow, scrim, stroke, dotSeries } from '../src/shape.js';
 import { ease, duration } from '../src/motion.js';
+import { emitTheme } from './emit-theme.js';
+import { emitJson } from './emit-json.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -189,3 +191,17 @@ const target = resolve(root, 'src/css/tokens.generated.css');
 mkdirSync(dirname(target), { recursive: true });
 writeFileSync(target, out);
 console.log(`tokens → ${target.replace(root + '/', '')} (${out.split('\n').length} lines)`);
+
+/* The Tailwind v4 bridge. Same source, second form — see scripts/emit-theme.ts. */
+const themeCss = emitTheme();
+const themeTarget = resolve(root, 'src/css/theme.generated.css');
+writeFileSync(themeTarget, themeCss);
+console.log(`theme  → ${themeTarget.replace(root + '/', '')} (${themeCss.split('\n').length} lines)`);
+
+/* The machine-readable form, read by the docs site, llms-full.txt and the
+   registry's cssVars block so none of them re-derive the mapping. */
+const json = emitJson();
+const jsonTarget = resolve(root, 'dist/tokens.json');
+mkdirSync(dirname(jsonTarget), { recursive: true });
+writeFileSync(jsonTarget, json);
+console.log(`json   → dist/tokens.json (${JSON.parse(json).tokens.length} tokens)`);

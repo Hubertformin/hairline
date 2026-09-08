@@ -57,6 +57,72 @@ export const palette = {
 export type PaletteName = keyof typeof palette;
 
 /**
+ * The dark theme — chalk on slate rather than ink on paper.
+ *
+ * NOT part of the original design export, which is light-only. These values are
+ * authored here and are the one part of the token layer the fidelity contract does
+ * not cover, so they are the part most worth reviewing with a designer's eye.
+ *
+ * The structure is deliberately preserved rather than naively inverted:
+ *   - boards still float *lighter* than the desk they sit on, so `paper` stays
+ *     above `desk` — the relationship carries over even though both are dark;
+ *   - the surface ramp still steps away from `paper` in the same direction of
+ *     emphasis, so a "secondary block" still reads as recessed;
+ *   - the ink ramp keeps its four roles, with `ink-3` still the floor for
+ *     meaningful text (~6.5:1 on `paper`) and `ink-4` still chrome-only;
+ *   - accents are lifted in luminance, because the light-mode values are tuned for
+ *     contrast against white and several of them fail against a dark ground;
+ *   - each semantic ink keeps a wash, and the washes become dark tints rather than
+ *     pale ones so the ink+wash pairing still reads as one unit.
+ *
+ * Only the raw scale is re-pointed. The semantic aliases are unchanged, which is
+ * what makes the whole theme a 20-line diff instead of a rewrite.
+ */
+export const darkPalette = {
+  /* ink — inverted: 1 is now the brightest */
+  'ink-1': '#F4F5F7',
+  'ink-2': '#C6C9D0',
+  'ink-3': '#9CA0A9',
+  'ink-4': '#71757E',
+
+  /* surfaces — boards still float above the desk */
+  paper: '#17181C',
+  'surface-1': '#1C1D22',
+  'surface-2': '#212228',
+  'surface-3': '#282A31',
+  desk: '#0D0E10',
+
+  /* lines — still two weights, still barely there */
+  'line-1': '#23252B',
+  'line-2': '#2F3138',
+
+  /* accents — lifted for contrast on a dark ground */
+  'a-blue': '#6E86FF',
+  'a-violet': '#A78BFA',
+  'a-purple': '#C98BFF',
+  'a-magenta': '#F45CA6',
+  'a-rose': '#FF7A90',
+  'a-coral': '#FF8B6B',
+  'a-amber': '#FFBB63',
+  'a-yellow': '#FFD264',
+  'a-lemon': '#F2E07A',
+  'a-green': '#A3DC6E',
+
+  /* semantic — ink lifted, wash darkened, still travelling together */
+  alarm: '#FF6E85',
+  'alarm-wash': '#2B171C',
+  positive: '#7CC96A',
+  'positive-wash': '#16241A',
+  info: '#8098FF',
+  'info-wash': '#181C31',
+  caution: '#E0B564',
+  'caution-wash': '#2A2317',
+
+  /** The highlighter, as a dark gold. Text on top stays `ink-1`. */
+  marker: '#5C4E1C',
+} as const satisfies Record<PaletteName, string>;
+
+/**
  * Semantic aliases. Components read these, never the raw scale — which is what
  * makes a dark theme a matter of re-pointing this map and nothing else.
  */
