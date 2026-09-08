@@ -18,18 +18,31 @@ import type { TextStyle as RNTextStyle, ViewStyle } from 'react-native';
 /** React Native's style types are deeply readonly; building one needs a mutable view. */
 type Mutable<T> = { -readonly [K in keyof T]: T[K] };
 
-import { color, palette, series, tonePair } from '../tokens/color.js';
 import {
+  color,
+  palette,
+  series,
+  tonePair,
   family,
   text,
   tracking,
+  space,
+  inset,
+  gap,
+  clearanceBar,
+  radius,
+  height,
+  shadow,
+  scrim,
+  stroke,
+  dotSeries,
+  duration,
+  easeBezier,
   type TextName,
   type TextStyle,
   type Weight,
-} from '../tokens/typography.js';
-import { space, inset, gap, clearanceBar } from '../tokens/space.js';
-import { radius, height, shadow, scrim, stroke, dotSeries, type ShadowName } from '../tokens/shape.js';
-import { duration, easeBezier } from '../tokens/motion.js';
+  type ShadowName,
+} from '@ledger/tokens';
 
 /** How Google Fonts names each weight when Expo registers it. */
 const WEIGHT_SUFFIX: Record<Weight, string> = {

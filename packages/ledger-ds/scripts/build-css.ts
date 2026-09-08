@@ -18,6 +18,11 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
 
+/* The token layer lives in its own package now; read its generated CSS from there
+   rather than keeping a second copy in sync. */
+const tokensPkg = dirname(fileURLToPath(import.meta.resolve('@ledger/tokens/package.json')));
+const readTokens = (p: string) => readFileSync(resolve(tokensPkg, p), 'utf8');
+
 /* Note the greedy `.+`: a Google Fonts URL contains its own semicolons
    (`wght@400;500;600`), so matching up to the FIRST `;` stops mid-URL. */
 const IMPORT = /^[ \t]*@import\s+.+;[ \t]*$/gm;
@@ -46,7 +51,7 @@ function assemble(what: string, parts: string[]): string {
     .join('\n');
 }
 
-const tokens = read('src/css/tokens.generated.css');
+const tokens = readTokens('src/css/tokens.generated.css');
 const components = read('src/css/components.css');
 
 mkdirSync(resolve(root, 'dist'), { recursive: true });

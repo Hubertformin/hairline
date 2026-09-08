@@ -1,0 +1,38 @@
+{
+  "name": "@ledger/tokens",
+  "version": "0.1.0",
+  "description": "Ledger design tokens — the single source of truth, generated into CSS custom properties, a Tailwind v4 theme, and a JavaScript object.",
+  "license": "UNLICENSED",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./generated.css": "./src/css/tokens.generated.css",
+    "./tokens.json": "./dist/tokens.json",
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build:tokens": "tsx scripts/build-tokens.ts",
+    "check:tokens": "tsx scripts/check-tokens.ts",
+    "build": "npm run build:tokens && npm run check:tokens && tsup",
+    "check": "npm run check:tokens && tsc --noEmit",
+    "clean": "rm -rf dist src/css .turbo"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsup": "^8.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}

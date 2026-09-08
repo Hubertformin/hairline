@@ -7,8 +7,7 @@
  * React Native is a chance to drop a factor.
  */
 import { theme, textStyle, shadowStyle, fontFamilyFor, requiredFonts } from '../src/native/theme.js';
-import { text } from '../src/tokens/typography.js';
-import { palette } from '../src/tokens/color.js';
+import { text, palette } from '@ledger/tokens';
 
 let failed = 0;
 function check(what: string, got: unknown, want: unknown) {

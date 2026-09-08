@@ -33,4 +33,4 @@ export { DataRow, type DataRowProps, type DataRowState } from './react/DataRow.j
 export { MeterBar, type MeterBarProps, type MeterSegment } from './react/MeterBar.js';
 
 /** The token layer, for values the class layer does not cover (a series colour). */
-export * as tokens from './tokens/index.js';
+export * as tokens from '@ledger/tokens';

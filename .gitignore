@@ -1,11 +1,18 @@
 node_modules/
 dist/
+.next/
+out/
+.turbo/
 *.log
 .DS_Store
-.gstack/
+.env*.local
 
+# design-sync working state (see packages/ledger-ds/.design-sync)
 .ds-sync/
 ds-bundle/
 .design-sync/.cache/
 .design-sync/learnings/
 .design-sync/node_modules
+
+# gstack browse scratch
+.gstack/

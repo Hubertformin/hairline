@@ -10,11 +10,11 @@ import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { palette, alias } from '../src/tokens/color.js';
-import { family, text, tracking, type TextStyle } from '../src/tokens/typography.js';
-import { space, inset, gap, clearanceBar } from '../src/tokens/space.js';
-import { radius, height, shadow, scrim, stroke, dotSeries } from '../src/tokens/shape.js';
-import { ease, duration } from '../src/tokens/motion.js';
+import { palette, alias } from '../src/color.js';
+import { family, text, tracking, type TextStyle } from '../src/typography.js';
+import { space, inset, gap, clearanceBar } from '../src/space.js';
+import { radius, height, shadow, scrim, stroke, dotSeries } from '../src/shape.js';
+import { ease, duration } from '../src/motion.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 

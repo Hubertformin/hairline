@@ -1,7 +1,7 @@
 import * as react from 'react';
 import { ButtonHTMLAttributes, ReactNode, HTMLAttributes, InputHTMLAttributes } from 'react';
-export { i as tokens } from './index-8JZzLlWS.js';
-import './motion-B5a_emku.js';
+import * as tokens from '@ledger/tokens';
+export { tokens };
 
 /** Joins class names, dropping anything falsy. */
 declare function cx(...parts: (string | false | null | undefined)[]): string;

@@ -3,7 +3,7 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   entry: {
     index: 'src/index.ts',
-    'tokens/index': 'src/tokens/index.ts',
+    'tokens/index': 'src/tokens-entry.ts',
     'native/index': 'src/native/index.ts',
   },
   format: ['esm'],
@@ -11,5 +11,5 @@ export default defineConfig({
   clean: false,
   sourcemap: true,
   treeshake: true,
-  external: ['react', 'react/jsx-runtime', 'react-native'],
+  external: ['react', 'react/jsx-runtime', 'react-native', '@ledger/tokens'],
 });
