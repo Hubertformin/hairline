@@ -14,8 +14,14 @@
 @source "../app";
 
 body {
-  background: var(--desk);
+  background: var(--paper);
   color: var(--text-body);
   font: var(--type-body);
   margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--marker);
+  color: var(--ink-1);
 }

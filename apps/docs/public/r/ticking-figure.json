@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ticking-figure",
+  "type": "registry:ui",
+  "title": "TickingFigure",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A figure that counts to its value in tabular numerals. Use when a number arrives or changes and the movement is worth noticing.",
+  "registryDependencies": [
+    "https://usehairline.com/r/base.json"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/ticking-figure.tsx",
+      "content": "'use client';\n\nimport * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\nimport { useAnimatedNumber } from '@/registry/hairline/hooks/use-animated-number';\n\nexport interface TickingFigureProps extends Omit<React.ComponentProps<'span'>, 'children'> {\n  value: number;\n  /** Thousands separator. Defaults to the thin space the system uses for XAF. */\n  separator?: string;\n  /** Decimal places. Zero-decimal currencies like XAF want 0. */\n  decimals?: number;\n  durationMs?: number;\n}\n\n/**\n * A figure that counts to its value in tabular numerals.\n *\n * Tabular figures are what make this readable: with proportional digits the number\n * would jitter horizontally on every frame as glyph widths changed.\n */\nexport function TickingFigure({\n  className,\n  value,\n  separator = ' ',\n  decimals = 0,\n  durationMs,\n  ...props\n}: TickingFigureProps) {\n  const animated = useAnimatedNumber(value, durationMs);\n  const text = animated\n    .toFixed(decimals)\n    .replace(/\\B(?=(\\d{3})+(?!\\d))/g, separator);\n\n  return (\n    <span className={cn('tabular', className)} {...props}>\n      {text}\n    </span>\n  );\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/hairline/hooks/use-animated-number.ts",
+      "content": "'use client';\n\nimport * as React from 'react';\n\n/**\n * Animates a number toward a target.\n *\n * Hairline's one permitted flourish is data motion — a figure counting to its value —\n * rather than glow or movement. Kept dependency-free on rAF: a spring library is\n * 40 kB and its whole idiom (spring, layout, transform) is banned by the spec anyway.\n *\n * `prefers-reduced-motion` is honoured *inside* the hook rather than at the call site,\n * so no component can forget it, and the server always renders the final value —\n * otherwise the first paint would show a number mid-count.\n */\nexport function useAnimatedNumber(target: number, durationMs = 900): number {\n  const reduced = React.useSyncExternalStore(\n    (cb) => {\n      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');\n      mq.addEventListener('change', cb);\n      return () => mq.removeEventListener('change', cb);\n    },\n    () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,\n    () => true, // On the server, assume reduced: never render a half-counted figure.\n  );\n\n  const [value, setValue] = React.useState(reduced ? target : 0);\n  const from = React.useRef(0);\n\n  React.useEffect(() => {\n    if (reduced) {\n      setValue(target);\n      return;\n    }\n    const start = performance.now();\n    const origin = from.current;\n    let frame = 0;\n\n    const tick = (now: number) => {\n      const t = Math.min(1, (now - start) / durationMs);\n      // Ease-out cubic: fast to begin, settling rather than braking.\n      const eased = 1 - Math.pow(1 - t, 3);\n      setValue(origin + (target - origin) * eased);\n      if (t < 1) frame = requestAnimationFrame(tick);\n      else from.current = target;\n    };\n\n    frame = requestAnimationFrame(tick);\n    return () => cancelAnimationFrame(frame);\n  }, [target, durationMs, reduced]);\n\n  return value;\n}\n",
+      "type": "registry:hook"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Animates a number toward its value.",
+      "useWhen": [
+        "a balance loads",
+        "a figure changes in response to an action"
+      ],
+      "dontUseWhen": [
+        "static figures in a table",
+        "anything a screen reader must read once"
+      ],
+      "insteadUse": {
+        "static figures in a table": "@hairline/data-row"
+      },
+      "rules": [
+        "tabular-figures"
+      ],
+      "example": "<TickingFigure value={227400} />",
+      "antiExample": "<TickingFigure value={227400} className=\"font-sans\" />",
+      "antiExampleWhy": "Proportional digits change width every frame, so the number jitters horizontally as it counts.",
+      "status": "stable"
+    }
+  },
+  "docs": "Motion is opt-in and honours prefers-reduced-motion inside the hook, so no caller can forget it. On the server it renders the final value — never a half-counted figure.",
+  "categories": [
+    "data-display",
+    "charts"
+  ]
+}

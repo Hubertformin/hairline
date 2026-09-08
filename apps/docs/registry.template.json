@@ -594,6 +594,55 @@
           "status": "stable"
         }
       }
+    },
+    {
+      "name": "ticking-figure",
+      "type": "registry:ui",
+      "title": "TickingFigure",
+      "description": "A figure that counts to its value in tabular numerals. Use when a number arrives or changes and the movement is worth noticing.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "data-display",
+        "charts"
+      ],
+      "registryDependencies": [
+        "{{REGISTRY_URL}}/r/base.json"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/ticking-figure.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/hairline/hooks/use-animated-number.ts",
+          "type": "registry:hook"
+        }
+      ],
+      "docs": "Motion is opt-in and honours prefers-reduced-motion inside the hook, so no caller can forget it. On the server it renders the final value — never a half-counted figure.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Animates a number toward its value.",
+          "useWhen": [
+            "a balance loads",
+            "a figure changes in response to an action"
+          ],
+          "dontUseWhen": [
+            "static figures in a table",
+            "anything a screen reader must read once"
+          ],
+          "insteadUse": {
+            "static figures in a table": "@hairline/data-row"
+          },
+          "rules": [
+            "tabular-figures"
+          ],
+          "example": "<TickingFigure value={227400} />",
+          "antiExample": "<TickingFigure value={227400} className=\"font-sans\" />",
+          "antiExampleWhy": "Proportional digits change width every frame, so the number jitters horizontally as it counts.",
+          "status": "stable"
+        }
+      }
     }
   ]
 }

@@ -12,7 +12,7 @@ export function ThemeToggle() {
   }, [dark]);
 
   return (
-    <Button tone="quiet" size="s" onClick={() => setDark((d) => !d)}>
+    <Button tone="ghost" size="s" onClick={() => setDark((d) => !d)}>
       {dark ? 'Light' : 'Dark'}
     </Button>
   );
