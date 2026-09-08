@@ -20,7 +20,7 @@ export function SiteFooter() {
           <div>
             <div className="type-label text-faint mb-s5">Source</div>
             <a
-              href="https://github.com/Hubertformin/ledger-ds"
+              href="https://github.com/Hubertformin/hairline"
               className="type-body-s text-body hover:text-strong no-underline"
             >
               GitHub

@@ -198,7 +198,7 @@ interface DataRowProps extends HTMLAttributes<HTMLDivElement> {
     state?: DataRowState;
     badge?: ReactNode;
 }
-/** A hairline line: dot, name, mono meta, figure, running total. */
+/** A ledger line: dot, name, mono meta, figure, running total. */
 declare const DataRow: react.ForwardRefExoticComponent<DataRowProps & react.RefAttributes<HTMLDivElement>>;
 
 interface MeterSegment {

@@ -21,7 +21,7 @@ export interface DataRowProps extends HTMLAttributes<HTMLDivElement> {
   badge?: ReactNode;
 }
 
-/** A hairline line: dot, name, mono meta, figure, running total. */
+/** A ledger line: dot, name, mono meta, figure, running total. */
 export const DataRow = forwardRef<HTMLDivElement, DataRowProps>(function DataRow(
   { name, meta, dot, amount, secondary, state = 'plain', badge, className, ...rest },
   ref,

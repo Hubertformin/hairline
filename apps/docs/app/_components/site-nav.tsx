@@ -4,7 +4,7 @@ import { ThemeToggle } from './theme-toggle';
 const LINKS = [
   { href: '/components', label: 'Components' },
   { href: '/#fidelity', label: 'Fidelity' },
-  { href: 'https://github.com/Hubertformin/ledger-ds', label: 'GitHub' },
+  { href: 'https://github.com/Hubertformin/hairline', label: 'GitHub' },
 ];
 
 export function SiteNav() {

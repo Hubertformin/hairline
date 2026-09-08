@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   secondary: { ...type.data, width: 110, textAlign: 'right', color: color['text-muted'] },
 });
 
-/** A hairline line: dot, name, mono meta, figure, running total. */
+/** A ledger line: dot, name, mono meta, figure, running total. */
 export function DataRow({
   name,
   meta,

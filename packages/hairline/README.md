@@ -237,7 +237,7 @@ Twelve, in three groups. `Button`, `Field` and `StatBlock` are the starting poin
 | --- | --- | --- |
 | `Tile` | The only card shape. Fill, radius, no border. | `tone` (`quiet` \| `paper` \| `dark` \| `alarm` \| `info` \| `caution`), `label`, `action` |
 | `StatBlock` | Label, big tight figure, one line of meaning. | `label`, `value`, `unit`, `note`, `size` (`xl` \| `l` \| `m` \| `s`), `tone` |
-| `DataRow` | A hairline line: dot, name, mono meta, figure, running total. | `name`, `meta`, `dot`, `amount`, `secondary`, `state`, `badge` |
+| `DataRow` | A ledger line: dot, name, mono meta, figure, running total. | `name`, `meta`, `dot`, `amount`, `secondary`, `state`, `badge` |
 | `MeterBar` | A limit meter, or a stacked composition bar. | `value`, `limit`, `over`, `segments`, `height` |
 
 Each component also ships a `.prompt.md` in [`skill/components/`](skill/components/)

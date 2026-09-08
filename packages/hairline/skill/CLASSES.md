@@ -101,7 +101,7 @@ compose one out of the tokens rather than inventing a `.hl-` name.
 
 ## data / DataRow
 
-- `.hl-row` — A hairline line: dot, name, mono meta, figure, running total.
+- `.hl-row` — A ledger line: dot, name, mono meta, figure, running total.
 - `.hl-row__dot` — The category dot. Its colour is data, so it comes from the markup.
 - `.hl-row__main`
 - `.hl-row__name`

@@ -799,7 +799,7 @@
 
 /* ── data / DataRow ───────────────────────────────────────────────────── */
 
-/* A hairline line: dot, name, mono meta, figure, running total. */
+/* A ledger line: dot, name, mono meta, figure, running total. */
 .hl-row {
   display: flex;
   align-items: center;
