@@ -13,14 +13,15 @@
     "check:port": "tsx scripts/check-port.ts"
   },
   "dependencies": {
+    "@hairline/ds": "workspace:*",
     "@hairline/tokens": "workspace:*",
     "@radix-ui/react-slot": "^1.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "@hairline/ds": "workspace:*",
     "next": "^15.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "shiki": "^4.4.3",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {

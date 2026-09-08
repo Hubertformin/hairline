@@ -25,3 +25,22 @@ body {
   background: var(--marker);
   color: var(--ink-1);
 }
+
+/* Shiki output. The wrapper owns the surface, so the highlighter's own background is
+   dropped — otherwise the code block would carry a second, slightly-off panel inside it. */
+.hl-code pre {
+  margin: 0;
+  padding: var(--pad-card);
+  overflow-x: auto;
+  background: transparent !important;
+  font: var(--type-data);
+  line-height: 1.7;
+}
+
+.hl-code code {
+  font: inherit;
+}
+
+/* The theme is driven by data-theme, not the `dark` class, so bind Tailwind's dark
+   variant to the same attribute rather than maintaining two switches. */
+@custom-variant dark ([data-theme="dark"] &);

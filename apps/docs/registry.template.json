@@ -643,6 +643,61 @@
           "status": "stable"
         }
       }
+    },
+    {
+      "name": "category-bubbles",
+      "type": "registry:ui",
+      "title": "CategoryBubbles",
+      "description": "Category spend as a field of bubbles around a core figure. Use when showing where money went across categories.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "charts",
+        "data-display",
+        "expenses"
+      ],
+      "registryDependencies": [
+        "{{REGISTRY_URL}}/r/base.json"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/category-bubbles.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Share is encoded as area, so radius is the square root of share — do not scale radius linearly or large categories will dwarf the field. The rings and tick collar are furniture and never carry data.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Shows the share each category takes of a total, as area.",
+          "useWhen": [
+            "a spending breakdown",
+            "portfolio allocation",
+            "any part-to-whole across 3-12 categories"
+          ],
+          "dontUseWhen": [
+            "two categories",
+            "a time series",
+            "precise value comparison"
+          ],
+          "insteadUse": {
+            "two categories": "@hairline/meter-bar",
+            "a time series": "@hairline/sparkline",
+            "precise value comparison": "@hairline/data-row"
+          },
+          "composesWith": [
+            "@hairline/tile",
+            "@hairline/data-row"
+          ],
+          "rules": [
+            "colour-is-data",
+            "tabular-figures"
+          ],
+          "example": "<CategoryBubbles total={540900} coreLabel=\"Total expenses\" bubbles={categories} />",
+          "antiExample": "<CategoryBubbles bubbles={[a, b]} />",
+          "antiExampleWhy": "With two categories the field is two circles and a lot of empty instrument furniture; a meter bar says the same thing in a tenth of the space.",
+          "status": "stable"
+        }
+      }
     }
   ]
 }

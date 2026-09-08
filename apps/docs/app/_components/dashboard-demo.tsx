@@ -35,7 +35,7 @@ export function DashboardDemo() {
   const [range, setRange] = React.useState('Month');
 
   return (
-    <div className="bg-desk rounded-board p-s9 md:p-s11">
+    <div className="bg-desk rounded-board p-s6 sm:p-s9 md:p-s11 min-w-0">
       <div className="flex items-center justify-between gap-s9 mb-s11 flex-wrap">
         <SegmentedTabs items={['Month', 'Quarter', 'Year']} value={range} onChange={setRange} />
         <div className="flex items-center gap-s5">
@@ -44,11 +44,11 @@ export function DashboardDemo() {
         </div>
       </div>
 
-      <div className="grid gap-gap-tile lg:grid-cols-[1.15fr_1fr]">
-        <div className="flex flex-col gap-gap-tile">
+      <div className="grid gap-gap-tile lg:grid-cols-[1.15fr_1fr] min-w-0">
+        <div className="flex flex-col gap-gap-tile min-w-0">
           <Tile tone="dark" label="Available">
             <div className="flex items-baseline gap-s5">
-              <span className="type-figure-xl tracking-figure text-on-inverse">
+              <span className="type-figure-m sm:type-figure-l md:type-figure-xl tracking-figure text-on-inverse">
                 <TickingFigure value={227400} />
               </span>
               <span className="type-data-s tracking-unit uppercase text-white/50">XAF</span>
@@ -58,7 +58,7 @@ export function DashboardDemo() {
             </p>
           </Tile>
 
-          <div className="grid grid-cols-2 gap-gap-tile">
+          <div className="grid grid-cols-2 gap-gap-tile min-w-0">
             <Tile label="This month">
               <StatBlock size="s" value={<TickingFigure value={1284900} />} note="Nothing saved this month." />
             </Tile>
@@ -93,7 +93,7 @@ export function DashboardDemo() {
           </Tile>
         </div>
 
-        <div className="flex flex-col gap-gap-tile">
+        <div className="flex flex-col gap-gap-tile min-w-0">
           <Tile tone="paper" label="Needs a decision" action={<Badge tone="alarm">1</Badge>}>
             <div className="type-item text-strong">Pay the school fees today?</div>
             <p className="type-body-s text-muted mt-s4 mb-s9">

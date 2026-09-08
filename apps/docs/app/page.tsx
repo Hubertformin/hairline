@@ -1,9 +1,7 @@
-import { CodeBlock } from './components/code-block';
-import { ComponentPreview } from './components/component-preview';
-import { DashboardDemo } from './components/dashboard-demo';
-import { SiteFooter } from './components/site-footer';
-import { SiteNav } from './components/site-nav';
-import { GALLERY } from './gallery';
+import { CodeBlock } from './_components/code-block';
+import { DashboardDemo } from './_components/dashboard-demo';
+import { SiteFooter } from './_components/site-footer';
+import { SiteNav } from './_components/site-nav';
 import { PAIRS } from './fidelity';
 
 const PRINCIPLES = [
@@ -28,7 +26,7 @@ export default function Home() {
 
       <main id="top">
         {/* Hero */}
-        <section className="mx-auto max-w-6xl px-s9 pt-s14 pb-s13">
+        <section className="mx-auto max-w-6xl px-s7 sm:px-s9 pt-s12 sm:pt-s14 pb-s13">
           <div className="grid gap-gap-column lg:grid-cols-[1.35fr_1fr] lg:items-end mb-s13">
             <div>
               <div className="type-label text-faint mb-s7">A design system for finance</div>
@@ -56,7 +54,7 @@ export default function Home() {
 
         {/* Principles */}
         <section className="border-t border-hairline">
-          <div className="mx-auto max-w-6xl px-s9 py-s13 grid gap-gap-column md:grid-cols-3">
+          <div className="mx-auto max-w-6xl px-s7 sm:px-s9 py-s12 sm:py-s13 grid gap-gap-column md:grid-cols-3">
             {PRINCIPLES.map((p) => (
               <div key={p.label}>
                 <h2 className="type-lead text-strong m-0 mb-s5">{p.label}</h2>
@@ -66,39 +64,32 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Components */}
-        <section id="components" className="border-t border-hairline scroll-mt-14">
-          <div className="mx-auto max-w-4xl px-s9 py-s13">
-            <div className="mb-s13">
+        {/* Components route-in */}
+        <section className="border-t border-hairline">
+          <div className="mx-auto max-w-6xl px-s7 sm:px-s9 py-s12 sm:py-s13 flex flex-col md:flex-row md:items-end md:justify-between gap-s11">
+            <div className="max-w-[52ch]">
               <div className="type-label text-faint mb-s5">Components</div>
               <h2 className="type-figure-m tracking-figure text-strong m-0 mb-s5 text-balance">
-                Twelve today. The ones finance actually needs, next.
+                Fourteen today. The ones finance actually needs, next.
               </h2>
               <p className="type-body text-body m-0">
-                Each installs on its own and brings only what it uses. Copy the command, or point a
-                coding agent at the registry and let it choose.
+                Live previews, the source, and an install command for each — plus machine-readable
+                notes so a coding agent picks the right one.
               </p>
             </div>
-
-            <div className="flex flex-col gap-s14">
-              {GALLERY.map((entry) => (
-                <ComponentPreview
-                  key={entry.slug}
-                  name={entry.name}
-                  description={entry.description}
-                  install={`npx shadcn@latest add @hairline/${entry.slug}`}
-                  code={entry.code}
-                >
-                  {entry.demo}
-                </ComponentPreview>
-              ))}
-            </div>
+            <a
+              href="/components"
+              className="shrink-0 inline-flex items-center justify-center gap-s3 h-control px-s8 rounded-pill no-underline type-control bg-solid text-solid-text hover:bg-ink-2 transition-[color,background-color] duration-fast ease-hairline"
+            >
+              Browse components
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h13M12.5 6.5L19 12l-6.5 5.5" /></svg>
+            </a>
           </div>
         </section>
 
         {/* Fidelity */}
         <section id="fidelity" className="border-t border-hairline scroll-mt-14">
-          <div className="mx-auto max-w-6xl px-s9 py-s13">
+          <div className="mx-auto max-w-6xl px-s7 sm:px-s9 py-s12 sm:py-s13">
             <div className="mb-s11 max-w-[62ch]">
               <div className="type-label text-faint mb-s5">Fidelity</div>
               <h2 className="type-figure-m tracking-figure text-strong m-0 mb-s5">
@@ -111,18 +102,18 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-gap-tile items-start">
-              <div>
+            <div className="grid md:grid-cols-2 gap-gap-tile items-start min-w-0">
+              <div className="min-w-0">
                 <div className="type-label text-faint mb-s5">Original — .hl-* classes</div>
-                <div data-fidelity="original" className="rounded-card bg-surface-1 p-s9 flex flex-col gap-s12">
+                <div data-fidelity="original" className="rounded-card bg-surface-1 p-s9 flex flex-col gap-s12 max-md:overflow-x-auto">
                   {PAIRS.map((pair) => (
                     <div key={pair.name}>{pair.original}</div>
                   ))}
                 </div>
               </div>
-              <div>
+              <div className="min-w-0">
                 <div className="type-label text-faint mb-s5">Ported — Tailwind + CVA</div>
-                <div data-fidelity="ported" className="rounded-card bg-surface-1 p-s9 flex flex-col gap-s12">
+                <div data-fidelity="ported" className="rounded-card bg-surface-1 p-s9 flex flex-col gap-s12 max-md:overflow-x-auto">
                   {PAIRS.map((pair) => (
                     <div key={pair.name}>{pair.ported}</div>
                   ))}

@@ -1,7 +1,7 @@
 export function SiteFooter() {
   return (
     <footer className="border-t border-hairline mt-s14">
-      <div className="mx-auto max-w-6xl px-s9 py-s13 flex flex-wrap items-start justify-between gap-s11">
+      <div className="mx-auto max-w-6xl px-s7 sm:px-s9 py-s12 sm:py-s13 flex flex-wrap items-start justify-between gap-s11">
         <div className="max-w-[46ch]">
           <div className="flex items-center gap-s4 mb-s5">
             <span className="block w-6 h-px bg-ink-1" />
@@ -12,7 +12,7 @@ export function SiteFooter() {
             channel; restraint is the point.
           </p>
         </div>
-        <div className="flex gap-s13">
+        <div className="flex flex-wrap gap-s11 sm:gap-s13">
           <div>
             <div className="type-label text-faint mb-s5">Install</div>
             <code className="type-data-s text-body">npx shadcn add @hairline/button</code>
