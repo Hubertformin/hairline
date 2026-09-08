@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select-display",
+  "type": "registry:ui",
+  "title": "SelectDisplay",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A closed dropdown trigger with an optional category dot. Use when showing a chosen value; it does not open a menu.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/select-display.tsx",
+      "content": "import * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nconst caret = (\n  <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" aria-hidden=\"true\">\n    <path d=\"M6.5 10l5.5 5 5.5-5\" />\n  </svg>\n);\n\nexport interface SelectDisplayProps extends Omit<React.ComponentProps<'button'>, 'value'> {\n  label?: React.ReactNode;\n  value?: React.ReactNode;\n  /** A category dot. Its colour is data, so it is passed in as a CSS colour. */\n  dot?: string;\n  /** Mono detail after the value — an account number, a count. */\n  meta?: React.ReactNode;\n}\n\n/**\n * A closed dropdown — the trigger only.\n *\n * It renders the closed state and calls `onClick`; it does not open a menu, manage a\n * listbox or handle keyboard selection. That is deliberate: a closed-looking select is\n * a legitimate *display* pattern in the original screens. When you need a real menu,\n * install `@hairline/select`; for more than about ten options with typeahead, install\n * `@hairline/combobox`.\n */\nexport function SelectDisplay({ className, label, value, dot, meta, type = 'button', ...props }: SelectDisplayProps) {\n  return (\n    <div data-slot=\"select-display\" className={className}>\n      {label ? <div className=\"type-label-s text-faint\">{label}</div> : null}\n      <button\n        type={type}\n        className={\n          'mt-s4 h-field px-s7 w-full flex items-center justify-between gap-s5 text-left ' +\n          'rounded-field bg-field border-0 cursor-pointer ' +\n          'transition-[color,background-color] duration-fast ease-hairline ' +\n          'hover:bg-quiet focus-visible:focus-ring-inset'\n        }\n        {...props}\n      >\n        {/* Baseline, not centre: the value is 13.5px and the meta 11px, so centring\n            them floats the meta off the value's baseline. */}\n        <span className=\"flex items-baseline gap-s4 min-w-0\">\n          {dot ? <span className=\"size-dot rounded-full shrink-0 self-center\" style={{ background: dot }} /> : null}\n          <span className=\"type-value text-strong truncate\">{value}</span>\n          {meta ? <span className=\"type-data-s text-muted shrink-0\">{meta}</span> : null}\n        </span>\n        <span className=\"text-muted flex shrink-0\">{caret}</span>\n      </button>\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Shows a chosen value in the closed state.",
+      "useWhen": [
+        "displaying a selected account or category",
+        "a trigger for your own popover"
+      ],
+      "dontUseWhen": [
+        "you need a working menu with keyboard selection"
+      ],
+      "insteadUse": {
+        "you need a working menu with keyboard selection": "a native <select>, or @hairline/select once published"
+      },
+      "rules": [
+        "colour-is-data"
+      ],
+      "example": "<SelectDisplay label=\"Category\" value=\"School fees\" dot=\"var(--a-coral)\" meta=\"3 this month\" />",
+      "antiExample": "<SelectDisplay value=\"Pick one\" onClick={openMenu} />",
+      "antiExampleWhy": "Fine as a trigger, but do not present it as a functioning select without wiring a real menu behind it.",
+      "status": "stable"
+    }
+  },
+  "docs": "This is the trigger only — it renders the closed state and calls onClick. Wire it to your own popover, or use a native <select> when you need platform behaviour.",
+  "categories": [
+    "forms"
+  ]
+}

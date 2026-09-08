@@ -1,5 +1,5 @@
 /**
- * Ledger colour.
+ * Hairline colour.
  *
  * Chrome is monochrome. Colour appears only where it encodes data — a category,
  * a series, a status. Semantic colours always travel as an ink + wash pair.

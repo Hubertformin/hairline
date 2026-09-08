@@ -1,8 +1,8 @@
 {
-  "name": "ledger-monorepo",
+  "name": "hairline-monorepo",
   "private": true,
   "type": "module",
-  "description": "Ledger — a calm finance design system and component library.",
+  "description": "Hairline — a calm finance design system and component library.",
   "scripts": {
     "build": "turbo run build",
     "check": "turbo run check",

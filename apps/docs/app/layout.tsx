@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Ledger — a calm design system for finance',
+  title: 'Hairline — a calm design system for finance',
   description:
     'Monochrome ink on paper, mono uppercase labels, tabular figures, colour reserved for data. Installable with the shadcn CLI.',
 };

@@ -2,21 +2,21 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "base",
   "type": "registry:item",
-  "title": "Ledger base",
+  "title": "Hairline base",
   "author": "Hubert Formin <hformin@gmail.com>",
-  "description": "Ledger design tokens, the Tailwind theme and the type utilities. Use when installing any Ledger component — everything depends on it.",
+  "description": "Hairline design tokens, the Tailwind theme and the type utilities. Use when installing any Hairline component — everything depends on it.",
   "dependencies": [
     "clsx",
     "tailwind-merge"
   ],
   "files": [
     {
-      "path": "registry/ledger/lib/utils.ts",
+      "path": "registry/hairline/lib/utils.ts",
       "content": "import { clsx, type ClassValue } from 'clsx';\nimport { twMerge } from 'tailwind-merge';\n\n/**\n * Joins class names and resolves Tailwind conflicts, so a `className` a caller\n * passes in actually wins over the component's own classes. That is the whole\n * promise of copy-in components — without it, overriding a padding means editing\n * the file rather than passing a prop.\n */\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs));\n}\n",
       "type": "registry:lib"
     }
   ],
-  "docs": "Import the Ledger theme once at the top of your global stylesheet: `@import \"@ledger/tokens/theme.css\";` — or copy the tokens in directly. Ledger sets font-variant-numeric on every figure; do not override it, and never set a figure in the sans inside a table.",
+  "docs": "Import the Hairline theme once at the top of your global stylesheet: `@import \"@hairline/tokens/theme.css\";` — or copy the tokens in directly. Hairline sets font-variant-numeric on every figure; do not override it, and never set a figure in the sans inside a table.",
   "categories": [
     "primitives"
   ]

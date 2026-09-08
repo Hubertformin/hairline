@@ -1,5 +1,6 @@
-import { Button } from '@/registry/ledger/ui/button';
+import { Button } from '@/registry/hairline/ui/button';
 import { ThemeToggle } from './components/theme-toggle';
+import { PAIRS } from './fidelity';
 
 const TONES = ['solid', 'quiet', 'ghost', 'danger'] as const;
 
@@ -21,7 +22,7 @@ export default function Home() {
     <main className="max-w-5xl mx-auto px-s12 py-s13 flex flex-col gap-gap-column">
       <header className="bg-paper rounded-board py-board-y px-board-x flex items-start justify-between gap-s9">
         <div>
-          <h1 className="type-figure-l text-strong tracking-figure m-0 mb-s4">Ledger</h1>
+          <h1 className="type-figure-l text-strong tracking-figure m-0 mb-s4">Hairline</h1>
           <p className="type-body text-body m-0 max-w-[62ch]">
             A calm design system for finance. Monochrome ink on paper, mono uppercase labels,
             tabular figures, generous space, and colour reserved for data. Every component on this
@@ -35,12 +36,12 @@ export default function Home() {
         <Label>Add the registry to components.json</Label>
         <pre className="bg-surface-2 rounded-card py-card-y px-card-x type-data text-body overflow-x-auto m-0 mb-s9">
 {`"registries": {
-  "@ledger": "https://ledger-ui.com/r/{name}.json"
+  "@hairline": "https://hairline-ui.com/r/{name}.json"
 }`}
         </pre>
         <Label>Then</Label>
         <pre className="bg-surface-2 rounded-card py-card-y px-card-x type-data text-body overflow-x-auto m-0">
-          npx shadcn@latest add @ledger/button
+          npx shadcn@latest add @hairline/button
         </pre>
       </Board>
 
@@ -83,35 +84,47 @@ export default function Home() {
         </div>
       </Board>
 
+      <Board title="Every component">
+        <p className="type-body text-body m-0 mb-s11 max-w-[62ch]">
+          All twelve, rendered by the ported Tailwind components. Toggle the theme above —
+          nothing here changes but the tokens underneath.
+        </p>
+        <div className="flex flex-col gap-s13">
+          {PAIRS.map((pair) => (
+            <div key={pair.name}>
+              <Label>{pair.name}</Label>
+              {pair.ported}
+            </div>
+          ))}
+        </div>
+      </Board>
+
       <Board title="Fidelity">
         <p className="type-body text-body m-0 mb-s11 max-w-[62ch]">
-          The same buttons rendered by the original class layer and by the ported Tailwind
-          component. These must be indistinguishable — a pixel diff of exactly this pairing runs on
-          every commit.
+          The same twelve rendered by the original class layer and by the ported Tailwind
+          components. These must be indistinguishable — a pixel diff of exactly this pairing runs
+          in both themes on every commit.
         </p>
-        <div className="grid grid-cols-2 gap-gap-tile">
+        <div className="grid grid-cols-2 gap-gap-tile items-start">
           <div>
-            <Label>Original — .led-* classes</Label>
+            <Label>Original — .hl-* classes</Label>
             <div
               data-fidelity="original"
-              className="bg-surface-1 rounded-card p-s9 flex flex-wrap items-center gap-s5"
+              className="bg-surface-1 rounded-card p-s9 flex flex-col gap-s12"
             >
-              <button className="led-btn led-btn--solid">Record it</button>
-              <button className="led-btn led-btn--quiet">Move to April</button>
-              <button className="led-btn led-btn--ghost">Skip this month</button>
-              <button className="led-btn led-btn--danger">Delete account</button>
+              {PAIRS.map((pair) => (
+                <div key={pair.name}>{pair.original}</div>
+              ))}
             </div>
           </div>
           <div>
             <Label>Ported — Tailwind + CVA</Label>
             <div
               data-fidelity="ported"
-              className="bg-surface-1 rounded-card p-s9 flex flex-wrap items-center gap-s5"
+              className="bg-surface-1 rounded-card p-s9 flex flex-col gap-s12"
             >
-              {TONES.map((tone) => (
-                <Button key={tone} tone={tone}>
-                  {{ solid: 'Record it', quiet: 'Move to April', ghost: 'Skip this month', danger: 'Delete account' }[tone]}
-                </Button>
+              {PAIRS.map((pair) => (
+                <div key={pair.name}>{pair.ported}</div>
               ))}
             </div>
           </div>

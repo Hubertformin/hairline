@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Button } from '@/registry/ledger/ui/button';
+import { Button } from '@/registry/hairline/ui/button';
 
 /** Flips `data-theme` on <html>, which is all the token layer needs to swap themes. */
 export function ThemeToggle() {

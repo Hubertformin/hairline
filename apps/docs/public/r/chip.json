@@ -1,0 +1,49 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chip",
+  "type": "registry:ui",
+  "title": "Chip",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "An outlined pill holding a whole phrase. Use for suggestions, presets and filters — not for single words.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/chip.tsx",
+      "content": "import * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nexport interface ChipProps extends React.ComponentProps<'button'> {\n  selected?: boolean;\n  /**\n   * A chip that only reports — a preset that is not pressable. Renders a <span>, so\n   * it never lands in the tab order or announces itself as a button.\n   */\n  interactive?: boolean;\n}\n\n/**\n * An outlined pill holding a whole phrase — suggestions, presets, filters.\n *\n * `box-border` is deliberate: the height token is the *content* box, and the 1px\n * border sits outside it, so a chip lines up with the tab beside it.\n */\nexport function Chip({ className, selected = false, interactive = true, type = 'button', ...props }: ChipProps) {\n  const classes = cn(\n    'box-content inline-flex items-center gap-s3 h-pill px-s6 rounded-pill type-chip',\n    'border border-rule bg-transparent text-body',\n    'transition-[border-color,color] duration-fast ease-hairline',\n    interactive && 'cursor-pointer hover:border-muted hover:text-strong focus-visible:focus-ring-inset',\n    selected && 'border-ink-1 text-strong',\n    className,\n  );\n\n  if (!interactive) {\n    const { disabled: _d, form: _f, value: _v, ...rest } = props;\n    return <span data-slot=\"chip\" className={classes} {...rest} />;\n  }\n  return <button data-slot=\"chip\" type={type} aria-pressed={selected} className={classes} {...props} />;\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "An outlined pill carrying a whole phrase.",
+      "useWhen": [
+        "filter presets",
+        "assistant suggestions",
+        "a selected range"
+      ],
+      "dontUseWhen": [
+        "a status marker",
+        "a primary action"
+      ],
+      "insteadUse": {
+        "a status marker": "@hairline/badge",
+        "a primary action": "@hairline/button"
+      },
+      "rules": [
+        "colour-is-data"
+      ],
+      "example": "<Chip selected>This month</Chip>",
+      "antiExample": "<Chip>Yes</Chip>",
+      "antiExampleWhy": "A chip holds a phrase, not a word; a one-word chip should be a button or a badge.",
+      "status": "stable"
+    }
+  },
+  "docs": "Set `interactive={false}` for a chip that only reports; it renders a <span> so it stays out of the tab order.",
+  "categories": [
+    "primitives",
+    "forms"
+  ]
+}

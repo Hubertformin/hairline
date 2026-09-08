@@ -1,0 +1,50 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tile",
+  "type": "registry:ui",
+  "title": "Tile",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "The only card shape: a fill, a radius, no border. Use to group anything that belongs together on a board.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/tile.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\n/**\n * The only card shape in the system: a fill, a radius, no border.\n *\n * `dark` is the one large inverted area allowed, and it appears once per page holding\n * the primary figure. It reads the `surface-inverse` role rather than the ink ramp, so\n * it stays the high-contrast tile in dark mode instead of flipping to white.\n */\nexport const tileVariants = cva('py-card-y px-card-x rounded-card', {\n  variants: {\n    tone: {\n      quiet: 'bg-card text-strong',\n      paper: 'bg-paper text-strong shadow-raised',\n      dark: 'bg-surface-inverse text-on-inverse',\n      alarm: 'bg-alarm-wash text-strong',\n      info: 'bg-info-wash text-strong',\n      caution: 'bg-caution-wash text-strong',\n    },\n  },\n  defaultVariants: { tone: 'quiet' },\n});\n\nexport interface TileProps extends React.ComponentProps<'div'>, VariantProps<typeof tileVariants> {\n  /** The mono uppercase label in the tile's head row. */\n  label?: React.ReactNode;\n  /** A control at the trailing edge of the head row. */\n  action?: React.ReactNode;\n}\n\nexport function Tile({ className, tone, label, action, children, ...props }: TileProps) {\n  return (\n    <div\n      data-slot=\"tile\"\n      data-tone={tone ?? 'quiet'}\n      /* `group` so descendants can react to the tile's tone — an inverted tile has to\n         re-colour the label and figure inside it, and Tailwind reaches an ancestor's\n         data attribute only through a group. */\n      className={cn('group/tile', tileVariants({ tone }), className)}\n      {...props}\n    >\n      {label || action ? (\n        <div className=\"flex items-center justify-between gap-s5 mb-s6\">\n          {label ? (\n            /* On the inverted tile the label lifts off the ink rather than sinking in. */\n            <span className=\"type-label text-faint group-data-[tone=dark]/tile:text-white/66\">\n              {label}\n            </span>\n          ) : (\n            <span />\n          )}\n          {action}\n        </div>\n      ) : null}\n      {children}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "The system's only card.",
+      "useWhen": [
+        "grouping a figure with its meaning",
+        "a dashboard cell"
+      ],
+      "dontUseWhen": [
+        "a bordered container",
+        "a modal surface"
+      ],
+      "insteadUse": {},
+      "rules": [
+        "hairline-not-box",
+        "one-dark-tile-per-page"
+      ],
+      "example": "<Tile tone=\"dark\" label=\"Available\"><StatBlock size=\"l\" value=\"227 400\" unit=\"XAF\" /></Tile>",
+      "antiExample": "<div className=\"border rounded p-4\">…</div>",
+      "antiExampleWhy": "Cards in this system take a fill, never a border.",
+      "status": "stable"
+    }
+  },
+  "docs": "Exactly one `tone=\"dark\"` tile per page, holding the primary figure.",
+  "categories": [
+    "primitives",
+    "data-display",
+    "dashboard"
+  ]
+}

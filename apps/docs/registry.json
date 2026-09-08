@@ -1,20 +1,28 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "ledger",
-  "homepage": "https://ledger-ui.com",
+  "name": "hairline",
+  "homepage": "https://hairline-ui.com",
   "items": [
     {
       "name": "base",
       "type": "registry:item",
-      "title": "Ledger base",
-      "description": "Ledger design tokens, the Tailwind theme and the type utilities. Use when installing any Ledger component — everything depends on it.",
+      "title": "Hairline base",
+      "description": "Hairline design tokens, the Tailwind theme and the type utilities. Use when installing any Hairline component — everything depends on it.",
       "author": "Hubert Formin <hformin@gmail.com>",
-      "categories": ["primitives"],
-      "dependencies": ["clsx", "tailwind-merge"],
-      "files": [
-        { "path": "registry/ledger/lib/utils.ts", "type": "registry:lib" }
+      "categories": [
+        "primitives"
       ],
-      "docs": "Import the Ledger theme once at the top of your global stylesheet: `@import \"@ledger/tokens/theme.css\";` — or copy the tokens in directly. Ledger sets font-variant-numeric on every figure; do not override it, and never set a figure in the sans inside a table."
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/lib/utils.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "docs": "Import the Hairline theme once at the top of your global stylesheet: `@import \"@hairline/tokens/theme.css\";` — or copy the tokens in directly. Hairline sets font-variant-numeric on every figure; do not override it, and never set a figure in the sans inside a table."
     },
     {
       "name": "button",
@@ -22,28 +30,567 @@
       "title": "Button",
       "description": "A pill button in four tones and three sizes. Use when the user takes an action; solid is the one primary action per view.",
       "author": "Hubert Formin <hformin@gmail.com>",
-      "categories": ["primitives", "forms"],
-      "dependencies": ["@radix-ui/react-slot", "class-variance-authority"],
-      "registryDependencies": ["base"],
+      "categories": [
+        "primitives",
+        "forms"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
       "files": [
-        { "path": "registry/ledger/ui/button.tsx", "type": "registry:ui" }
+        {
+          "path": "registry/hairline/ui/button.tsx",
+          "type": "registry:ui"
+        }
       ],
       "docs": "Exactly one `tone=\"solid\"` button per view. Use `quiet` for the action beside it, `ghost` for tertiary, and `danger` only for destructive actions.",
       "meta": {
-        "ledger": {
+        "hairline": {
           "v": 1,
           "purpose": "The one pressable shape in the system.",
-          "useWhen": ["the user takes an action", "a form is submitted", "a dialog is confirmed"],
-          "dontUseWhen": ["navigating between pages", "toggling a setting", "selecting from a set of options"],
+          "useWhen": [
+            "the user takes an action",
+            "a form is submitted",
+            "a dialog is confirmed"
+          ],
+          "dontUseWhen": [
+            "navigating between pages",
+            "toggling a setting",
+            "selecting from a set of options"
+          ],
           "insteadUse": {
             "navigating between pages": "a link styled with buttonVariants via asChild",
-            "toggling a setting": "@ledger/toggle",
-            "selecting from a set of options": "@ledger/segmented-tabs"
+            "toggling a setting": "@hairline/toggle",
+            "selecting from a set of options": "@hairline/segmented-tabs"
           },
-          "rules": ["one-solid-button", "colour-is-data"],
+          "rules": [
+            "one-solid-button",
+            "colour-is-data"
+          ],
           "example": "<Button tone=\"solid\">Record it</Button>",
           "antiExample": "<button className=\"bg-blue-600 text-white rounded px-4 py-2\">Submit</button>",
-          "antiExampleWhy": "Stock Tailwind palette colours are not Ledger tokens, the radius is not the pill the system uses, and \"Submit\" is not a plain verb naming what will happen.",
+          "antiExampleWhy": "Stock Tailwind palette colours are not Hairline tokens, the radius is not the pill the system uses, and \"Submit\" is not a plain verb naming what will happen.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "icon-button",
+      "type": "registry:ui",
+      "title": "IconButton",
+      "description": "A round button holding one 24-grid stroke glyph. Use when an action is clear from its icon and space is tight.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "primitives",
+        "forms"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/icon-button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "The `label` prop is required — a button holding only a glyph is unreachable without an accessible name.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "A round, icon-only button.",
+          "useWhen": [
+            "a toolbar action",
+            "a close or dismiss control",
+            "the assistant send button"
+          ],
+          "dontUseWhen": [
+            "the action needs a word to be understood",
+            "it is the primary action of a view"
+          ],
+          "insteadUse": {
+            "the action needs a word to be understood": "@hairline/button"
+          },
+          "rules": [
+            "colour-is-data"
+          ],
+          "example": "<IconButton label=\"Add an account\">{icon}</IconButton>",
+          "antiExample": "<button><Icon /></button>",
+          "antiExampleWhy": "No accessible name, and none of the system's sizing or tone tokens.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "An outlined pill holding a whole phrase. Use for suggestions, presets and filters — not for single words.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "primitives",
+        "forms"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/chip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Set `interactive={false}` for a chip that only reports; it renders a <span> so it stays out of the tab order.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "An outlined pill carrying a whole phrase.",
+          "useWhen": [
+            "filter presets",
+            "assistant suggestions",
+            "a selected range"
+          ],
+          "dontUseWhen": [
+            "a status marker",
+            "a primary action"
+          ],
+          "insteadUse": {
+            "a status marker": "@hairline/badge",
+            "a primary action": "@hairline/button"
+          },
+          "rules": [
+            "colour-is-data"
+          ],
+          "example": "<Chip selected>This month</Chip>",
+          "antiExample": "<Chip>Yes</Chip>",
+          "antiExampleWhy": "A chip holds a phrase, not a word; a one-word chip should be a button or a badge.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A mono uppercase state marker in five tones. Use to mark the state of the thing it sits beside.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "primitives",
+        "data-display"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Ink and wash travel together — never a border-only accent, and never colour alone.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Marks a state.",
+          "useWhen": [
+            "a transaction status",
+            "a locked or held marker",
+            "needs-a-decision flags"
+          ],
+          "dontUseWhen": [
+            "a pressable filter",
+            "a count"
+          ],
+          "insteadUse": {
+            "a pressable filter": "@hairline/chip"
+          },
+          "rules": [
+            "semantic-ink-with-wash",
+            "mono-uppercase-labels-only"
+          ],
+          "example": "<Badge tone=\"alarm\">Needs a decision</Badge>",
+          "antiExample": "<span className=\"text-red-500 border border-red-500\">Late</span>",
+          "antiExampleWhy": "Border-only accent, stock palette colour, and not the mono uppercase label the system uses for state.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "tile",
+      "type": "registry:ui",
+      "title": "Tile",
+      "description": "The only card shape: a fill, a radius, no border. Use to group anything that belongs together on a board.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "primitives",
+        "data-display",
+        "dashboard"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/tile.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Exactly one `tone=\"dark\"` tile per page, holding the primary figure.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "The system's only card.",
+          "useWhen": [
+            "grouping a figure with its meaning",
+            "a dashboard cell"
+          ],
+          "dontUseWhen": [
+            "a bordered container",
+            "a modal surface"
+          ],
+          "insteadUse": {},
+          "rules": [
+            "hairline-not-box",
+            "one-dark-tile-per-page"
+          ],
+          "example": "<Tile tone=\"dark\" label=\"Available\"><StatBlock size=\"l\" value=\"227 400\" unit=\"XAF\" /></Tile>",
+          "antiExample": "<div className=\"border rounded p-4\">…</div>",
+          "antiExampleWhy": "Cards in this system take a fill, never a border.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "stat-block",
+      "type": "registry:ui",
+      "title": "StatBlock",
+      "description": "A label, a big tight figure and one line of meaning. Use whenever a number is the point of a section.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "data-display",
+        "dashboard"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/stat-block.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Say the number, then say what it means: a `value` without a `note` is usually a missed sentence.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Presents a figure with its consequence.",
+          "useWhen": [
+            "a balance",
+            "a total",
+            "a headline metric"
+          ],
+          "dontUseWhen": [
+            "a figure inside a table row",
+            "an inline amount in prose"
+          ],
+          "insteadUse": {
+            "a figure inside a table row": "@hairline/data-row"
+          },
+          "rules": [
+            "number-then-consequence",
+            "tabular-figures",
+            "one-xl-stat-per-screen"
+          ],
+          "example": "<StatBlock label=\"Total expenses\" value=\"1 284 900\" unit=\"XAF\" note=\"258 900 of it is the deferred fees.\" />",
+          "antiExample": "<h2>1,284,900</h2>",
+          "antiExampleWhy": "No label, no consequence, and a sans figure with comma grouping instead of the system's mono tabular figures.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "data-row",
+      "type": "registry:ui",
+      "title": "DataRow",
+      "description": "A ledger line: dot, name, mono meta, figure and running total. Use for any list of transactions or entries.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "data-display",
+        "banking",
+        "expenses"
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/data-row.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "A settled or skipped line uses `state=\"demoted\"` or `\"struck\"` — it steps down AND takes a mark, because lightness alone is not readable.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "One line of a ledger.",
+          "useWhen": [
+            "a transaction list",
+            "a list of bills",
+            "any entry with an amount"
+          ],
+          "dontUseWhen": [
+            "a table needing sortable columns"
+          ],
+          "insteadUse": {
+            "a table needing sortable columns": "@hairline/data-table"
+          },
+          "rules": [
+            "tabular-figures",
+            "hairline-not-box",
+            "demote-with-a-mark-not-lightness"
+          ],
+          "example": "<DataRow dot=\"var(--a-coral)\" name=\"School fees\" meta=\"22 Mar · Mobile money\" state=\"alarm\" amount=\"−258 900\" secondary=\"227 400\" />",
+          "antiExample": "<tr><td>School fees</td><td>-258900</td></tr>",
+          "antiExampleWhy": "Unformatted figure, no tabular alignment, and a table border model the system does not use.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "meter-bar",
+      "type": "registry:ui",
+      "title": "MeterBar",
+      "description": "A limit meter, or a stacked composition bar weighted by amount. Use to show a share or a spend against a ceiling.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "data-display",
+        "charts",
+        "budgets"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/meter-bar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Pass `over` when spend exceeds the limit; the component will not infer it, because the threshold is a policy decision.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Shows a proportion or a limit.",
+          "useWhen": [
+            "budget spent against a ceiling",
+            "a composition of categories"
+          ],
+          "dontUseWhen": [
+            "a time series",
+            "a precise comparison of many values"
+          ],
+          "insteadUse": {
+            "a time series": "@hairline/sparkline"
+          },
+          "rules": [
+            "colour-is-data"
+          ],
+          "example": "<MeterBar value={62} limit={100} />",
+          "antiExample": "<progress value={62} max={100} />",
+          "antiExampleWhy": "Native progress carries browser styling the system does not control.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "A labelled value on a grey fill, with an optional prefix and hint. Use for any form input.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "forms"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Use `size=\"lg\"` for the single amount a form is about — never for two. Pass `editable` for a real input.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "A labelled form value.",
+          "useWhen": [
+            "any form input",
+            "displaying a chosen value"
+          ],
+          "dontUseWhen": [
+            "choosing from a list"
+          ],
+          "insteadUse": {
+            "choosing from a list": "@hairline/select-display"
+          },
+          "rules": [
+            "tabular-figures",
+            "mono-uppercase-labels-only"
+          ],
+          "example": "<Field label=\"Amount\" size=\"lg\" prefix=\"XAF\" value=\"250 000\" hint=\"Leaves nothing until the 28th.\" />",
+          "antiExample": "<input placeholder=\"Amount\" />",
+          "antiExampleWhy": "A placeholder is not a label, and the field loses the system's fill, radius and figure treatment.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "select-display",
+      "type": "registry:ui",
+      "title": "SelectDisplay",
+      "description": "A closed dropdown trigger with an optional category dot. Use when showing a chosen value; it does not open a menu.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "forms"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/select-display.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "This is the trigger only — it renders the closed state and calls onClick. Wire it to your own popover, or use a native <select> when you need platform behaviour.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Shows a chosen value in the closed state.",
+          "useWhen": [
+            "displaying a selected account or category",
+            "a trigger for your own popover"
+          ],
+          "dontUseWhen": [
+            "you need a working menu with keyboard selection"
+          ],
+          "insteadUse": {
+            "you need a working menu with keyboard selection": "a native <select>, or @hairline/select once published"
+          },
+          "rules": [
+            "colour-is-data"
+          ],
+          "example": "<SelectDisplay label=\"Category\" value=\"School fees\" dot=\"var(--a-coral)\" meta=\"3 this month\" />",
+          "antiExample": "<SelectDisplay value=\"Pick one\" onClick={openMenu} />",
+          "antiExampleWhy": "Fine as a trigger, but do not present it as a functioning select without wiring a real menu behind it.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A switch, or a whole settings row with its consequence. Use for a setting that takes effect immediately.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "forms"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Give it a `note`: a setting without its consequence stated is the most common copy failure in finance UIs.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "A binary setting.",
+          "useWhen": [
+            "a preference that applies immediately"
+          ],
+          "dontUseWhen": [
+            "a form field that needs saving",
+            "choosing among several options"
+          ],
+          "insteadUse": {
+            "choosing among several options": "@hairline/segmented-tabs"
+          },
+          "rules": [
+            "number-then-consequence"
+          ],
+          "example": "<Toggle on label=\"Round up every payment\" note=\"Adds about 4 200 a month to the vault.\" />",
+          "antiExample": "<Toggle on label=\"Round ups\" />",
+          "antiExampleWhy": "No consequence stated, so the user cannot tell what turning it on does.",
+          "status": "stable"
+        }
+      }
+    },
+    {
+      "name": "segmented-tabs",
+      "type": "registry:ui",
+      "title": "SegmentedTabs",
+      "description": "A grey track with one raised white segment. Use as the only tab pattern in the system.",
+      "author": "Hubert Formin <hformin@gmail.com>",
+      "categories": [
+        "forms",
+        "dashboard"
+      ],
+      "registryDependencies": [
+        "base"
+      ],
+      "files": [
+        {
+          "path": "registry/hairline/ui/segmented-tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Mono uppercase labels are the default. Use `mono={false}` only when a tab holds a phrase rather than a code.",
+      "meta": {
+        "hairline": {
+          "v": 1,
+          "purpose": "Switches between a small set of views.",
+          "useWhen": [
+            "a period selector",
+            "filtering a list by status"
+          ],
+          "dontUseWhen": [
+            "more than about five options",
+            "navigation between pages"
+          ],
+          "insteadUse": {
+            "more than about five options": "@hairline/select-display"
+          },
+          "rules": [
+            "mono-uppercase-labels-only"
+          ],
+          "example": "<SegmentedTabs items={[\"Month\",\"Quarter\",\"Year\"]} value=\"Month\" onChange={setRange} />",
+          "antiExample": "<div className=\"tabs\">…</div>",
+          "antiExampleWhy": "Loses the raised-segment treatment that is the system's only tab pattern.",
           "status": "stable"
         }
       }

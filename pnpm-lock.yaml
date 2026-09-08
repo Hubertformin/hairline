@@ -17,7 +17,10 @@ importers:
 
   apps/docs:
     dependencies:
-      '@ledger/tokens':
+      '@hairline/ds':
+        specifier: workspace:*
+        version: link:../../packages/hairline
+      '@hairline/tokens':
         specifier: workspace:*
         version: link:../../packages/tokens
       '@radix-ui/react-slot':
@@ -29,9 +32,6 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
-      ledger-ds:
-        specifier: workspace:*
-        version: link:../../packages/ledger-ds
       next:
         specifier: ^15.1.3
         version: 15.5.25(@babel/core@7.29.7)(@types/node@22.20.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -82,9 +82,9 @@ importers:
         specifier: ^5.7.2
         version: 5.9.3
 
-  packages/ledger-ds:
+  packages/hairline:
     dependencies:
-      '@ledger/tokens':
+      '@hairline/tokens':
         specifier: workspace:*
         version: link:../tokens
     devDependencies:

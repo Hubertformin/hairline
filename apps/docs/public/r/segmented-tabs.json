@@ -1,0 +1,47 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "segmented-tabs",
+  "type": "registry:ui",
+  "title": "SegmentedTabs",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A grey track with one raised white segment. Use as the only tab pattern in the system.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/segmented-tabs.tsx",
+      "content": "'use client';\n\n/* This component wires its own onClick, so it cannot render as a Server Component —\n   React Server Components may not attach event handlers to DOM elements. Components\n   that only pass handlers through (Button, Chip, IconButton) stay server-capable. */\nimport * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nexport interface TabItem {\n  id: string;\n  label: React.ReactNode;\n  icon?: React.ReactNode;\n}\n\nexport interface SegmentedTabsProps extends Omit<React.ComponentProps<'div'>, 'onChange'> {\n  /** A bare string is shorthand for `{ id: s, label: s }`. */\n  items?: (TabItem | string)[];\n  value?: string;\n  onChange?: (id: string) => void;\n  /** Mono uppercase labels — the default, and the system's signature. */\n  mono?: boolean;\n}\n\n/** Grey track, one raised white segment. The only tab pattern in the system. */\nexport function SegmentedTabs({ className, items = [], value, onChange, mono = true, ...props }: SegmentedTabsProps) {\n  return (\n    <div\n      data-slot=\"segmented-tabs\"\n      role=\"tablist\"\n      className={cn('inline-flex gap-s1 p-s1 rounded-pill bg-card', className)}\n      {...props}\n    >\n      {items.map((it) => {\n        const item: TabItem = typeof it === 'string' ? { id: it, label: it } : it;\n        const on = item.id === value;\n        return (\n          <button\n            key={item.id}\n            type=\"button\"\n            role=\"tab\"\n            aria-selected={on}\n            onClick={() => onChange?.(item.id)}\n            className={cn(\n              'h-[34px] px-s7 flex items-center gap-s3 rounded-pill border-0 cursor-pointer',\n              'transition-[color,background-color] duration-fast ease-hairline focus-visible:focus-ring-inset',\n              mono ? 'type-label' : 'type-tab normal-case tracking-normal',\n              on ? 'bg-paper text-strong shadow-raised' : 'bg-transparent text-muted hover:text-strong',\n            )}\n          >\n            {item.icon}\n            <span>{item.label}</span>\n          </button>\n        );\n      })}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Switches between a small set of views.",
+      "useWhen": [
+        "a period selector",
+        "filtering a list by status"
+      ],
+      "dontUseWhen": [
+        "more than about five options",
+        "navigation between pages"
+      ],
+      "insteadUse": {
+        "more than about five options": "@hairline/select-display"
+      },
+      "rules": [
+        "mono-uppercase-labels-only"
+      ],
+      "example": "<SegmentedTabs items={[\"Month\",\"Quarter\",\"Year\"]} value=\"Month\" onChange={setRange} />",
+      "antiExample": "<div className=\"tabs\">…</div>",
+      "antiExampleWhy": "Loses the raised-segment treatment that is the system's only tab pattern.",
+      "status": "stable"
+    }
+  },
+  "docs": "Mono uppercase labels are the default. Use `mono={false}` only when a tab holds a phrase rather than a code.",
+  "categories": [
+    "forms",
+    "dashboard"
+  ]
+}

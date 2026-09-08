@@ -1,0 +1,3 @@
+# generated: the token layer now lives in @hairline/tokens
+src/css/tokens.generated.css
+docs/diffs/

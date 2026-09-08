@@ -7,7 +7,7 @@
  * literal value: every declaration is a `var()` reference back into the legacy layer.
  * `check-theme.ts` enforces both of those properties.
  *
- * ── Why the `--lg-*` mirrors ──────────────────────────────────────────────────
+ * ── Why the `--hl-*` mirrors ──────────────────────────────────────────────────
  * Three token families collide with Tailwind v4's own theme namespaces:
  *
  *   --font-sans / --font-mono          collide with --font-*   (font family)
@@ -18,7 +18,7 @@
  * font-size namespace would silently generate broken `text-strong` utilities.
  * Writing `@theme inline { --font-sans: var(--font-sans) }` is also a self-reference.
  *
- * So every legacy token gets a `--lg-`-prefixed mirror, and `@theme` references only
+ * So every legacy token gets a `--hl-`-prefixed mirror, and `@theme` references only
  * mirrors, never legacy names. One rule, no special cases, and a newly added token
  * can never reintroduce the problem.
  *
@@ -30,6 +30,16 @@ import { family, text, tracking, type TextName, type TextStyle } from '../src/ty
 import { space, inset, gap, clearanceBar } from '../src/space.js';
 import { radius, height, shadow, stroke, dotSeries } from '../src/shape.js';
 import { ease, duration } from '../src/motion.js';
+
+/**
+ * A few palette keys read badly under Tailwind's prefixing: `text-on-inverse` in the
+ * colour namespace would generate `text-text-on-inverse`. Shorten those, exactly as
+ * the aliases below are shortened, while the legacy custom property keeps its
+ * descriptive name.
+ */
+export const PALETTE_THEME_KEY: Partial<Record<PaletteName, string>> = {
+  'text-on-inverse': 'on-inverse',
+};
 
 /**
  * Semantic aliases get shortened theme keys, because `--color-text-muted` would
@@ -69,7 +79,7 @@ function mirroredNames(): string[] {
 }
 
 const line = (name: string, value: string) => `  ${name}: ${value};`;
-const mirror = (legacy: string) => line(`--lg-${legacy}`, `var(--${legacy})`);
+const mirror = (legacy: string) => line(`--hl-${legacy}`, `var(--${legacy})`);
 
 /** px values are literals in the spacing/size namespaces — see the note in emit(). */
 const px = (n: number) => (n === 0 ? '0' : `${n}px`);
@@ -105,18 +115,18 @@ export function emitTheme(): string {
 
   out.push('  /* colour — the raw scale */');
   for (const k of Object.keys(palette) as PaletteName[]) {
-    out.push(line(`--color-${k}`, `var(--lg-${k})`));
+    out.push(line(`--color-${PALETTE_THEME_KEY[k] ?? k}`, `var(--hl-${k})`));
   }
   out.push('');
   out.push('  /* colour — the semantic aliases components should prefer */');
   for (const k of Object.keys(alias) as (keyof typeof alias)[]) {
-    out.push(line(`--color-${ALIAS_THEME_KEY[k]}`, `var(--lg-${k})`));
+    out.push(line(`--color-${ALIAS_THEME_KEY[k]}`, `var(--hl-${k})`));
   }
 
   out.push('');
   out.push('  /* families */');
-  out.push(line('--font-sans', 'var(--lg-font-sans)'));
-  out.push(line('--font-mono', 'var(--lg-font-mono)'));
+  out.push(line('--font-sans', 'var(--hl-font-sans)'));
+  out.push(line('--font-mono', 'var(--hl-font-mono)'));
 
   out.push('');
   out.push('  /* type metrics — family, case and numerics live in the type-* utilities */');
@@ -132,7 +142,7 @@ export function emitTheme(): string {
 
   out.push('');
   out.push('  /* tracking */');
-  for (const k of Object.keys(tracking)) out.push(line(`--tracking-${k}`, `var(--lg-track-${k})`));
+  for (const k of Object.keys(tracking)) out.push(line(`--tracking-${k}`, `var(--hl-track-${k})`));
 
   out.push('');
   out.push('  /* space — named keys, NOT --spacing-1..14: overriding Tailwind\'s numeric');
@@ -155,15 +165,15 @@ export function emitTheme(): string {
 
   out.push('');
   out.push('  /* radius */');
-  for (const k of Object.keys(radius)) out.push(line(`--radius-${k}`, `var(--lg-r-${k})`));
+  for (const k of Object.keys(radius)) out.push(line(`--radius-${k}`, `var(--hl-r-${k})`));
 
   out.push('');
   out.push('  /* shadow */');
-  for (const k of Object.keys(shadow)) out.push(line(`--shadow-${k}`, `var(--lg-shadow-${k})`));
+  for (const k of Object.keys(shadow)) out.push(line(`--shadow-${k}`, `var(--hl-shadow-${k})`));
 
   out.push('');
   out.push('  /* motion */');
-  out.push(line('--ease-ledger', 'var(--lg-ease)'));
+  out.push(line('--ease-hairline', 'var(--hl-ease)'));
   out.push('}');
   out.push('');
 
@@ -175,36 +185,36 @@ export function emitTheme(): string {
   for (const k of Object.keys(text) as TextName[]) {
     const t: TextStyle = text[k];
     out.push(`@utility type-${k} {`);
-    out.push(line('font-family', `var(--lg-font-${t.family})`).replace('  ', '  '));
+    out.push(line('font-family', `var(--hl-font-${t.family})`).replace('  ', '  '));
     out.push(line('font-size', px(t.size)));
     out.push(line('font-weight', String(t.weight)));
     out.push(line('line-height', t.lineHeight === 'normal' ? 'normal' : String(t.lineHeight)));
     if (t.tracking !== undefined) {
       const named = Object.entries(tracking).find(([, v]) => v === t.tracking);
-      out.push(line('letter-spacing', named ? `var(--lg-track-${named[0]})` : `${t.tracking}em`));
+      out.push(line('letter-spacing', named ? `var(--hl-track-${named[0]})` : `${t.tracking}em`));
     }
     if (t.uppercase) out.push(line('text-transform', 'uppercase'));
-    if (t.tabular) out.push(line('font-variant-numeric', 'var(--lg-numeric-data)'));
+    if (t.tabular) out.push(line('font-variant-numeric', 'var(--hl-numeric-data)'));
     out.push('}');
   }
 
   out.push('');
   out.push('/* Any figure in a table. */');
   out.push('@utility tabular {');
-  out.push(line('font-variant-numeric', 'var(--lg-numeric-data)'));
+  out.push(line('font-variant-numeric', 'var(--hl-numeric-data)'));
   out.push('}');
 
   out.push('');
   for (const k of Object.keys(duration)) {
     out.push(`@utility duration-${k} {`);
-    out.push(line('transition-duration', `var(--lg-dur-${k})`));
+    out.push(line('transition-duration', `var(--hl-dur-${k})`));
     out.push('}');
   }
 
   out.push('');
   out.push('/* The highlighter. Once per screen, behind the single sentence that matters. */');
   out.push('@utility marker-highlight {');
-  out.push(line('background', 'var(--lg-marker)'));
+  out.push(line('background', 'var(--hl-marker)'));
   out.push(line('box-decoration-break', 'clone'));
   out.push(line('padding', '0.1em 0.25em'));
   out.push('}');
@@ -213,7 +223,7 @@ export function emitTheme(): string {
   out.push('/* Focus is a 2px inset ring, never a browser outline. */');
   out.push('@utility focus-ring-inset {');
   out.push(line('outline', 'none'));
-  out.push(line('box-shadow', 'inset 0 0 0 2px var(--lg-focus-ring)'));
+  out.push(line('box-shadow', 'inset 0 0 0 2px var(--hl-focus-ring)'));
   out.push('}');
   out.push('');
 

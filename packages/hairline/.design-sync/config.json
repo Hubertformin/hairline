@@ -1,0 +1,54 @@
+{
+  "pkg": "@hairline/ds",
+  "globalName": "Hairline",
+  "projectId": "62208148-48a5-400a-87bb-af40fc97472e",
+  "shape": "package",
+  "buildCmd": "pnpm build",
+  "cssEntry": "dist/hairline.css",
+  "tokensGlob": "dist/tokens.css",
+  "docsDir": "skill/docs",
+  "componentSrcMap": {
+    "Button": "src/react/Button.tsx",
+    "IconButton": "src/react/IconButton.tsx",
+    "Chip": "src/react/Chip.tsx",
+    "Badge": "src/react/Badge.tsx",
+    "Field": "src/react/Field.tsx",
+    "Select": "src/react/Select.tsx",
+    "Toggle": "src/react/Toggle.tsx",
+    "SegmentedTabs": "src/react/SegmentedTabs.tsx",
+    "Tile": "src/react/Tile.tsx",
+    "StatBlock": "src/react/StatBlock.tsx",
+    "DataRow": "src/react/DataRow.tsx",
+    "MeterBar": "src/react/MeterBar.tsx"
+  },
+  "overrides": {
+    "Button": {
+      "cardMode": "column"
+    },
+    "Chip": {
+      "cardMode": "column"
+    },
+    "DataRow": {
+      "cardMode": "column"
+    },
+    "MeterBar": {
+      "cardMode": "column"
+    },
+    "StatBlock": {
+      "cardMode": "column"
+    },
+    "Tile": {
+      "cardMode": "column"
+    },
+    "Field": {
+      "cardMode": "column"
+    },
+    "Select": {
+      "cardMode": "column"
+    },
+    "Toggle": {
+      "cardMode": "column"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

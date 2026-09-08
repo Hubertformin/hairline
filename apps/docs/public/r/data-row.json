@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "data-row",
+  "type": "registry:ui",
+  "title": "DataRow",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A ledger line: dot, name, mono meta, figure and running total. Use for any list of transactions or entries.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/data-row.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\n/**\n * A demoted line steps down to --ink-3 *and* takes a mark. Never lightness alone —\n * lightness by itself is not readable, which is why `struck` adds a line rather than\n * fading further.\n */\nexport const dataRowAmountVariants = cva('type-data tabular shrink-0', {\n  variants: {\n    state: {\n      plain: 'text-strong',\n      demoted: 'text-muted',\n      struck: 'text-muted line-through',\n      alarm: 'text-alarm font-medium',\n    },\n  },\n  defaultVariants: { state: 'plain' },\n});\n\nexport interface DataRowProps\n  extends React.ComponentProps<'div'>,\n    VariantProps<typeof dataRowAmountVariants> {\n  name?: React.ReactNode;\n  /** Mono uppercase detail under the name — a date, a method, a category. */\n  meta?: React.ReactNode;\n  /** A category dot. Its colour is data, so it is passed in as a CSS colour. */\n  dot?: string;\n  amount?: React.ReactNode;\n  /** The running total, in its own right-aligned column. */\n  secondary?: React.ReactNode;\n  badge?: React.ReactNode;\n}\n\n/** A ledger line: dot, name, mono meta, figure, running total. */\nexport function DataRow({ className, state, name, meta, dot, amount, secondary, badge, ...props }: DataRowProps) {\n  return (\n    <div\n      data-slot=\"data-row\"\n      className={cn('flex items-center gap-s5 py-row-y border-b border-hairline', className)}\n      {...props}\n    >\n      {dot ? <span className=\"size-dot rounded-full shrink-0\" style={{ background: dot }} /> : null}\n      <div className=\"flex-1 min-w-0\">\n        <div className=\"type-item text-strong\">{name}</div>\n        {meta ? <div className=\"mt-[3px] type-data-s tracking-meta uppercase text-muted\">{meta}</div> : null}\n      </div>\n      {badge}\n      <span className={cn(dataRowAmountVariants({ state }))}>{amount}</span>\n      {secondary ? (\n        <span className=\"w-[110px] text-right type-data tabular text-muted shrink-0\">{secondary}</span>\n      ) : null}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "One line of a ledger.",
+      "useWhen": [
+        "a transaction list",
+        "a list of bills",
+        "any entry with an amount"
+      ],
+      "dontUseWhen": [
+        "a table needing sortable columns"
+      ],
+      "insteadUse": {
+        "a table needing sortable columns": "@hairline/data-table"
+      },
+      "rules": [
+        "tabular-figures",
+        "hairline-not-box",
+        "demote-with-a-mark-not-lightness"
+      ],
+      "example": "<DataRow dot=\"var(--a-coral)\" name=\"School fees\" meta=\"22 Mar · Mobile money\" state=\"alarm\" amount=\"−258 900\" secondary=\"227 400\" />",
+      "antiExample": "<tr><td>School fees</td><td>-258900</td></tr>",
+      "antiExampleWhy": "Unformatted figure, no tabular alignment, and a table border model the system does not use.",
+      "status": "stable"
+    }
+  },
+  "docs": "A settled or skipped line uses `state=\"demoted\"` or `\"struck\"` — it steps down AND takes a mark, because lightness alone is not readable.",
+  "categories": [
+    "data-display",
+    "banking",
+    "expenses"
+  ]
+}

@@ -1,12 +1,12 @@
 /* The published theme artifact, not the source — the docs site consumes exactly
    what a user installs. It pulls in Tailwind, the legacy token layer, the @theme
    bridge and the type utilities. */
-@import "@ledger/tokens/theme.css";
+@import "@hairline/tokens/theme.css";
 
 /* The legacy class layer, loaded so the docs can render the original implementation
    beside the ported one. Docs-only — a consumer of the registry never needs it.
    Must sit with the other @imports: CSS requires every @import to precede all rules. */
-@import "ledger-ds/ledger.css";
+@import "@hairline/ds/hairline.css";
 
 /* Tailwind v4 scans for classes from the CSS file's own directory, so the registry
    source has to be named explicitly. */

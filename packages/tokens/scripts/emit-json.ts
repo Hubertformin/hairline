@@ -12,7 +12,7 @@ import { family, text, tracking, type TextStyle } from '../src/typography.js';
 import { space, inset, gap, clearanceBar } from '../src/space.js';
 import { radius, height, shadow, scrim, stroke, dotSeries } from '../src/shape.js';
 import { ease, duration } from '../src/motion.js';
-import { ALIAS_THEME_KEY } from './emit-theme.js';
+import { ALIAS_THEME_KEY, PALETTE_THEME_KEY } from './emit-theme.js';
 
 export interface TokenEntry {
   /** The token's family, for grouping in docs. */
@@ -35,11 +35,12 @@ export function emitJson(): string {
   const tokens: TokenEntry[] = [];
 
   for (const [k, v] of Object.entries(palette)) {
+    const key = PALETTE_THEME_KEY[k as keyof typeof PALETTE_THEME_KEY] ?? k;
     tokens.push({
       family: 'color',
       legacy: `--${k}`,
-      theme: `--color-${k}`,
-      utilities: [`bg-${k}`, `text-${k}`, `border-${k}`, `fill-${k}`],
+      theme: `--color-${key}`,
+      utilities: [`bg-${key}`, `text-${key}`, `border-${key}`, `fill-${key}`],
       value: v,
       dark: (darkPalette as Record<string, string>)[k],
     });
@@ -103,7 +104,7 @@ export function emitJson(): string {
   }
   tokens.push({ family: 'shadow', legacy: '--scrim', value: scrim, note: 'The modal scrim. The only transparency in the system.' });
 
-  tokens.push({ family: 'motion', legacy: '--ease', theme: '--ease-ledger', utilities: ['ease-ledger'], value: ease });
+  tokens.push({ family: 'motion', legacy: '--ease', theme: '--ease-hairline', utilities: ['ease-hairline'], value: ease });
   for (const [k, v] of Object.entries(duration)) {
     tokens.push({ family: 'motion', legacy: `--dur-${k}`, utilities: [`duration-${k}`], value: `${v}ms` });
   }

@@ -13,11 +13,11 @@
     "check:port": "tsx scripts/check-port.ts"
   },
   "dependencies": {
-    "@ledger/tokens": "workspace:*",
+    "@hairline/tokens": "workspace:*",
     "@radix-ui/react-slot": "^1.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "ledger-ds": "workspace:*",
+    "@hairline/ds": "workspace:*",
     "next": "^15.1.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

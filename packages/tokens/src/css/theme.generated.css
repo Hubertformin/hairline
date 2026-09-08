@@ -7,80 +7,80 @@
 /* Mirrors of every legacy token. @theme references these, never the
    legacy names directly — see the header comment for why. */
 :root{
-  --lg-ink-1: var(--ink-1);
-  --lg-ink-2: var(--ink-2);
-  --lg-ink-3: var(--ink-3);
-  --lg-ink-4: var(--ink-4);
-  --lg-paper: var(--paper);
-  --lg-surface-1: var(--surface-1);
-  --lg-surface-2: var(--surface-2);
-  --lg-surface-3: var(--surface-3);
-  --lg-desk: var(--desk);
-  --lg-line-1: var(--line-1);
-  --lg-line-2: var(--line-2);
-  --lg-a-blue: var(--a-blue);
-  --lg-a-violet: var(--a-violet);
-  --lg-a-purple: var(--a-purple);
-  --lg-a-magenta: var(--a-magenta);
-  --lg-a-rose: var(--a-rose);
-  --lg-a-coral: var(--a-coral);
-  --lg-a-amber: var(--a-amber);
-  --lg-a-yellow: var(--a-yellow);
-  --lg-a-lemon: var(--a-lemon);
-  --lg-a-green: var(--a-green);
-  --lg-alarm: var(--alarm);
-  --lg-alarm-wash: var(--alarm-wash);
-  --lg-positive: var(--positive);
-  --lg-positive-wash: var(--positive-wash);
-  --lg-info: var(--info);
-  --lg-info-wash: var(--info-wash);
-  --lg-caution: var(--caution);
-  --lg-caution-wash: var(--caution-wash);
-  --lg-marker: var(--marker);
-  --lg-surface-inverse: var(--surface-inverse);
-  --lg-text-on-inverse: var(--text-on-inverse);
-  --lg-text-strong: var(--text-strong);
-  --lg-text-body: var(--text-body);
-  --lg-text-muted: var(--text-muted);
-  --lg-text-faint: var(--text-faint);
-  --lg-text-on-dark: var(--text-on-dark);
-  --lg-surface-card: var(--surface-card);
-  --lg-surface-field: var(--surface-field);
-  --lg-surface-quiet: var(--surface-quiet);
-  --lg-border-hairline: var(--border-hairline);
-  --lg-border-strong: var(--border-strong);
-  --lg-action-solid: var(--action-solid);
-  --lg-action-solid-text: var(--action-solid-text);
-  --lg-focus-ring: var(--focus-ring);
-  --lg-font-sans: var(--font-sans);
-  --lg-font-mono: var(--font-mono);
-  --lg-track-figure: var(--track-figure);
-  --lg-track-label: var(--track-label);
-  --lg-track-meta: var(--track-meta);
-  --lg-track-amount: var(--track-amount);
-  --lg-track-unit: var(--track-unit);
-  --lg-track-prefix: var(--track-prefix);
-  --lg-r-board: var(--r-board);
-  --lg-r-card: var(--r-card);
-  --lg-r-inner: var(--r-inner);
-  --lg-r-field: var(--r-field);
-  --lg-r-chip: var(--r-chip);
-  --lg-r-tile-icon: var(--r-tile-icon);
-  --lg-r-pill: var(--r-pill);
-  --lg-h-control: var(--h-control);
-  --lg-h-field: var(--h-field);
-  --lg-h-field-lg: var(--h-field-lg);
-  --lg-h-pill: var(--h-pill);
-  --lg-h-touch: var(--h-touch);
-  --lg-shadow-raised: var(--shadow-raised);
-  --lg-shadow-float: var(--shadow-float);
-  --lg-shadow-modal: var(--shadow-modal);
-  --lg-ease: var(--ease);
-  --lg-dur-fast: var(--dur-fast);
-  --lg-dur-base: var(--dur-base);
-  --lg-dur-slow: var(--dur-slow);
-  --lg-dur-travel: var(--dur-travel);
-  --lg-numeric-data: var(--numeric-data);
+  --hl-ink-1: var(--ink-1);
+  --hl-ink-2: var(--ink-2);
+  --hl-ink-3: var(--ink-3);
+  --hl-ink-4: var(--ink-4);
+  --hl-paper: var(--paper);
+  --hl-surface-1: var(--surface-1);
+  --hl-surface-2: var(--surface-2);
+  --hl-surface-3: var(--surface-3);
+  --hl-desk: var(--desk);
+  --hl-line-1: var(--line-1);
+  --hl-line-2: var(--line-2);
+  --hl-a-blue: var(--a-blue);
+  --hl-a-violet: var(--a-violet);
+  --hl-a-purple: var(--a-purple);
+  --hl-a-magenta: var(--a-magenta);
+  --hl-a-rose: var(--a-rose);
+  --hl-a-coral: var(--a-coral);
+  --hl-a-amber: var(--a-amber);
+  --hl-a-yellow: var(--a-yellow);
+  --hl-a-lemon: var(--a-lemon);
+  --hl-a-green: var(--a-green);
+  --hl-alarm: var(--alarm);
+  --hl-alarm-wash: var(--alarm-wash);
+  --hl-positive: var(--positive);
+  --hl-positive-wash: var(--positive-wash);
+  --hl-info: var(--info);
+  --hl-info-wash: var(--info-wash);
+  --hl-caution: var(--caution);
+  --hl-caution-wash: var(--caution-wash);
+  --hl-marker: var(--marker);
+  --hl-surface-inverse: var(--surface-inverse);
+  --hl-text-on-inverse: var(--text-on-inverse);
+  --hl-text-strong: var(--text-strong);
+  --hl-text-body: var(--text-body);
+  --hl-text-muted: var(--text-muted);
+  --hl-text-faint: var(--text-faint);
+  --hl-text-on-dark: var(--text-on-dark);
+  --hl-surface-card: var(--surface-card);
+  --hl-surface-field: var(--surface-field);
+  --hl-surface-quiet: var(--surface-quiet);
+  --hl-border-hairline: var(--border-hairline);
+  --hl-border-strong: var(--border-strong);
+  --hl-action-solid: var(--action-solid);
+  --hl-action-solid-text: var(--action-solid-text);
+  --hl-focus-ring: var(--focus-ring);
+  --hl-font-sans: var(--font-sans);
+  --hl-font-mono: var(--font-mono);
+  --hl-track-figure: var(--track-figure);
+  --hl-track-label: var(--track-label);
+  --hl-track-meta: var(--track-meta);
+  --hl-track-amount: var(--track-amount);
+  --hl-track-unit: var(--track-unit);
+  --hl-track-prefix: var(--track-prefix);
+  --hl-r-board: var(--r-board);
+  --hl-r-card: var(--r-card);
+  --hl-r-inner: var(--r-inner);
+  --hl-r-field: var(--r-field);
+  --hl-r-chip: var(--r-chip);
+  --hl-r-tile-icon: var(--r-tile-icon);
+  --hl-r-pill: var(--r-pill);
+  --hl-h-control: var(--h-control);
+  --hl-h-field: var(--h-field);
+  --hl-h-field-lg: var(--h-field-lg);
+  --hl-h-pill: var(--h-pill);
+  --hl-h-touch: var(--h-touch);
+  --hl-shadow-raised: var(--shadow-raised);
+  --hl-shadow-float: var(--shadow-float);
+  --hl-shadow-modal: var(--shadow-modal);
+  --hl-ease: var(--ease);
+  --hl-dur-fast: var(--dur-fast);
+  --hl-dur-base: var(--dur-base);
+  --hl-dur-slow: var(--dur-slow);
+  --hl-dur-travel: var(--dur-travel);
+  --hl-numeric-data: var(--numeric-data);
 }
 
 /* Dark theme: re-point the raw scale, and every utility follows, because
@@ -122,57 +122,57 @@
 
 @theme inline {
   /* colour — the raw scale */
-  --color-ink-1: var(--lg-ink-1);
-  --color-ink-2: var(--lg-ink-2);
-  --color-ink-3: var(--lg-ink-3);
-  --color-ink-4: var(--lg-ink-4);
-  --color-paper: var(--lg-paper);
-  --color-surface-1: var(--lg-surface-1);
-  --color-surface-2: var(--lg-surface-2);
-  --color-surface-3: var(--lg-surface-3);
-  --color-desk: var(--lg-desk);
-  --color-line-1: var(--lg-line-1);
-  --color-line-2: var(--lg-line-2);
-  --color-a-blue: var(--lg-a-blue);
-  --color-a-violet: var(--lg-a-violet);
-  --color-a-purple: var(--lg-a-purple);
-  --color-a-magenta: var(--lg-a-magenta);
-  --color-a-rose: var(--lg-a-rose);
-  --color-a-coral: var(--lg-a-coral);
-  --color-a-amber: var(--lg-a-amber);
-  --color-a-yellow: var(--lg-a-yellow);
-  --color-a-lemon: var(--lg-a-lemon);
-  --color-a-green: var(--lg-a-green);
-  --color-alarm: var(--lg-alarm);
-  --color-alarm-wash: var(--lg-alarm-wash);
-  --color-positive: var(--lg-positive);
-  --color-positive-wash: var(--lg-positive-wash);
-  --color-info: var(--lg-info);
-  --color-info-wash: var(--lg-info-wash);
-  --color-caution: var(--lg-caution);
-  --color-caution-wash: var(--lg-caution-wash);
-  --color-marker: var(--lg-marker);
-  --color-surface-inverse: var(--lg-surface-inverse);
-  --color-text-on-inverse: var(--lg-text-on-inverse);
+  --color-ink-1: var(--hl-ink-1);
+  --color-ink-2: var(--hl-ink-2);
+  --color-ink-3: var(--hl-ink-3);
+  --color-ink-4: var(--hl-ink-4);
+  --color-paper: var(--hl-paper);
+  --color-surface-1: var(--hl-surface-1);
+  --color-surface-2: var(--hl-surface-2);
+  --color-surface-3: var(--hl-surface-3);
+  --color-desk: var(--hl-desk);
+  --color-line-1: var(--hl-line-1);
+  --color-line-2: var(--hl-line-2);
+  --color-a-blue: var(--hl-a-blue);
+  --color-a-violet: var(--hl-a-violet);
+  --color-a-purple: var(--hl-a-purple);
+  --color-a-magenta: var(--hl-a-magenta);
+  --color-a-rose: var(--hl-a-rose);
+  --color-a-coral: var(--hl-a-coral);
+  --color-a-amber: var(--hl-a-amber);
+  --color-a-yellow: var(--hl-a-yellow);
+  --color-a-lemon: var(--hl-a-lemon);
+  --color-a-green: var(--hl-a-green);
+  --color-alarm: var(--hl-alarm);
+  --color-alarm-wash: var(--hl-alarm-wash);
+  --color-positive: var(--hl-positive);
+  --color-positive-wash: var(--hl-positive-wash);
+  --color-info: var(--hl-info);
+  --color-info-wash: var(--hl-info-wash);
+  --color-caution: var(--hl-caution);
+  --color-caution-wash: var(--hl-caution-wash);
+  --color-marker: var(--hl-marker);
+  --color-surface-inverse: var(--hl-surface-inverse);
+  --color-on-inverse: var(--hl-text-on-inverse);
 
   /* colour — the semantic aliases components should prefer */
-  --color-strong: var(--lg-text-strong);
-  --color-body: var(--lg-text-body);
-  --color-muted: var(--lg-text-muted);
-  --color-faint: var(--lg-text-faint);
-  --color-on-dark: var(--lg-text-on-dark);
-  --color-card: var(--lg-surface-card);
-  --color-field: var(--lg-surface-field);
-  --color-quiet: var(--lg-surface-quiet);
-  --color-hairline: var(--lg-border-hairline);
-  --color-rule: var(--lg-border-strong);
-  --color-solid: var(--lg-action-solid);
-  --color-solid-text: var(--lg-action-solid-text);
-  --color-ring: var(--lg-focus-ring);
+  --color-strong: var(--hl-text-strong);
+  --color-body: var(--hl-text-body);
+  --color-muted: var(--hl-text-muted);
+  --color-faint: var(--hl-text-faint);
+  --color-on-dark: var(--hl-text-on-dark);
+  --color-card: var(--hl-surface-card);
+  --color-field: var(--hl-surface-field);
+  --color-quiet: var(--hl-surface-quiet);
+  --color-hairline: var(--hl-border-hairline);
+  --color-rule: var(--hl-border-strong);
+  --color-solid: var(--hl-action-solid);
+  --color-solid-text: var(--hl-action-solid-text);
+  --color-ring: var(--hl-focus-ring);
 
   /* families */
-  --font-sans: var(--lg-font-sans);
-  --font-mono: var(--lg-font-mono);
+  --font-sans: var(--hl-font-sans);
+  --font-mono: var(--hl-font-mono);
 
   /* type metrics — family, case and numerics live in the type-* utilities */
   --text-figure-xl: 46px;
@@ -248,12 +248,12 @@
   --text-control-l--font-weight: 500;
 
   /* tracking */
-  --tracking-figure: var(--lg-track-figure);
-  --tracking-label: var(--lg-track-label);
-  --tracking-meta: var(--lg-track-meta);
-  --tracking-amount: var(--lg-track-amount);
-  --tracking-unit: var(--lg-track-unit);
-  --tracking-prefix: var(--lg-track-prefix);
+  --tracking-figure: var(--hl-track-figure);
+  --tracking-label: var(--hl-track-label);
+  --tracking-meta: var(--hl-track-meta);
+  --tracking-amount: var(--hl-track-amount);
+  --tracking-unit: var(--hl-track-unit);
+  --tracking-prefix: var(--hl-track-prefix);
 
   /* space — named keys, NOT --spacing-1..14: overriding Tailwind's numeric
      scale would make p-4 mean 10px and quietly break every muscle-memory class */
@@ -290,21 +290,21 @@
   --spacing-dot: 6px;
 
   /* radius */
-  --radius-board: var(--lg-r-board);
-  --radius-card: var(--lg-r-card);
-  --radius-inner: var(--lg-r-inner);
-  --radius-field: var(--lg-r-field);
-  --radius-chip: var(--lg-r-chip);
-  --radius-tile-icon: var(--lg-r-tile-icon);
-  --radius-pill: var(--lg-r-pill);
+  --radius-board: var(--hl-r-board);
+  --radius-card: var(--hl-r-card);
+  --radius-inner: var(--hl-r-inner);
+  --radius-field: var(--hl-r-field);
+  --radius-chip: var(--hl-r-chip);
+  --radius-tile-icon: var(--hl-r-tile-icon);
+  --radius-pill: var(--hl-r-pill);
 
   /* shadow */
-  --shadow-raised: var(--lg-shadow-raised);
-  --shadow-float: var(--lg-shadow-float);
-  --shadow-modal: var(--lg-shadow-modal);
+  --shadow-raised: var(--hl-shadow-raised);
+  --shadow-float: var(--hl-shadow-float);
+  --shadow-modal: var(--hl-shadow-modal);
 
   /* motion */
-  --ease-ledger: var(--lg-ease);
+  --ease-hairline: var(--hl-ease);
 }
 
 /* The type tokens are a `font` shorthand PLUS tracking PLUS case PLUS
@@ -312,139 +312,139 @@
    becomes 0.1em, so each style ships as one utility carrying all of it.
    Colour is deliberately excluded: `type-label text-faint` is the pair. */
 @utility type-figure-xl {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 46px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: var(--lg-track-figure);
+  letter-spacing: var(--hl-track-figure);
 }
 @utility type-figure-l {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 38px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: var(--lg-track-figure);
+  letter-spacing: var(--hl-track-figure);
 }
 @utility type-figure-m {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 30px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: var(--lg-track-figure);
+  letter-spacing: var(--hl-track-figure);
 }
 @utility type-figure-s {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 24px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: var(--lg-track-figure);
+  letter-spacing: var(--hl-track-figure);
 }
 @utility type-lead {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 17px;
   font-weight: 500;
   line-height: 1.5;
 }
 @utility type-body {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.65;
 }
 @utility type-body-s {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 12.5px;
   font-weight: 400;
   line-height: 1.6;
 }
 @utility type-caption {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 11.5px;
   font-weight: 400;
   line-height: 1.6;
 }
 @utility type-label {
-  font-family: var(--lg-font-mono);
+  font-family: var(--hl-font-mono);
   font-size: 9.5px;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: var(--lg-track-label);
+  letter-spacing: var(--hl-track-label);
   text-transform: uppercase;
 }
 @utility type-label-s {
-  font-family: var(--lg-font-mono);
+  font-family: var(--hl-font-mono);
   font-size: 8.5px;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: var(--lg-track-label);
+  letter-spacing: var(--hl-track-label);
   text-transform: uppercase;
 }
 @utility type-data {
-  font-family: var(--lg-font-mono);
+  font-family: var(--hl-font-mono);
   font-size: 13px;
   font-weight: 400;
   line-height: normal;
-  font-variant-numeric: var(--lg-numeric-data);
+  font-variant-numeric: var(--hl-numeric-data);
 }
 @utility type-data-s {
-  font-family: var(--lg-font-mono);
+  font-family: var(--hl-font-mono);
   font-size: 11px;
   font-weight: 400;
   line-height: normal;
-  font-variant-numeric: var(--lg-numeric-data);
+  font-variant-numeric: var(--hl-numeric-data);
 }
 @utility type-item {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 14px;
   font-weight: 400;
   line-height: normal;
 }
 @utility type-value {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 13.5px;
   font-weight: 400;
   line-height: normal;
 }
 @utility type-chip {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 12.5px;
   font-weight: 400;
   line-height: normal;
 }
 @utility type-tab {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 12.5px;
   font-weight: 500;
   line-height: normal;
 }
 @utility type-prefix {
-  font-family: var(--lg-font-mono);
+  font-family: var(--hl-font-mono);
   font-size: 10px;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: var(--lg-track-prefix);
+  letter-spacing: var(--hl-track-prefix);
 }
 @utility type-amount {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 26px;
   font-weight: 500;
   line-height: normal;
-  letter-spacing: var(--lg-track-amount);
+  letter-spacing: var(--hl-track-amount);
 }
 @utility type-control {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 13px;
   font-weight: 500;
   line-height: normal;
 }
 @utility type-control-s {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 12px;
   font-weight: 500;
   line-height: normal;
 }
 @utility type-control-l {
-  font-family: var(--lg-font-sans);
+  font-family: var(--hl-font-sans);
   font-size: 14px;
   font-weight: 500;
   line-height: normal;
@@ -452,25 +452,25 @@
 
 /* Any figure in a table. */
 @utility tabular {
-  font-variant-numeric: var(--lg-numeric-data);
+  font-variant-numeric: var(--hl-numeric-data);
 }
 
 @utility duration-fast {
-  transition-duration: var(--lg-dur-fast);
+  transition-duration: var(--hl-dur-fast);
 }
 @utility duration-base {
-  transition-duration: var(--lg-dur-base);
+  transition-duration: var(--hl-dur-base);
 }
 @utility duration-slow {
-  transition-duration: var(--lg-dur-slow);
+  transition-duration: var(--hl-dur-slow);
 }
 @utility duration-travel {
-  transition-duration: var(--lg-dur-travel);
+  transition-duration: var(--hl-dur-travel);
 }
 
 /* The highlighter. Once per screen, behind the single sentence that matters. */
 @utility marker-highlight {
-  background: var(--lg-marker);
+  background: var(--hl-marker);
   box-decoration-break: clone;
   padding: 0.1em 0.25em;
 }
@@ -478,5 +478,5 @@
 /* Focus is a 2px inset ring, never a browser outline. */
 @utility focus-ring-inset {
   outline: none;
-  box-shadow: inset 0 0 0 2px var(--lg-focus-ring);
+  box-shadow: inset 0 0 0 2px var(--hl-focus-ring);
 }

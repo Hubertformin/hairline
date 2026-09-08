@@ -1,5 +1,5 @@
 /**
- * Ledger shape.
+ * Hairline shape.
  *
  * Pills for anything you can press, 14px for fields, 20px for tiles, 22px for
  * boards. Nothing is square-cornered and nothing is a circle except avatars,

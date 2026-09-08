@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "type": "registry:ui",
+  "title": "Toggle",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A switch, or a whole settings row with its consequence. Use for a setting that takes effect immediately.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/toggle.tsx",
+      "content": "import * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nexport interface ToggleProps extends Omit<React.ComponentProps<'div'>, 'onChange'> {\n  on?: boolean;\n  onChange?: () => void;\n  /** With a label the whole settings row renders; without one, just the switch. */\n  label?: React.ReactNode;\n  /** The consequence of turning it on — say the uncomfortable part. */\n  note?: React.ReactNode;\n  /** The accessible name when there is no visible label. */\n  switchLabel?: string;\n}\n\n/** A switch, or a whole settings row with its consequence. */\nexport function Toggle({ className, on = false, onChange, label, note, switchLabel, ...props }: ToggleProps) {\n  const sw = (\n    <button\n      type=\"button\"\n      role=\"switch\"\n      aria-checked={on}\n      aria-label={label ? undefined : switchLabel}\n      onClick={onChange}\n      data-slot=\"toggle-switch\"\n      className={cn(\n        'relative w-9 h-[22px] shrink-0 border-0 p-0 rounded-pill cursor-pointer',\n        'transition-[background-color] duration-base ease-hairline focus-visible:focus-ring-inset',\n        on ? 'bg-ink-1' : 'bg-rule',\n      )}\n    >\n      <span\n        className={cn(\n          'absolute top-0.5 size-[18px] rounded-full bg-paper transition-[left] duration-base ease-hairline',\n          on ? 'left-4' : 'left-0.5',\n        )}\n      />\n    </button>\n  );\n\n  if (!label) return sw;\n\n  return (\n    <div\n      data-slot=\"toggle-row\"\n      className={cn('flex items-center justify-between gap-s9 py-row-y border-b border-hairline', className)}\n      {...props}\n    >\n      <div className=\"min-w-0\">\n        <div className=\"type-item text-strong\">{label}</div>\n        {note ? <div className=\"mt-[3px] type-caption text-muted\">{note}</div> : null}\n      </div>\n      {sw}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "A binary setting.",
+      "useWhen": [
+        "a preference that applies immediately"
+      ],
+      "dontUseWhen": [
+        "a form field that needs saving",
+        "choosing among several options"
+      ],
+      "insteadUse": {
+        "choosing among several options": "@hairline/segmented-tabs"
+      },
+      "rules": [
+        "number-then-consequence"
+      ],
+      "example": "<Toggle on label=\"Round up every payment\" note=\"Adds about 4 200 a month to the vault.\" />",
+      "antiExample": "<Toggle on label=\"Round ups\" />",
+      "antiExampleWhy": "No consequence stated, so the user cannot tell what turning it on does.",
+      "status": "stable"
+    }
+  },
+  "docs": "Give it a `note`: a setting without its consequence stated is the most common copy failure in finance UIs.",
+  "categories": [
+    "forms"
+  ]
+}

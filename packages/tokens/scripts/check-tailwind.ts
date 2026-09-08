@@ -22,18 +22,18 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 /** class → the declaration its rule must contain. */
 const EXPECT: Record<string, string> = {
   // colour must resolve through the mirror, so a theme swap follows
-  'bg-ink-1': 'background-color: var(--lg-ink-1)',
-  'text-paper': 'color: var(--lg-paper)',
-  'bg-card': 'background-color: var(--lg-surface-card)',
-  'border-hairline': 'border-color: var(--lg-border-hairline)',
+  'bg-ink-1': 'background-color: var(--hl-ink-1)',
+  'text-paper': 'color: var(--hl-paper)',
+  'bg-card': 'background-color: var(--hl-surface-card)',
+  'border-hairline': 'border-color: var(--hl-border-hairline)',
   // the dangerous one: an alias colour must be a colour, never a font-size
-  'text-strong': 'color: var(--lg-text-strong)',
-  'text-muted': 'color: var(--lg-text-muted)',
+  'text-strong': 'color: var(--hl-text-strong)',
+  'text-muted': 'color: var(--hl-text-muted)',
   // families and shadows must not self-reference
-  'font-mono': 'font-family: var(--lg-font-mono)',
-  'shadow-raised': 'var(--lg-shadow-raised)',
+  'font-mono': 'font-family: var(--hl-font-mono)',
+  'shadow-raised': 'var(--hl-shadow-raised)',
   // sizes
-  'rounded-card': 'border-radius: var(--lg-r-card)',
+  'rounded-card': 'border-radius: var(--hl-r-card)',
   'h-control': 'height: 40px',
   'h-touch': 'height: 44px',
   'px-s7': 'padding-inline: 16px',
@@ -41,18 +41,18 @@ const EXPECT: Record<string, string> = {
   'py-card-y': 'padding-block: 22px',
   // composite type utilities carry family, case and numerics together
   'type-label': 'text-transform: uppercase',
-  'type-data': 'font-variant-numeric: var(--lg-numeric-data)',
+  'type-data': 'font-variant-numeric: var(--hl-numeric-data)',
   'type-figure-xl': 'font-size: 46px',
-  tabular: 'font-variant-numeric: var(--lg-numeric-data)',
+  tabular: 'font-variant-numeric: var(--hl-numeric-data)',
   // interaction
-  'focus-ring-inset': 'box-shadow: inset 0 0 0 2px var(--lg-focus-ring)',
-  'ease-ledger': 'var(--lg-ease)',
-  'duration-fast': 'transition-duration: var(--lg-dur-fast)',
+  'focus-ring-inset': 'box-shadow: inset 0 0 0 2px var(--hl-focus-ring)',
+  'ease-hairline': 'var(--hl-ease)',
+  'duration-fast': 'transition-duration: var(--hl-dur-fast)',
   // Tailwind's own scale must survive untouched
   'p-4': 'calc(var(--spacing) * 4)',
 };
 
-const dir = mkdtempSync(resolve(tmpdir(), 'ledger-tw-'));
+const dir = mkdtempSync(resolve(tmpdir(), 'hairline-tw-'));
 try {
   const classes = Object.keys(EXPECT);
   writeFileSync(resolve(dir, 'probe.html'), `<div class="${classes.join(' ')}"></div>\n`);

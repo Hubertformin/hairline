@@ -1,0 +1,48 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "meter-bar",
+  "type": "registry:ui",
+  "title": "MeterBar",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A limit meter, or a stacked composition bar weighted by amount. Use to show a share or a spend against a ceiling.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/meter-bar.tsx",
+      "content": "import * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nexport interface MeterSegment {\n  label?: string;\n  amount: number;\n  /** A CSS colour — normally one of the accent tokens, because a segment is data. */\n  color: string;\n}\n\nexport interface MeterBarProps extends React.ComponentProps<'div'> {\n  /** Pass segments for a stacked composition bar; omit them for a limit meter. */\n  segments?: MeterSegment[];\n  value?: number;\n  limit?: number;\n  /** Over the limit: the whole track fills, in alarm. */\n  over?: boolean;\n  /** Any CSS length. Defaults to the meter stroke token. */\n  height?: string | number;\n}\n\n/** A limit meter, or a stacked composition bar. */\nexport function MeterBar({\n  className,\n  segments,\n  value = 0,\n  limit = 100,\n  over = false,\n  height,\n  style,\n  ...props\n}: MeterBarProps) {\n  const sized = { ...(height === undefined ? null : { height }), ...style };\n\n  if (segments?.length) {\n    const total = segments.reduce((sum, s) => sum + s.amount, 0) || 1;\n    return (\n      <div data-slot=\"meter\" className={cn('flex gap-0.5 h-meter', className)} style={sized} {...props}>\n        {segments.map((s, i) => (\n          <span\n            key={s.label ?? i}\n            title={s.label}\n            className=\"rounded-pill min-w-0.5\"\n            style={{ flex: String(s.amount / total), background: s.color }}\n          />\n        ))}\n      </div>\n    );\n  }\n\n  const pct = Math.min(100, Math.round((value / (limit || 1)) * 100));\n  return (\n    <div\n      data-slot=\"meter\"\n      role=\"progressbar\"\n      aria-valuenow={value}\n      aria-valuemin={0}\n      aria-valuemax={limit}\n      className={cn('h-meter rounded-pill bg-rule overflow-hidden', className)}\n      style={sized}\n      {...props}\n    >\n      <span\n        className={cn('block h-full rounded-pill', over ? 'bg-alarm' : 'bg-ink-1')}\n        style={{ width: `${over ? 100 : pct}%` }}\n      />\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Shows a proportion or a limit.",
+      "useWhen": [
+        "budget spent against a ceiling",
+        "a composition of categories"
+      ],
+      "dontUseWhen": [
+        "a time series",
+        "a precise comparison of many values"
+      ],
+      "insteadUse": {
+        "a time series": "@hairline/sparkline"
+      },
+      "rules": [
+        "colour-is-data"
+      ],
+      "example": "<MeterBar value={62} limit={100} />",
+      "antiExample": "<progress value={62} max={100} />",
+      "antiExampleWhy": "Native progress carries browser styling the system does not control.",
+      "status": "stable"
+    }
+  },
+  "docs": "Pass `over` when spend exceeds the limit; the component will not infer it, because the threshold is a policy decision.",
+  "categories": [
+    "data-display",
+    "charts",
+    "budgets"
+  ]
+}

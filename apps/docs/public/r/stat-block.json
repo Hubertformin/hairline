@@ -1,0 +1,53 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stat-block",
+  "type": "registry:ui",
+  "title": "StatBlock",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A label, a big tight figure and one line of meaning. Use whenever a number is the point of a section.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/stat-block.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\n/**\n * Label, big tight figure, one line of meaning.\n *\n * The house rule the component exists to enforce: say the number, then say what it\n * means. A `value` without a `note` is usually a missed sentence.\n */\nexport const statValueVariants = cva('tracking-figure tabular', {\n  variants: {\n    size: { xl: 'type-figure-xl', l: 'type-figure-l', m: 'type-figure-m', s: 'type-figure-s' },\n    tone: {\n      ink: 'text-strong group-data-[tone=dark]/tile:text-on-inverse',\n      alarm: 'text-alarm',\n      positive: 'text-positive',\n      info: 'text-info',\n    },\n  },\n  defaultVariants: { size: 'm', tone: 'ink' },\n});\n\nexport interface StatBlockProps\n  extends React.ComponentProps<'div'>,\n    VariantProps<typeof statValueVariants> {\n  label?: React.ReactNode;\n  /** The figure. Group thousands with a thin space: 250 000. */\n  value?: React.ReactNode;\n  /** A currency code or unit, set in mono uppercase. */\n  unit?: React.ReactNode;\n  /** One line of plain consequence, second person, no hedging. */\n  note?: React.ReactNode;\n}\n\nexport function StatBlock({ className, size, tone, label, value, unit, note, ...props }: StatBlockProps) {\n  return (\n    <div data-slot=\"stat-block\" className={className} {...props}>\n      {label ? (\n        <div className=\"type-label text-faint group-data-[tone=dark]/tile:text-white/66\">{label}</div>\n      ) : null}\n      <div className=\"mt-s5 flex items-baseline gap-s5\">\n        <span className={cn(statValueVariants({ size, tone }))}>{value}</span>\n        {unit ? <span className=\"type-data-s tracking-unit uppercase text-muted\">{unit}</span> : null}\n      </div>\n      {note ? <div className=\"mt-s4 type-body-s text-muted\">{note}</div> : null}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Presents a figure with its consequence.",
+      "useWhen": [
+        "a balance",
+        "a total",
+        "a headline metric"
+      ],
+      "dontUseWhen": [
+        "a figure inside a table row",
+        "an inline amount in prose"
+      ],
+      "insteadUse": {
+        "a figure inside a table row": "@hairline/data-row"
+      },
+      "rules": [
+        "number-then-consequence",
+        "tabular-figures",
+        "one-xl-stat-per-screen"
+      ],
+      "example": "<StatBlock label=\"Total expenses\" value=\"1 284 900\" unit=\"XAF\" note=\"258 900 of it is the deferred fees.\" />",
+      "antiExample": "<h2>1,284,900</h2>",
+      "antiExampleWhy": "No label, no consequence, and a sans figure with comma grouping instead of the system's mono tabular figures.",
+      "status": "stable"
+    }
+  },
+  "docs": "Say the number, then say what it means: a `value` without a `note` is usually a missed sentence.",
+  "categories": [
+    "data-display",
+    "dashboard"
+  ]
+}

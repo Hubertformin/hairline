@@ -1,0 +1,46 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "field",
+  "type": "registry:ui",
+  "title": "Field",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A labelled value on a grey fill, with an optional prefix and hint. Use for any form input.",
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/field.tsx",
+      "content": "import * as React from 'react';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\nexport interface FieldProps extends Omit<React.ComponentProps<'div'>, 'prefix'> {\n  label?: React.ReactNode;\n  /** One line of plain consequence under the field. */\n  hint?: React.ReactNode;\n  value?: React.ReactNode;\n  /** A mono code sitting before the value, e.g. XAF. */\n  prefix?: React.ReactNode;\n  /** `lg` is for the one amount a form is about — never for two. */\n  size?: 'm' | 'lg';\n  trailing?: React.ReactNode;\n  /**\n   * Render a real <input> rather than static text. The static form is a display\n   * pattern from the original screens and stays the default.\n   */\n  editable?: boolean;\n  inputProps?: Omit<React.ComponentProps<'input'>, 'value' | 'size' | 'className'>;\n}\n\n/** A labelled value on a grey fill. */\nexport function Field({\n  className,\n  label,\n  hint,\n  value,\n  prefix,\n  size = 'm',\n  trailing,\n  editable,\n  inputProps,\n  ...props\n}: FieldProps) {\n  const lg = size === 'lg';\n  /* `tabular` after the type utility: the CSS `font` shorthand resets\n     font-variant-numeric, and this is the one amount on the form. */\n  const valueClasses = cn(\n    'flex-1 min-w-0 bg-transparent border-0 p-0 text-strong tabular outline-none',\n    lg ? 'type-amount tracking-amount' : 'type-item',\n  );\n\n  return (\n    <div data-slot=\"field\" className={className} {...props}>\n      {label ? <div className=\"type-label-s text-faint\">{label}</div> : null}\n      <div\n        className={cn(\n          'mt-s4 px-s7 flex items-center gap-s5 rounded-field bg-field',\n          lg ? 'h-field-lg' : 'h-field',\n        )}\n      >\n        {prefix ? <span className=\"type-prefix tracking-prefix text-muted shrink-0\">{prefix}</span> : null}\n        {editable ? (\n          <input\n            className={cn(valueClasses, 'placeholder:text-faint')}\n            value={typeof value === 'string' || typeof value === 'number' ? value : undefined}\n            {...inputProps}\n          />\n        ) : (\n          <span className={valueClasses}>{value}</span>\n        )}\n        {trailing}\n      </div>\n      {hint ? <div className=\"mt-s3 type-caption text-muted\">{hint}</div> : null}\n    </div>\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "A labelled form value.",
+      "useWhen": [
+        "any form input",
+        "displaying a chosen value"
+      ],
+      "dontUseWhen": [
+        "choosing from a list"
+      ],
+      "insteadUse": {
+        "choosing from a list": "@hairline/select-display"
+      },
+      "rules": [
+        "tabular-figures",
+        "mono-uppercase-labels-only"
+      ],
+      "example": "<Field label=\"Amount\" size=\"lg\" prefix=\"XAF\" value=\"250 000\" hint=\"Leaves nothing until the 28th.\" />",
+      "antiExample": "<input placeholder=\"Amount\" />",
+      "antiExampleWhy": "A placeholder is not a label, and the field loses the system's fill, radius and figure treatment.",
+      "status": "stable"
+    }
+  },
+  "docs": "Use `size=\"lg\"` for the single amount a form is about — never for two. Pass `editable` for a real input.",
+  "categories": [
+    "forms"
+  ]
+}

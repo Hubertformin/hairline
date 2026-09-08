@@ -1,5 +1,5 @@
 /**
- * Ledger space.
+ * Hairline space.
  *
  * Generous and uneven on purpose: 26–34px between sections, 20px between tiles,
  * 8–14px inside rows. Labels sit 10–14px above their value.

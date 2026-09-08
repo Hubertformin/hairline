@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { palette, alias, darkPalette } from '../src/color.js';
 import { text, tracking } from '../src/typography.js';
 import { radius, height, shadow } from '../src/shape.js';
-import { ALIAS_THEME_KEY } from './emit-theme.js';
+import { ALIAS_THEME_KEY, PALETTE_THEME_KEY } from './emit-theme.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const css = readFileSync(resolve(root, 'src/css/theme.generated.css'), 'utf8');
@@ -40,27 +40,33 @@ for (const m of themeBlock.matchAll(/^\s*(--[A-Za-z0-9-]+):\s*([^;]+);/gm)) {
 
 /** Every mirror declared in the :root mirrors block. */
 const mirrors = new Set<string>();
-for (const m of css.matchAll(/^\s*(--lg-[A-Za-z0-9-]+):/gm)) mirrors.add(m[1]!);
+for (const m of css.matchAll(/^\s*(--hl-[A-Za-z0-9-]+):/gm)) mirrors.add(m[1]!);
 
 // 1. Colour must never be a literal — a hex here silently stops following the theme.
 for (const [name, value] of themeDecls) {
   if (!name.startsWith('--color-')) continue;
-  if (!/^var\(--lg-[a-z0-9-]+\)$/.test(value)) {
-    fail(`${name} must be a var(--lg-*) reference, got \`${value}\``);
+  if (!/^var\(--hl-[a-z0-9-]+\)$/.test(value)) {
+    fail(`${name} must be a var(--hl-*) reference, got \`${value}\``);
   }
 }
 const hexInTheme = themeBlock.match(/#[0-9a-fA-F]{3,8}\b/g);
 if (hexInTheme) fail(`hex colour literal(s) inside @theme: ${[...new Set(hexInTheme)].join(', ')}`);
 
-// 2. Every var(--lg-*) referenced anywhere must actually be declared.
-for (const m of css.matchAll(/var\((--lg-[A-Za-z0-9-]+)\)/g)) {
+// 2. Every var(--hl-*) referenced anywhere must actually be declared.
+for (const m of css.matchAll(/var\((--hl-[A-Za-z0-9-]+)\)/g)) {
   if (!mirrors.has(m[1]!)) fail(`references ${m[1]} but no mirror declares it`);
 }
 
 // 3. Totality — a token added to the source without a bridge is a utility that
 //    silently doesn't exist.
 const want: [string, string][] = [
-  ...Object.keys(palette).map((k) => [`--color-${k}`, `palette.${k}`] as [string, string]),
+  ...Object.keys(palette).map(
+    (k) =>
+      [`--color-${PALETTE_THEME_KEY[k as keyof typeof PALETTE_THEME_KEY] ?? k}`, `palette.${k}`] as [
+        string,
+        string,
+      ],
+  ),
   ...Object.keys(alias).map(
     (k) => [`--color-${ALIAS_THEME_KEY[k as keyof typeof alias]}`, `alias.${k}`] as [string, string],
   ),

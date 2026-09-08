@@ -1,0 +1,51 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-button",
+  "type": "registry:ui",
+  "title": "IconButton",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A round button holding one 24-grid stroke glyph. Use when an action is clear from its icon and space is tight.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/icon-button.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\n/** A round button holding one 24-grid stroke glyph. */\nexport const iconButtonVariants = cva(\n  'inline-flex items-center justify-center shrink-0 border-0 cursor-pointer rounded-pill ' +\n    'transition-[color,background-color] duration-fast ease-hairline ' +\n    'focus-visible:focus-ring-inset disabled:opacity-45 disabled:cursor-default',\n  {\n    variants: {\n      tone: {\n        quiet: 'bg-quiet text-body hover:bg-desk hover:text-strong',\n        solid: 'bg-solid text-solid-text hover:bg-ink-2',\n        bare: 'bg-transparent text-muted hover:text-strong',\n      },\n    },\n    defaultVariants: { tone: 'quiet' },\n  },\n);\n\nexport interface IconButtonProps\n  extends Omit<React.ComponentProps<'button'>, 'aria-label'>,\n    VariantProps<typeof iconButtonVariants> {\n  /** Diameter in px. Defaults to 34. */\n  size?: number;\n  /** Required: a button holding only a glyph is unreachable without an accessible name. */\n  label: string;\n}\n\nexport function IconButton({ className, tone, size = 34, label, style, type = 'button', ...props }: IconButtonProps) {\n  return (\n    <button\n      data-slot=\"icon-button\"\n      type={type}\n      aria-label={label}\n      className={cn(iconButtonVariants({ tone }), className)}\n      style={{ width: size, height: size, ...style }}\n      {...props}\n    />\n  );\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "A round, icon-only button.",
+      "useWhen": [
+        "a toolbar action",
+        "a close or dismiss control",
+        "the assistant send button"
+      ],
+      "dontUseWhen": [
+        "the action needs a word to be understood",
+        "it is the primary action of a view"
+      ],
+      "insteadUse": {
+        "the action needs a word to be understood": "@hairline/button"
+      },
+      "rules": [
+        "colour-is-data"
+      ],
+      "example": "<IconButton label=\"Add an account\">{icon}</IconButton>",
+      "antiExample": "<button><Icon /></button>",
+      "antiExampleWhy": "No accessible name, and none of the system's sizing or tone tokens.",
+      "status": "stable"
+    }
+  },
+  "docs": "The `label` prop is required — a button holding only a glyph is unreachable without an accessible name.",
+  "categories": [
+    "primitives",
+    "forms"
+  ]
+}

@@ -1,7 +1,7 @@
 {
-  "name": "@ledger/tokens",
+  "name": "@hairline/tokens",
   "version": "0.1.0",
-  "description": "Ledger design tokens — the single source of truth, generated into CSS custom properties, a Tailwind v4 theme, and a JavaScript object.",
+  "description": "Hairline design tokens — the single source of truth, generated into CSS custom properties, a Tailwind v4 theme, and a JavaScript object.",
   "license": "UNLICENSED",
   "type": "module",
   "sideEffects": [

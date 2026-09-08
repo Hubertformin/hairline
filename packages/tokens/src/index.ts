@@ -1,8 +1,8 @@
 /**
- * The Ledger token layer — the single source of truth.
+ * The Hairline token layer — the single source of truth.
  *
  * These modules are authored once and generated into two forms:
- *   - `ledger/ledger.css`, where they become `--ink-1` and friends;
+ *   - `hairline/hairline.css`, where they become `--ink-1` and friends;
  *   - this module, imported directly by the React Native components, which have
  *     no `var()` to read.
  *

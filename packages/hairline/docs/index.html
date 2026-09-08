@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hairline — specimen</title>
+<link rel="stylesheet" href="../dist/hairline.css">
+<link rel="stylesheet" href="../dist/dark.css">
+<style>
+  /* Page furniture only. Nothing here belongs to the system — every component
+     below is styled entirely by hairline.css. */
+  body { background: var(--desk); margin: 0; padding: var(--s-13) var(--s-12) var(--s-14); font: var(--type-body); color: var(--text-body); }
+  .page { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: var(--gap-column); }
+  .masthead h1 { font: var(--type-figure-l); letter-spacing: var(--track-figure); color: var(--text-strong); margin: 0 0 var(--s-4); }
+  .masthead p { margin: 0; max-width: 62ch; }
+  .board > h2 { font: var(--type-figure-s); letter-spacing: var(--track-figure); color: var(--text-strong); margin: 0 0 var(--s-11); }
+  .spec { display: grid; grid-template-columns: 190px 1fr; gap: var(--s-11) var(--s-12); align-items: start; padding: var(--s-11) 0; border-top: 1px solid var(--border-hairline); }
+  .spec:first-of-type { border-top: 0; padding-top: 0; }
+  .spec__name { font: var(--type-label); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--text-faint); padding-top: var(--s-2); }
+  .spec__name b { display: block; font: var(--type-lead); letter-spacing: normal; text-transform: none; color: var(--text-strong); margin-bottom: var(--s-2); }
+  .row { display: flex; flex-wrap: wrap; gap: var(--s-5); align-items: center; }
+  .stack { display: flex; flex-direction: column; gap: var(--s-9); }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--gap-tile); }
+  .swatch { height: 56px; border-radius: var(--r-field); border: 1px solid var(--border-hairline); }
+  .swatch-set { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: var(--s-5); }
+  .swatch-set figcaption { margin-top: var(--s-3); font: var(--type-data-s); color: var(--text-muted); }
+  .swatch-set figure { margin: 0; }
+  .theme-toggle { position: fixed; top: 20px; right: 20px; z-index: 10; }
+</style>
+</head>
+<body>
+<button class="hl-btn hl-btn--quiet theme-toggle" onclick="
+  const r = document.documentElement;
+  const next = r.dataset.theme === 'dark' ? 'light' : 'dark';
+  r.dataset.theme = next;
+  this.textContent = next === 'dark' ? 'Light' : 'Dark';
+">Dark</button>
+
+<div class="page">
+
+  <header class="masthead hl-board">
+    <h1>Hairline</h1>
+    <p>Monochrome ink on paper, mono uppercase labels, tabular figures, generous space, and colour reserved for data. Every component on this page is plain HTML styled only by <code>dist/hairline.css</code> — no React, no build step.</p>
+  </header>
+
+  <section class="hl-board board">
+    <h2>Foundations</h2>
+
+    <div class="spec">
+      <div class="spec__name"><b>Ink</b>four steps</div>
+      <div class="swatch-set">
+        <figure><div class="swatch" style="background:var(--ink-1)"></div><figcaption>--ink-1</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--ink-2)"></div><figcaption>--ink-2</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--ink-3)"></div><figcaption>--ink-3</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--ink-4)"></div><figcaption>--ink-4</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Surfaces</b>paper to desk</div>
+      <div class="swatch-set">
+        <figure><div class="swatch" style="background:var(--paper)"></div><figcaption>--paper</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--surface-1)"></div><figcaption>--surface-1</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--surface-2)"></div><figcaption>--surface-2</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--surface-3)"></div><figcaption>--surface-3</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--desk)"></div><figcaption>--desk</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Accents</b>data only</div>
+      <div class="swatch-set">
+        <figure><div class="swatch" style="background:var(--a-blue)"></div><figcaption>blue</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--a-violet)"></div><figcaption>violet</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--a-magenta)"></div><figcaption>magenta</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--a-coral)"></div><figcaption>coral</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--a-amber)"></div><figcaption>amber</figcaption></figure>
+        <figure><div class="swatch" style="background:var(--a-green)"></div><figcaption>green</figcaption></figure>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Type</b>two families</div>
+      <div class="stack">
+        <div style="font:var(--type-figure-xl);letter-spacing:var(--track-figure);color:var(--text-strong);font-variant-numeric:var(--numeric-data)">227&thinsp;400</div>
+        <div style="font:var(--type-lead);color:var(--text-strong)">Your money runs out on 22 March.</div>
+        <div style="font:var(--type-body)">Two families. Schibsted Grotesk carries everything human; Azeret Mono carries everything machine — uppercase labels and every figure in a table.</div>
+        <div class="hl-label">total expenses · needs a decision</div>
+        <div class="hl-data">1&thinsp;284&thinsp;900 &nbsp; 0.00 &nbsp; 41 %</div>
+        <div style="font:var(--type-body)">The fibre bill landed twice — <span class="hl-marker">258&thinsp;900 of the difference is the deferred fees.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hl-board board">
+    <h2>Core</h2>
+
+    <div class="spec">
+      <div class="spec__name"><b>Button</b>four tones</div>
+      <div class="stack">
+        <div class="row">
+          <button class="hl-btn hl-btn--solid">Record it</button>
+          <button class="hl-btn hl-btn--quiet">Not now</button>
+          <button class="hl-btn hl-btn--ghost">Skip</button>
+          <button class="hl-btn hl-btn--danger">Delete account</button>
+          <button class="hl-btn hl-btn--solid" disabled>Locked</button>
+        </div>
+        <div class="row">
+          <button class="hl-btn hl-btn--solid hl-btn--s">Small</button>
+          <button class="hl-btn hl-btn--solid">Medium</button>
+          <button class="hl-btn hl-btn--solid hl-btn--l">Large</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>IconButton</b>one glyph</div>
+      <div class="row">
+        <button class="hl-iconbtn hl-iconbtn--quiet" aria-label="Add">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+        <button class="hl-iconbtn hl-iconbtn--solid" aria-label="Send">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M12 6l6 6-6 6"/></svg>
+        </button>
+        <button class="hl-iconbtn hl-iconbtn--bare" aria-label="More">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 12h.01M12 12h.01M18 12h.01"/></svg>
+        </button>
+        <button class="hl-iconbtn hl-iconbtn--quiet" aria-label="Settings" style="--hl-iconbtn-size:44px">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 4v2M12 18v2M4 12h2M18 12h2"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Chip</b>a whole phrase</div>
+      <div class="row">
+        <button class="hl-chip hl-chip--selected">This month</button>
+        <button class="hl-chip">Six months forward</button>
+        <button class="hl-chip">Since January</button>
+        <span class="hl-chip hl-chip--static">Mobile money</span>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Badge</b>ink and wash</div>
+      <div class="row">
+        <span class="hl-badge hl-badge--neutral">Settled</span>
+        <span class="hl-badge hl-badge--alarm">Needs a decision</span>
+        <span class="hl-badge hl-badge--positive">Paid</span>
+        <span class="hl-badge hl-badge--info">Scheduled</span>
+        <span class="hl-badge hl-badge--caution">Held for a year</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="hl-board board">
+    <h2>Forms</h2>
+
+    <div class="spec">
+      <div class="spec__name"><b>Field</b>value on a fill</div>
+      <div class="cols">
+        <div class="hl-field">
+          <div class="hl-field__label">Account name</div>
+          <div class="hl-field__box"><span class="hl-field__value">MTN MoMo — 677 04</span></div>
+          <div class="hl-field__hint">The number the salary lands on.</div>
+        </div>
+        <div class="hl-field hl-field--lg">
+          <div class="hl-field__label">Amount</div>
+          <div class="hl-field__box">
+            <span class="hl-field__prefix">XAF</span>
+            <span class="hl-field__value">250&thinsp;000</span>
+          </div>
+          <div class="hl-field__hint">Paying both today leaves nothing until the 28th.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Select</b>closed dropdown</div>
+      <div class="cols">
+        <div class="hl-select">
+          <div class="hl-select__label">Category</div>
+          <button class="hl-select__box">
+            <span class="hl-select__main">
+              <span class="hl-select__dot" style="background:var(--a-coral)"></span>
+              <span class="hl-select__value">School fees</span>
+              <span class="hl-select__meta">3 this month</span>
+            </span>
+            <span class="hl-select__caret"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 10l5.5 5 5.5-5"/></svg></span>
+          </button>
+        </div>
+        <div class="hl-select">
+          <div class="hl-select__label">From</div>
+          <button class="hl-select__box">
+            <span class="hl-select__main"><span class="hl-select__value">Savings vault</span></span>
+            <span class="hl-select__caret"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 10l5.5 5 5.5-5"/></svg></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>Toggle</b>row with a consequence</div>
+      <div style="max-width:520px">
+        <div class="hl-toggle-row">
+          <div style="min-width:0">
+            <div class="hl-toggle-row__label">Round up every payment</div>
+            <div class="hl-toggle-row__note">Adds about 4 200 a month to the vault.</div>
+          </div>
+          <button class="hl-toggle__switch hl-toggle__switch--on" role="switch" aria-checked="true"><span class="hl-toggle__knob"></span></button>
+        </div>
+        <div class="hl-toggle-row">
+          <div style="min-width:0">
+            <div class="hl-toggle-row__label">Warn me before the balance hits zero</div>
+            <div class="hl-toggle-row__note">Twenty per cent is held for a year — delayed, not lost.</div>
+          </div>
+          <button class="hl-toggle__switch" role="switch" aria-checked="false"><span class="hl-toggle__knob"></span></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>SegmentedTabs</b>one raised segment</div>
+      <div class="stack">
+        <div class="hl-tabs" role="tablist">
+          <button class="hl-tabs__item hl-tabs__item--on" role="tab" aria-selected="true">Month</button>
+          <button class="hl-tabs__item" role="tab" aria-selected="false">Quarter</button>
+          <button class="hl-tabs__item" role="tab" aria-selected="false">Year</button>
+        </div>
+        <div class="hl-tabs hl-tabs--sans" role="tablist">
+          <button class="hl-tabs__item hl-tabs__item--on" role="tab" aria-selected="true">Everything</button>
+          <button class="hl-tabs__item" role="tab" aria-selected="false">Needs a decision</button>
+          <button class="hl-tabs__item" role="tab" aria-selected="false">Settled</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hl-board board">
+    <h2>Data</h2>
+
+    <div class="spec">
+      <div class="spec__name"><b>Tile</b>the only card</div>
+      <div class="cols">
+        <div class="hl-tile hl-tile--dark">
+          <div class="hl-tile__head"><span class="hl-tile__label">Available</span></div>
+          <div class="hl-stat hl-stat--l">
+            <div class="hl-stat__row"><span class="hl-stat__value">227&thinsp;400</span><span class="hl-stat__unit">XAF</span></div>
+          </div>
+        </div>
+        <div class="hl-tile hl-tile--quiet">
+          <div class="hl-tile__head"><span class="hl-tile__label">This month</span></div>
+          <div class="hl-stat"><div class="hl-stat__row"><span class="hl-stat__value">1&thinsp;284&thinsp;900</span></div>
+          <div class="hl-stat__note">Nothing saved this month.</div></div>
+        </div>
+        <div class="hl-tile hl-tile--paper">
+          <div class="hl-tile__head"><span class="hl-tile__label">Vault</span><span class="hl-badge hl-badge--caution">Locked</span></div>
+          <div class="hl-stat hl-stat--s"><div class="hl-stat__row"><span class="hl-stat__value">600&thinsp;000</span></div>
+          <div class="hl-stat__note">Twenty per cent is held for a year.</div></div>
+        </div>
+        <div class="hl-tile hl-tile--alarm">
+          <div class="hl-tile__head"><span class="hl-tile__label">Shortfall</span></div>
+          <div class="hl-stat hl-stat--alarm"><div class="hl-stat__row"><span class="hl-stat__value">−258&thinsp;900</span></div>
+          <div class="hl-stat__note">The day the school fees are due.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>StatBlock</b>figure then meaning</div>
+      <div class="cols">
+        <div class="hl-stat hl-stat--xl">
+          <div class="hl-stat__label">Total expenses</div>
+          <div class="hl-stat__row"><span class="hl-stat__value">1&thinsp;284&thinsp;900</span><span class="hl-stat__unit">XAF</span></div>
+          <div class="hl-stat__note">258 900 of the difference is the deferred fees.</div>
+        </div>
+        <div class="hl-stat hl-stat--positive">
+          <div class="hl-stat__label">Saved</div>
+          <div class="hl-stat__row"><span class="hl-stat__value">42&thinsp;000</span></div>
+          <div class="hl-stat__note">First month above the ceiling since January.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>DataRow</b>a hairline line</div>
+      <div style="max-width:640px">
+        <div class="hl-row">
+          <span class="hl-row__dot" style="background:var(--a-coral)"></span>
+          <div class="hl-row__main"><div class="hl-row__name">School fees — second term</div><div class="hl-row__meta">22 Mar · Mobile money</div></div>
+          <span class="hl-row__amount hl-row__amount--alarm">−258&thinsp;900</span>
+          <span class="hl-row__secondary">227&thinsp;400</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-row__dot" style="background:var(--a-blue)"></span>
+          <div class="hl-row__main"><div class="hl-row__name">Fibre bill</div><div class="hl-row__meta">18 Mar · Landed twice</div></div>
+          <span class="hl-badge hl-badge--info">Disputed</span>
+          <span class="hl-row__amount">−34&thinsp;000</span>
+          <span class="hl-row__secondary">486&thinsp;300</span>
+        </div>
+        <div class="hl-row">
+          <span class="hl-row__dot" style="background:var(--a-green)"></span>
+          <div class="hl-row__main"><div class="hl-row__name">Salary</div><div class="hl-row__meta">01 Mar · MTN MoMo</div></div>
+          <span class="hl-row__amount hl-row__amount--struck">750&thinsp;000</span>
+          <span class="hl-row__secondary">520&thinsp;300</span>
+        </div>
+        <div class="hl-row">
+          <div class="hl-row__main"><div class="hl-row__name">Transport</div><div class="hl-row__meta">Settled</div></div>
+          <span class="hl-row__amount hl-row__amount--demoted">−12&thinsp;500</span>
+          <span class="hl-row__secondary">507&thinsp;800</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="spec">
+      <div class="spec__name"><b>MeterBar</b>limit and composition</div>
+      <div class="stack" style="max-width:520px">
+        <div>
+          <div class="hl-label" style="margin-bottom:var(--s-4)">Under the ceiling</div>
+          <div class="hl-meter"><span class="hl-meter__fill" style="width:62%"></span></div>
+        </div>
+        <div>
+          <div class="hl-label" style="margin-bottom:var(--s-4)">Over the ceiling</div>
+          <div class="hl-meter hl-meter--over"><span class="hl-meter__fill" style="width:100%"></span></div>
+        </div>
+        <div>
+          <div class="hl-label" style="margin-bottom:var(--s-4)">Where it went</div>
+          <div class="hl-meter hl-meter--stacked">
+            <span class="hl-meter__segment" style="flex:4.2;background:var(--a-coral)"></span>
+            <span class="hl-meter__segment" style="flex:2.6;background:var(--a-blue)"></span>
+            <span class="hl-meter__segment" style="flex:1.8;background:var(--a-amber)"></span>
+            <span class="hl-meter__segment" style="flex:1.1;background:var(--a-green)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

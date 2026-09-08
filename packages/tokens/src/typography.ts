@@ -1,5 +1,5 @@
 /**
- * Ledger type.
+ * Hairline type.
  *
  * Two families. Schibsted Grotesk carries everything human; Azeret Mono carries
  * everything machine — uppercase labels and every figure in a table. A figure

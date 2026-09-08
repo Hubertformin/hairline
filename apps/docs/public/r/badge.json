@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "author": "Hubert Formin <hformin@gmail.com>",
+  "description": "A mono uppercase state marker in five tones. Use to mark the state of the thing it sits beside.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "base"
+  ],
+  "files": [
+    {
+      "path": "registry/hairline/ui/badge.tsx",
+      "content": "import * as React from 'react';\nimport { cva, type VariantProps } from 'class-variance-authority';\n\nimport { cn } from '@/registry/hairline/lib/utils';\n\n/**\n * A mono uppercase state marker.\n *\n * Ink and wash always travel together — a badge is never a border-only accent, and\n * never colour alone, because colour is a data channel here rather than decoration.\n */\nexport const badgeVariants = cva(\n  'inline-flex items-center h-5 px-[9px] rounded-pill type-label-s whitespace-nowrap',\n  {\n    variants: {\n      tone: {\n        neutral: 'bg-quiet text-muted',\n        alarm: 'bg-alarm-wash text-alarm',\n        positive: 'bg-positive-wash text-positive',\n        info: 'bg-info-wash text-info',\n        caution: 'bg-caution-wash text-caution',\n      },\n    },\n    defaultVariants: { tone: 'neutral' },\n  },\n);\n\nexport interface BadgeProps extends React.ComponentProps<'span'>, VariantProps<typeof badgeVariants> {}\n\nexport function Badge({ className, tone, ...props }: BadgeProps) {\n  return <span data-slot=\"badge\" className={cn(badgeVariants({ tone }), className)} {...props} />;\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "meta": {
+    "hairline": {
+      "v": 1,
+      "purpose": "Marks a state.",
+      "useWhen": [
+        "a transaction status",
+        "a locked or held marker",
+        "needs-a-decision flags"
+      ],
+      "dontUseWhen": [
+        "a pressable filter",
+        "a count"
+      ],
+      "insteadUse": {
+        "a pressable filter": "@hairline/chip"
+      },
+      "rules": [
+        "semantic-ink-with-wash",
+        "mono-uppercase-labels-only"
+      ],
+      "example": "<Badge tone=\"alarm\">Needs a decision</Badge>",
+      "antiExample": "<span className=\"text-red-500 border border-red-500\">Late</span>",
+      "antiExampleWhy": "Border-only accent, stock palette colour, and not the mono uppercase label the system uses for state.",
+      "status": "stable"
+    }
+  },
+  "docs": "Ink and wash travel together — never a border-only accent, and never colour alone.",
+  "categories": [
+    "primitives",
+    "data-display"
+  ]
+}

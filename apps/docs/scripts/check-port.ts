@@ -1,6 +1,6 @@
 /**
  * The port gate: proves the Tailwind component renders the same pixels as the
- * original `.led-*` class layer, in both themes.
+ * original `.hl-*` class layer, in both themes.
  *
  * The docs page renders both implementations of the same markup side by side. This
  * screenshots each panel and diffs them. If the generated `@theme` bridge is wrong —

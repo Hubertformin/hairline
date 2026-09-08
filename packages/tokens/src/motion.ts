@@ -1,5 +1,5 @@
 /**
- * Ledger motion.
+ * Hairline motion.
  *
  * 140–260ms; opacity, colour and background only. Selection dims siblings rather
  * than moving them. One exception: an amount moved between months arcs to its
