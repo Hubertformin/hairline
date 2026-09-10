@@ -45,20 +45,11 @@ Two honest resolutions, and this needs deciding before it lands rather than afte
    place — a sequence, not a decoration. Or put the morphing variant in the expressive
    tier the roadmap already plans, and keep the cross-fade in the calm core.
 
-**The two systems disagree about motion.** Worth reconciling while only one component
-depends on it:
-
-| | Hairline | Moni |
-|---|---|---|
-| curve | `--ease` `cubic-bezier(.4,0,.2,1)` | `--ease-moni` `cubic-bezier(.2,0,0,1)` |
-| fast | `--dur-fast` 140ms | `--duration-fast` 160ms |
-| base | `--dur-base` 180ms | `--duration-normal` 240ms |
-| slow | `--dur-slow` 260ms | `--duration-projection` 320ms |
-
-Different names, different values, different curves — Moni's decelerates harder and never
-overshoots. Any component moving between the two either picks one vocabulary or gets its
-durations remapped at extraction, and remapping silently is how a system stops feeling
-like one system.
+**Moni has adopted this library's motion tokens verbatim** — `--ease` and the four
+`--dur-*` values — so a component arriving from there already moves at these speeds. It
+previously had its own curve and durations; aligning while a single component depended on
+them was cheaper than reconciling later. Hairline is the source of those numbers; Moni's
+`global.css` and `lib/motion.ts` follow it.
 
 ## Extraction notes
 
