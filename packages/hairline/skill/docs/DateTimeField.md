@@ -31,19 +31,19 @@ set, and offering one invites a decision that carries no information.
 
 ## Before this ships here
 
-**It breaks the motion rule as built.** DESIGN.md says *"140–260ms with `--ease`; opacity,
-colour and background only"*, with a single exception for an amount arcing between months.
-The Moni implementation animates the panel's height between steps and slides each step
-10px, because a popover that jumps from a 330px calendar to a 194px time panel reads as
-two panels swapping rather than one surface changing its question.
+**It moves in ways this library's rule does not permit.** DESIGN.md here allows opacity,
+colour and background only, with one exception for an amount arcing between months. The
+panel resizes between steps and each step slides 10px, because a popover jumping from a
+330px calendar to a 194px time panel reads as two panels swapping rather than one surface
+changing its question.
 
-Two honest resolutions, and this needs deciding before it lands rather than after:
-
-1. **Fix the panel to the taller step and cross-fade only.** Fully compliant, no reflow,
-   and arguably calmer than the morph. Costs a band of empty space under the time step.
-2. **Give the core rule a narrow exception** for a surface that changes its question in
-   place — a sequence, not a decoration. Or put the morphing variant in the expressive
-   tier the roadmap already plans, and keep the cross-fade in the calm core.
+Moni keeps that motion — its own rules were relaxed to permit animation that explains
+something, and the resize is the part that does the explaining. So this is a decision for
+this library rather than an open question: either take the component with its motion and
+give the rule an exception for a surface changing its question in place, or take a variant
+that fixes the panel to the taller step and cross-fades, which is compliant and costs a
+band of empty space under the shorter step. The expressive tier on the roadmap is the third
+home.
 
 **Moni has adopted this library's motion tokens verbatim** — `--ease` and the four
 `--dur-*` values — so a component arriving from there already moves at these speeds. It
